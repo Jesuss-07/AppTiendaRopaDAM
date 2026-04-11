@@ -1,0 +1,17 @@
+# Maven / Gradle
+target/
+build/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Sistema
+Thumbs.db
