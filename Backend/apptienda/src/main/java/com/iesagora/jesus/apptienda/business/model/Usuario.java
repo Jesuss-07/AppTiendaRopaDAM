@@ -1,5 +1,6 @@
 package com.iesagora.jesus.apptienda.business.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +32,8 @@ public abstract class Usuario {
 	private String 	email;
 	private String 	password;
 	private String 	telefono;
+	@Column(name = "estado_usuario")
+	private boolean estadoUsuario;
 	private byte 	rol;
 
 }
