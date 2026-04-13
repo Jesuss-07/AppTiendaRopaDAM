@@ -7,7 +7,7 @@ CREATE TABLE USUARIO (
     nombre         VARCHAR(30)  NOT NULL,
     apellido       VARCHAR(30)  NOT NULL,
     email          VARCHAR(255) NOT NULL UNIQUE,
-    contrasena     VARCHAR(255) NOT NULL,
+    password     VARCHAR(255) NOT NULL,
     telefono       VARCHAR(15),
     estado_usuario BOOLEAN      NOT NULL DEFAULT TRUE, 
 --  Esta en true por defecto solo se vera en false si es que comete mas de 
