@@ -9,7 +9,10 @@ CREATE TABLE USUARIO (
     email          VARCHAR(255) NOT NULL UNIQUE,
     contrasena     VARCHAR(255) NOT NULL,
     telefono       VARCHAR(15),
-    rol            TINYINT NOT NULL
+    estado_usuario BOOLEAN      NOT NULL DEFAULT TRUE, 
+--  Esta en true por defecto solo se vera en false si es que comete mas de 
+--  tres errores en el inicio de sesion el usuario 
+    rol            TINYINT      NOT NULL
 );
 
 CREATE TABLE EMPRESA (
