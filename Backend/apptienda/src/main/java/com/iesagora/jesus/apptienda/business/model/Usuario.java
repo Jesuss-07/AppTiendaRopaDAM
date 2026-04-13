@@ -2,6 +2,8 @@ package com.iesagora.jesus.apptienda.business.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,6 +36,7 @@ public abstract class Usuario {
 	private String 	telefono;
 	@Column(name = "estado_usuario")
 	private boolean estadoUsuario;
-	private byte 	rol;
+	@Enumerated(EnumType.STRING)
+	private Rol 	rol;
 
 }
