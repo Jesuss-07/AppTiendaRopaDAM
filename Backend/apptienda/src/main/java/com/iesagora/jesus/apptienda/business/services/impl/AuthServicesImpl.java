@@ -31,33 +31,50 @@ public class AuthServicesImpl implements AuthServices{
 	public void registroCliente(RegistroClienteDTO clienteDTO) {
 		
 		if(usuarioRepository.existsByEmail(clienteDTO.getEmail()))
-			throw new IllegalStateException("Ya existe un usuario con este correo");
+			throw new IllegalStateException("Ya existe un usuario con este correo.");
 		
 		Cliente cliente = crearCliente(clienteDTO);		
 		clienteRepository.save(cliente);
 	}
+
+	@Override
+	public Cliente loginCliente(String email, String password) {
+
+		Cliente cliente = clienteRepository.findByEmail(email);
+		
+		if(cliente == null)
+			throw new IllegalStateException("No existe nadie con ese email.");
+		
+		if(!passwordEncoder.matches(password, cliente.getPassword()))
+			throw new IllegalStateException("Error contraseña incorrecta");
+			
+		return cliente;
+	}
+	
+	
+	
 	
 	private Cliente crearCliente(RegistroClienteDTO registroClienteDTO) {
-		
-		Cliente cliente = new Cliente();
-		
-		cliente.setNombre(registroClienteDTO.getNombre());
-		cliente.setApellido(registroClienteDTO.getApellido());
-		cliente.setEmail(registroClienteDTO.getEmail());
-		cliente.setPassword(passwordEncoder.encode(registroClienteDTO.getPassword()));
-		cliente.setTelefono(registroClienteDTO.getTelefono());
-		cliente.setEstadoUsuario(true);
-		cliente.setRol(Rol.CLIENTE);
-		cliente.setDireccion1(registroClienteDTO.getDireccion1());
-		cliente.setDireccion2(registroClienteDTO.getDireccion2());
-		cliente.setCp(registroClienteDTO.getCp());
-		cliente.setPais(registroClienteDTO.getPais());
-		cliente.setCiudad(registroClienteDTO.getCiudad());
-		cliente.setProvincia(registroClienteDTO.getProvincia());
-		cliente.setPuntos(0);
-		cliente.setMonedero(BigDecimal.ZERO);
-		
-		return cliente;
+			
+			Cliente cliente = new Cliente();
+			
+			cliente.setNombre(registroClienteDTO.getNombre());
+			cliente.setApellido(registroClienteDTO.getApellido());
+			cliente.setEmail(registroClienteDTO.getEmail());
+			cliente.setPassword(passwordEncoder.encode(registroClienteDTO.getPassword()));
+			cliente.setTelefono(registroClienteDTO.getTelefono());
+			cliente.setEstadoUsuario(true);
+			cliente.setRol(Rol.CLIENTE);
+			cliente.setDireccion1(registroClienteDTO.getDireccion1());
+			cliente.setDireccion2(registroClienteDTO.getDireccion2());
+			cliente.setCp(registroClienteDTO.getCp());
+			cliente.setPais(registroClienteDTO.getPais());
+			cliente.setCiudad(registroClienteDTO.getCiudad());
+			cliente.setProvincia(registroClienteDTO.getProvincia());
+			cliente.setPuntos(0);
+			cliente.setMonedero(BigDecimal.ZERO);
+			
+			return cliente;
 	}
 
 }
