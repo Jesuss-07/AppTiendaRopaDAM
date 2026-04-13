@@ -28,6 +28,7 @@ public abstract class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_usuario")
 	private Long 	id;
 	private String 	nombre;
 	private String 	apellido;
