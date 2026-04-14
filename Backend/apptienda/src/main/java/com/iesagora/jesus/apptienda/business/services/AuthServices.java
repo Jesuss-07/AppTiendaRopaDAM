@@ -1,12 +1,13 @@
 package com.iesagora.jesus.apptienda.business.services;
 
 import com.iesagora.jesus.apptienda.business.dto.RegistroClienteDTO;
-import com.iesagora.jesus.apptienda.business.model.Cliente;
+import com.iesagora.jesus.apptienda.business.dto.UsuarioDTO;
+import com.iesagora.jesus.apptienda.business.model.Usuario;
 
 public interface AuthServices {
 
 	void registroCliente(RegistroClienteDTO registroClienteDTO);
 	
-	Cliente loginCliente(String email, String password);
+	Usuario login(UsuarioDTO usuarioDTO);
 	
 }

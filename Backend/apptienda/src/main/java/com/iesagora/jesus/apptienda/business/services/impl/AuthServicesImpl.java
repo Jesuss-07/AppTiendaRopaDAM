@@ -6,8 +6,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.iesagora.jesus.apptienda.business.dto.RegistroClienteDTO;
+import com.iesagora.jesus.apptienda.business.dto.UsuarioDTO;
 import com.iesagora.jesus.apptienda.business.model.Cliente;
 import com.iesagora.jesus.apptienda.business.model.Rol;
+import com.iesagora.jesus.apptienda.business.model.Usuario;
 import com.iesagora.jesus.apptienda.business.repository.ClienteRepository;
 import com.iesagora.jesus.apptienda.business.repository.UsuarioRepository;
 import com.iesagora.jesus.apptienda.business.services.AuthServices;
@@ -38,17 +40,17 @@ public class AuthServicesImpl implements AuthServices{
 	}
 
 	@Override
-	public Cliente loginCliente(String email, String password) {
+	public Usuario login(UsuarioDTO usuarioDTO) {
 
-		Cliente cliente = clienteRepository.findByEmail(email);
+		Usuario usuario = clienteRepository.findByEmail(usuarioDTO.getEmail());
 		
-		if(cliente == null)
+		if(usuario == null)
 			throw new IllegalStateException("No existe nadie con ese email.");
 		
-		if(!passwordEncoder.matches(password, cliente.getPassword()))
+		if(!passwordEncoder.matches(usuarioDTO.getPassword(), usuario.getPassword()))
 			throw new IllegalStateException("Error contraseña incorrecta");
 			
-		return cliente;
+		return usuario;
 	}
 	
 	
