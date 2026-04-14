@@ -10,8 +10,8 @@ import com.iesagora.jesus.apptienda.business.dto.UsuarioDTO;
 import com.iesagora.jesus.apptienda.business.model.Cliente;
 import com.iesagora.jesus.apptienda.business.model.Rol;
 import com.iesagora.jesus.apptienda.business.model.Usuario;
-import com.iesagora.jesus.apptienda.business.repository.ClienteRepository;
-import com.iesagora.jesus.apptienda.business.repository.UsuarioRepository;
+import com.iesagora.jesus.apptienda.business.repositories.ClienteRepository;
+import com.iesagora.jesus.apptienda.business.repositories.UsuarioRepository;
 import com.iesagora.jesus.apptienda.business.services.AuthServices;
 
 @Service
