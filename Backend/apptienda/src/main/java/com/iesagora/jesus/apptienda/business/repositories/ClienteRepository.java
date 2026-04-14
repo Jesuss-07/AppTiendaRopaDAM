@@ -1,4 +1,4 @@
-package com.iesagora.jesus.apptienda.business.repository;
+package com.iesagora.jesus.apptienda.business.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
