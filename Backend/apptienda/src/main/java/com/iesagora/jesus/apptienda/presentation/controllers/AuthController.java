@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iesagora.jesus.apptienda.business.dto.RegistroClienteDTO;
+import com.iesagora.jesus.apptienda.business.dto.UsuarioDTO;
 import com.iesagora.jesus.apptienda.business.services.AuthServices;
 
 @RestController
@@ -26,7 +27,18 @@ public class AuthController {
 			authServices.registroCliente(clienteDTO);
 			return ResponseEntity.status(201).build();
 		} catch (Exception e){
-			return ResponseEntity.badRequest().body("ERROR EN EL REGISTRO");
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
+	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody UsuarioDTO usuarioDTO) {
+		
+		try {
+			return ResponseEntity.ok(authServices.login(usuarioDTO));
+		}catch(Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		
 	}
