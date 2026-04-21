@@ -7,4 +7,9 @@ import jakarta.persistence.Table;
 @PrimaryKeyJoinColumn(name = "id_usuario")
 public class Administrador extends Usuario{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 }

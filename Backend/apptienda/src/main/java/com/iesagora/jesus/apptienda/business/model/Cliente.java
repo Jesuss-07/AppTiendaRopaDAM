@@ -21,6 +21,10 @@ import lombok.ToString;
 @PrimaryKeyJoinColumn(name = "id_usuario")
 public class Cliente extends Usuario {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String 		direccion1;
 	private String 		direccion2;
 	private String 		cp;
