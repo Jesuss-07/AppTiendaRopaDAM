@@ -12,7 +12,7 @@ CREATE TABLE USUARIO (
     estado_usuario BOOLEAN      NOT NULL DEFAULT TRUE, 
 --  Esta en true por defecto solo se vera en false si es que comete mas de 
 --  tres errores en el inicio de sesion el usuario 
-    rol            VARCHAR(13)  NOT NULL
+    rol            VARCHAR(30)  NOT NULL
 );
 
 CREATE TABLE EMPRESA (
@@ -108,6 +108,8 @@ CREATE TABLE ADMINISTRADOR (
     id_usuario BIGINT            PRIMARY KEY,
     CONSTRAINT fk_admin_usuario
         FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE VENDEDOR (
