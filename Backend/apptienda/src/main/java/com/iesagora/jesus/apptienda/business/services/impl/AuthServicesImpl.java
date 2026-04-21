@@ -2,8 +2,12 @@ package com.iesagora.jesus.apptienda.business.services.impl;
 
 import java.math.BigDecimal;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 
 import com.iesagora.jesus.apptienda.business.dto.RegistroClienteDTO;
 import com.iesagora.jesus.apptienda.business.dto.UsuarioDTO;
@@ -13,6 +17,7 @@ import com.iesagora.jesus.apptienda.business.model.Usuario;
 import com.iesagora.jesus.apptienda.business.repositories.ClienteRepository;
 import com.iesagora.jesus.apptienda.business.repositories.UsuarioRepository;
 import com.iesagora.jesus.apptienda.business.services.AuthServices;
+import com.iesagora.jesus.apptienda.security.JwtUtils;
 
 @Service
 public class AuthServicesImpl implements AuthServices{
@@ -21,6 +26,12 @@ public class AuthServicesImpl implements AuthServices{
 	private final ClienteRepository clienteRepository;
 	
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private JwtUtils jwtUtils;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
 	
 	public AuthServicesImpl(UsuarioRepository usuarioRepository, ClienteRepository clienteRepository, PasswordEncoder passwordEncoder) {
 		this.usuarioRepository = usuarioRepository;
@@ -40,7 +51,12 @@ public class AuthServicesImpl implements AuthServices{
 	}
 
 	@Override
-	public Usuario login(UsuarioDTO usuarioDTO) {
+	public String login(UsuarioDTO usuarioDTO) {
+		
+		authenticationManager.authenticate(
+			    new UsernamePasswordAuthenticationToken(
+			        usuarioDTO.getEmail(),
+			        usuarioDTO.getPassword()));
 
 		Usuario usuario = clienteRepository.findByEmail(usuarioDTO.getEmail());
 		
@@ -50,7 +66,7 @@ public class AuthServicesImpl implements AuthServices{
 		if(!passwordEncoder.matches(usuarioDTO.getPassword(), usuario.getPassword()))
 			throw new IllegalStateException("Error contraseña incorrecta");
 			
-		return usuario;
+		return jwtUtils.generarToken(usuario);
 	}
 	
 	
