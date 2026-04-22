@@ -10,20 +10,27 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 
 import com.iesagora.jesus.apptienda.business.dto.RegistroClienteDTO;
+import com.iesagora.jesus.apptienda.business.dto.RegistroVendedorDTO;
 import com.iesagora.jesus.apptienda.business.dto.UsuarioDTO;
 import com.iesagora.jesus.apptienda.business.model.Cliente;
+import com.iesagora.jesus.apptienda.business.model.Empresa;
 import com.iesagora.jesus.apptienda.business.model.Rol;
 import com.iesagora.jesus.apptienda.business.model.Usuario;
+import com.iesagora.jesus.apptienda.business.model.Vendedor;
 import com.iesagora.jesus.apptienda.business.repositories.ClienteRepository;
+import com.iesagora.jesus.apptienda.business.repositories.EmpresaRepository;
 import com.iesagora.jesus.apptienda.business.repositories.UsuarioRepository;
+import com.iesagora.jesus.apptienda.business.repositories.VendedorRepository;
 import com.iesagora.jesus.apptienda.business.services.AuthServices;
 import com.iesagora.jesus.apptienda.security.JwtUtils;
 
 @Service
 public class AuthServicesImpl implements AuthServices{
 	
-	private final UsuarioRepository usuarioRepository;
-	private final ClienteRepository clienteRepository;
+	private final UsuarioRepository 	usuarioRepository;
+	private final ClienteRepository 	clienteRepository;
+	private final VendedorRepository 	vendedorRepository;
+	private final EmpresaRepository		empresaRepository;
 	
 	private PasswordEncoder passwordEncoder;
 	
@@ -33,9 +40,11 @@ public class AuthServicesImpl implements AuthServices{
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
-	public AuthServicesImpl(UsuarioRepository usuarioRepository, ClienteRepository clienteRepository, PasswordEncoder passwordEncoder) {
+	public AuthServicesImpl(UsuarioRepository usuarioRepository, ClienteRepository clienteRepository, VendedorRepository vendedorRepository, EmpresaRepository empresaRepository, PasswordEncoder passwordEncoder) {
 		this.usuarioRepository = usuarioRepository;
 		this.clienteRepository = clienteRepository;
+		this.vendedorRepository = vendedorRepository;
+		this.empresaRepository = empresaRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
 
@@ -43,11 +52,19 @@ public class AuthServicesImpl implements AuthServices{
 	@Override
 	public void registroCliente(RegistroClienteDTO clienteDTO) {
 		
-		if(usuarioRepository.existsByEmail(clienteDTO.getEmail()))
-			throw new IllegalStateException("Ya existe un usuario con este correo.");
+		validarUsuarioNoExiste(clienteDTO.getEmail());
 		
 		Cliente cliente = crearCliente(clienteDTO);		
 		clienteRepository.save(cliente);
+	}
+	
+	@Override
+	public void registroVendedor(RegistroVendedorDTO registroVendedorDTO) {
+		
+		validarUsuarioNoExiste(registroVendedorDTO.getEmail());
+		
+		Vendedor vendedor = crearVendedor(registroVendedorDTO);
+		vendedorRepository.save(vendedor);
 	}
 
 	@Override
@@ -58,41 +75,69 @@ public class AuthServicesImpl implements AuthServices{
 			        usuarioDTO.getEmail(),
 			        usuarioDTO.getPassword()));
 
-		Usuario usuario = clienteRepository.findByEmail(usuarioDTO.getEmail());
+		Usuario usuario = usuarioRepository.findByEmail(usuarioDTO.getEmail());
 		
 		if(usuario == null)
 			throw new IllegalStateException("No existe nadie con ese email.");
-		
-		if(!passwordEncoder.matches(usuarioDTO.getPassword(), usuario.getPassword()))
-			throw new IllegalStateException("Error contraseña incorrecta");
-			
+					
 		return jwtUtils.generarToken(usuario);
 	}
 	
 	
+	/**
+	 * ============================
+	 *       MÉTODOS PRIVADOS
+	 * ============================
+	 */
 	
 	
-	private Cliente crearCliente(RegistroClienteDTO registroClienteDTO) {
+	private void validarUsuarioNoExiste(String email) {
+		if(usuarioRepository.existsByEmail(email))
+			throw new IllegalStateException("Ya existe un usuario con este correo.");
+	}
+	
+	private  Empresa obtenerEmpresaPorCif(String cif) {
+		return empresaRepository.findByCif(cif)
+				.orElseThrow(() -> new IllegalStateException("Empresa no encontrada"));
+	}
+	
+	private Cliente crearCliente(RegistroClienteDTO clienteDTO) {
 			
 			Cliente cliente = new Cliente();
 			
-			cliente.setNombre(registroClienteDTO.getNombre());
-			cliente.setApellido(registroClienteDTO.getApellido());
-			cliente.setEmail(registroClienteDTO.getEmail());
-			cliente.setPassword(passwordEncoder.encode(registroClienteDTO.getPassword()));
-			cliente.setTelefono(registroClienteDTO.getTelefono());
+			cliente.setNombre(clienteDTO.getNombre());
+			cliente.setApellido(clienteDTO.getApellido());
+			cliente.setEmail(clienteDTO.getEmail());
+			cliente.setPassword(passwordEncoder.encode(clienteDTO.getPassword()));
+			cliente.setTelefono(clienteDTO.getTelefono());
 			cliente.setEstadoUsuario(true);
 			cliente.setRol(Rol.CLIENTE);
-			cliente.setDireccion1(registroClienteDTO.getDireccion1());
-			cliente.setDireccion2(registroClienteDTO.getDireccion2());
-			cliente.setCp(registroClienteDTO.getCp());
-			cliente.setPais(registroClienteDTO.getPais());
-			cliente.setCiudad(registroClienteDTO.getCiudad());
-			cliente.setProvincia(registroClienteDTO.getProvincia());
+			cliente.setDireccion1(clienteDTO.getDireccion1());
+			cliente.setDireccion2(clienteDTO.getDireccion2());
+			cliente.setCp(clienteDTO.getCp());
+			cliente.setPais(clienteDTO.getPais());
+			cliente.setCiudad(clienteDTO.getCiudad());
+			cliente.setProvincia(clienteDTO.getProvincia());
 			cliente.setPuntos(0);
 			cliente.setMonedero(BigDecimal.ZERO);
 			
 			return cliente;
+	}
+	
+	private Vendedor crearVendedor(RegistroVendedorDTO vendedorDTO) {
+		
+		Vendedor vendedor = new Vendedor();
+		
+		vendedor.setEmpresa(obtenerEmpresaPorCif(vendedorDTO.getCif()));
+		vendedor.setNombre(vendedorDTO.getNombre());
+		vendedor.setApellido(vendedorDTO.getApellido());
+		vendedor.setEmail(vendedorDTO.getEmail());
+		vendedor.setPassword(passwordEncoder.encode(vendedorDTO.getPassword()));
+		vendedor.setNumeroEmpleado(vendedorDTO.getNumeroEmpleado());
+		vendedor.setEstadoUsuario(true);
+		vendedor.setRol(Rol.VENDEDOR);
+		
+		return vendedor;
 	}
 
 }

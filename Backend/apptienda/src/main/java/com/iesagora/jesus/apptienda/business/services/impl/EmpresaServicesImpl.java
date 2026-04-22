@@ -27,6 +27,14 @@ public class EmpresaServicesImpl implements EmpresaServices{
 		
 	}
 	
+	
+	/**
+	 * ============================
+	 *       MÉTODOS PRIVADOS
+	 * ============================
+	 */
+	
+	
 	private Empresa crearEmpresa(RegistroEmpresaDTO empresaDTO) {
 		
 		Empresa empresa = new Empresa();
