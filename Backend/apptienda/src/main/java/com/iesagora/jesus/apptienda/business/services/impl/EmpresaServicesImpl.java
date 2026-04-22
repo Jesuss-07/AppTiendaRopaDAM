@@ -1,10 +1,13 @@
 package com.iesagora.jesus.apptienda.business.services.impl;
 
+import org.springframework.stereotype.Service;
+
 import com.iesagora.jesus.apptienda.business.dto.RegistroEmpresaDTO;
 import com.iesagora.jesus.apptienda.business.model.Empresa;
 import com.iesagora.jesus.apptienda.business.repositories.EmpresaRepository;
 import com.iesagora.jesus.apptienda.business.services.EmpresaServices;
 
+@Service
 public class EmpresaServicesImpl implements EmpresaServices{
 	
 	private final EmpresaRepository empresaRepository;
