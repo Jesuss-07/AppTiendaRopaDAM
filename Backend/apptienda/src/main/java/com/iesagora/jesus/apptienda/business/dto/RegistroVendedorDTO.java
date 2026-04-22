@@ -15,7 +15,7 @@ import lombok.ToString;
 @ToString
 public class RegistroVendedorDTO {
 	
-	private Long idEmpresa;
+	private String cif;
 	private String 	nombre;
 	private String 	apellido;
 	
