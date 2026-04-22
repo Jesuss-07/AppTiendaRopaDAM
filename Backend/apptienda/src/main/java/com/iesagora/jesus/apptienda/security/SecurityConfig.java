@@ -46,6 +46,7 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/empresa/**").permitAll()
                 .anyRequest().authenticated())
         		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         		.authenticationProvider(authenticationProvider)
