@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iesagora.jesus.apptienda.business.dto.RegistroClienteDTO;
+import com.iesagora.jesus.apptienda.business.dto.RegistroVendedorDTO;
 import com.iesagora.jesus.apptienda.business.dto.UsuarioDTO;
 import com.iesagora.jesus.apptienda.business.services.AuthServices;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
@@ -20,9 +23,9 @@ public class AuthController {
 		this.authServices = authServices;
 	}
 	
-	@PostMapping("/registroCliente")
-	public ResponseEntity<?> registroCliente(@RequestBody RegistroClienteDTO clienteDTO) {
-
+	@PostMapping("/registro/cliente")
+	public ResponseEntity<?> registroCliente(@Valid @RequestBody RegistroClienteDTO clienteDTO) {
+		
 		try {
 			authServices.registroCliente(clienteDTO);
 			return ResponseEntity.status(201).build();
@@ -32,8 +35,20 @@ public class AuthController {
 		
 	}
 	
+	@PostMapping("/registro/vendedor")
+	public ResponseEntity<?> registroVendedor(@Valid @RequestBody RegistroVendedorDTO vendedorDTO){
+		
+		try {
+			authServices.registroVendedor(vendedorDTO);
+			return ResponseEntity.status(201).build();
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
+	}
+	
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody UsuarioDTO usuarioDTO) {
+	public ResponseEntity<?> login(@Valid @RequestBody UsuarioDTO usuarioDTO) {
 		
 		try {
 			return ResponseEntity.ok(authServices.login(usuarioDTO));
