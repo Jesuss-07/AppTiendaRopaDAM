@@ -1,5 +1,7 @@
 package com.iesagora.jesus.apptienda.business.services;
 
+import java.util.Map;
+
 import com.iesagora.jesus.apptienda.business.dto.RegistroClienteDTO;
 import com.iesagora.jesus.apptienda.business.dto.RegistroVendedorDTO;
 import com.iesagora.jesus.apptienda.business.dto.UsuarioDTO;
@@ -10,6 +12,6 @@ public interface AuthServices {
 	
 	void registroVendedor(RegistroVendedorDTO registroVendedorDTO);
 	
-	String login(UsuarioDTO usuarioDTO);
+	Map<String, String> login(UsuarioDTO usuarioDTO);
 	
 }

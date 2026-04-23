@@ -1,6 +1,7 @@
 package com.iesagora.jesus.apptienda.business.services.impl;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -68,7 +69,7 @@ public class AuthServicesImpl implements AuthServices{
 	}
 
 	@Override
-	public String login(UsuarioDTO usuarioDTO) {
+	public Map<String, String> login(UsuarioDTO usuarioDTO) {
 		
 		authenticationManager.authenticate(
 			    new UsernamePasswordAuthenticationToken(
@@ -80,7 +81,9 @@ public class AuthServicesImpl implements AuthServices{
 		if(usuario == null)
 			throw new IllegalStateException("No existe nadie con ese email.");
 					
-		return jwtUtils.generarToken(usuario);
+		String token = jwtUtils.generarToken(usuario);
+		return Map.of("token", token); 
+				
 	}
 	
 	
