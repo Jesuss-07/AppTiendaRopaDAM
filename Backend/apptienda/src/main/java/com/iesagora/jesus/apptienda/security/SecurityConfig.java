@@ -8,6 +8,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -15,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 
-
+import com.iesagora.jesus.apptienda.business.model.Usuario;
 import com.iesagora.jesus.apptienda.business.repositories.UsuarioRepository;
 
 @Configuration
@@ -36,11 +37,29 @@ public class SecurityConfig {
 	
 	@Bean
 	public UserDetailsService userDetailsService(UsuarioRepository usuarioRepository) {
-	    return email -> usuarioRepository.findByEmail(email);
+	    return email -> {
+	    	Usuario usuario = usuarioRepository.findByEmail(email);
+	    	if(usuario == null)
+	    		throw new UsernameNotFoundException("Usuario no encontrado: " + email);
+	    	return usuario;
+	    };
 	}
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationProvider authenticationProvider) throws Exception {
+		
+		// Configuracion Cors
+		
+		http.cors(cors -> cors.configurationSource(request -> {
+	        var corsConfig = new org.springframework.web.cors.CorsConfiguration();
+	        corsConfig.setAllowCredentials(true);
+	        corsConfig.addAllowedOrigin("http://localhost:4200");
+	        corsConfig.addAllowedHeader("*");
+	        corsConfig.addAllowedMethod("*");
+	        return corsConfig;
+	    }));
+		
+		// Configuracion de Seguridad
 		
 		http
         .csrf(csrf -> csrf.disable())
@@ -63,5 +82,8 @@ public class SecurityConfig {
 	    authProvider.setPasswordEncoder(passwordEncoder);
 	    return authProvider;
 	}
+	
+	
+
 	
 }
