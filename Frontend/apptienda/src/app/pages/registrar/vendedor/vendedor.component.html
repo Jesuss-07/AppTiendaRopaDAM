@@ -1,0 +1,36 @@
+<h2>Registro de Vendedor</h2>
+
+<form (ngSubmit)="onRegistroVendedor()">
+
+  <div class="form-group">
+    <label>CIF</label>
+    <input type="text" name="cif" [(ngModel)]="vendedor.cif" required>
+  </div>
+
+  <div class="form-group">
+    <label>Nombre</label>
+    <input type="text" name="nombre" [(ngModel)]="vendedor.nombre" required>
+  </div>
+
+  <div class="form-group">
+    <label>Apellido</label>
+    <input type="text" name="apellido" [(ngModel)]="vendedor.apellido" required>
+  </div>
+
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" name="email" [(ngModel)]="vendedor.email" required email>
+  </div>
+
+  <div class="form-group">
+    <label>Contraseña</label>
+    <input type="password" name="password" [(ngModel)]="vendedor.password" required>
+  </div>
+
+  <div class="form-group">
+    <label>Número de Empleado</label>
+    <input type="text" name="numeroEmpleado" [(ngModel)]="vendedor.numeroEmpleado" required>
+  </div>
+
+  <button type="submit">Enviar</button>
+</form>

@@ -1,0 +1,61 @@
+<h2>Registro de Cliente</h2>
+
+<form (ngSubmit)="onRegistroCliente()">
+
+  <div class="form-group">
+    <label>Nombre</label>
+    <input type="text" name="nombre" [(ngModel)]="cliente.nombre" required>
+  </div>
+
+  <div class="form-group">
+    <label>Apellido</label>
+    <input type="text" name="apellido" [(ngModel)]="cliente.apellido" required>
+  </div>
+
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" name="email" [(ngModel)]="cliente.email" required>
+  </div>
+
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" name="password" [(ngModel)]="cliente.password" required>
+  </div>
+
+  <div class="form-group">
+    <label>Teléfono</label>
+    <input type="tel" name="telefono" [(ngModel)]="cliente.telefono">
+  </div>
+
+  <div class="form-group">
+    <label>Dirección 1</label>
+    <input type="text" name="direccion1" [(ngModel)]="cliente.direccion1">
+  </div>
+
+  <div class="form-group">
+    <label>Dirección 2</label>
+    <input type="text" name="direccion2" [(ngModel)]="cliente.direccion2">
+  </div>
+
+  <div class="form-group">
+    <label>Código Postal</label>
+    <input type="text" name="cp" [(ngModel)]="cliente.cp">
+  </div>
+
+  <div class="form-group">
+    <label>País</label>
+    <input type="text" name="pais" [(ngModel)]="cliente.pais">
+  </div>
+
+  <div class="form-group">
+    <label>Ciudad</label>
+    <input type="text" name="ciudad" [(ngModel)]="cliente.ciudad">
+  </div>
+
+  <div class="form-group">
+    <label>Provincia</label>
+    <input type="text" name="provincia" [(ngModel)]="cliente.provincia">
+  </div>
+
+  <button type="submit">Enviar</button>
+</form>

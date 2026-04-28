@@ -1,0 +1,24 @@
+<h2>Registro de Empresa</h2>
+
+<form (ngSubmit)="onRegistroEmpresa()">
+
+  <label>Nombre de la Empresa</label>
+  <input type="text" name="nombreEmpresa" [(ngModel)]="empresa.nombreEmpresa" required>
+
+  <label>CIF</label>
+  <input type="text" name="cif" [(ngModel)]="empresa.cif" required>
+
+  <label>Email de Contacto</label>
+  <input type="email" name="emailContacto" [(ngModel)]="empresa.emailContacto" required>
+
+  <label>Teléfono de Contacto</label>
+  <input type="text" name="telefonoContacto" [(ngModel)]="empresa.telefonoContacto">
+
+  <label>Dirección de la Sede</label>
+  <input type="text" name="direccionSede" [(ngModel)]="empresa.direccionSede">
+
+  <label>Logo de la Empresa (URL)</label>
+  <input type="text" name="logoEmpresa" [(ngModel)]="empresa.logoEmpresa">
+
+  <button type="submit">Registrar Empresa</button>
+</form>
