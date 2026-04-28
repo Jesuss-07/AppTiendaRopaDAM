@@ -2,8 +2,8 @@
 FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# Copiar el proyecto completo
-COPY . .
+# Copiar Ruta donde se encuentra el proyecto Backend
+COPY Backend/apptienda /app
 
 # Compilar y generar el .jar
 RUN mvn clean package -DskipTests
