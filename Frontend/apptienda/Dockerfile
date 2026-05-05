@@ -6,6 +6,7 @@ WORKDIR /app
 COPY Frontend/apptienda/package*.json ./
 RUN npm install
 
+# Copiar el resto del frontend
 COPY Frontend/apptienda/ ./
 RUN npm run build -- --configuration production
 
