@@ -2,17 +2,17 @@
 FROM node:20 AS build
 WORKDIR /app
 
-COPY Frontend/apptienda/package*.json ./
+# 👇 YA NO pongas Frontend/apptienda
+COPY package*.json ./
 RUN npm install
 
-COPY Frontend/apptienda/ ./
+COPY . ./
 RUN npm run build -- --configuration production
 
 RUN ls -R /app/dist
 
 # Servir con Nginx
 FROM nginx:alpine
-
 COPY --from=build /app/dist/apptienda/browser /usr/share/nginx/html
 
 EXPOSE 80
