@@ -2,11 +2,11 @@
 FROM node:20 AS build
 WORKDIR /app
 
-# Ruta del package.json de forma manual
+# Copiar package.json desde la carpeta correcta
 COPY Frontend/apptienda/package*.json ./
 RUN npm install
 
-COPY Frontend/apptienda ./
+COPY Frontend/apptienda/ ./
 RUN npm run build -- --configuration production
 
 # Servir con Nginx
