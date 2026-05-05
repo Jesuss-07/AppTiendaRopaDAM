@@ -1,4 +1,4 @@
-# Etapa 1: Build de Angular
+# Build de Angular
 FROM node:20 AS build
 WORKDIR /app
 
@@ -6,9 +6,9 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-RUN npm run build
+RUN npm run build -- --configuration production
 
-# Etapa 2: Servir con Nginx
+# Servir con Nginx
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 
