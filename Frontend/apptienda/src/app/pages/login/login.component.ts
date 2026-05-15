@@ -33,10 +33,15 @@ export class LoginComponent {
       email: this.email,
       password: this.password
     };
+            console.log("Usuario:", usuario);
 
 
     this.authService.login(usuario).subscribe({
+      
       next: (res: any) => {
+
+                    console.log("Usuario:", usuario);
+
 
         console.log("Login correcto", res);
 
@@ -53,8 +58,8 @@ export class LoginComponent {
       },
 
       error: (error) => {
+        console.log("Usuario:", usuario);
         console.log("Error en login", error);
-            console.log("Usuario:", usuario);
       }
     });
   }
