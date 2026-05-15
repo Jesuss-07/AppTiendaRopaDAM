@@ -54,7 +54,7 @@ public class SecurityConfig {
 	        var corsConfig = new org.springframework.web.cors.CorsConfiguration();
 	        corsConfig.setAllowCredentials(true);
 	        //Se dejara el localhost para hacer comprovaciones en local y no tener que subirlo a GitHub sin probarlo
-	        corsConfig.addAllowedOrigin("http://apptiendaropadam-production-41ce.up.railway.app");
+	        corsConfig.addAllowedOrigin("http://localhost:4200");
 	        corsConfig.addAllowedHeader("*");
 	        corsConfig.addAllowedMethod("*");
 	        return corsConfig;
