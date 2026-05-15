@@ -1,7 +1,5 @@
 package com.iesagora.jesus.apptienda.security;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -58,9 +56,8 @@ public class SecurityConfig {
 	        //Se dejara el localhost para hacer comprovaciones en local y no tener que subirlo a GitHub sin probarlo
 	        corsConfig.addAllowedOrigin("http://localhost:4200");
 	        corsConfig.addAllowedOrigin("https://apptiendaropadam-production-41ce.up.railway.app");
-	        corsConfig.setAllowedHeaders(List.of("*"));
-	        corsConfig.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
-	        corsConfig.setAllowCredentials(true);
+	        corsConfig.addAllowedHeader("*");
+	        corsConfig.addAllowedMethod("*");
 	        return corsConfig;
 	    }));
 		
