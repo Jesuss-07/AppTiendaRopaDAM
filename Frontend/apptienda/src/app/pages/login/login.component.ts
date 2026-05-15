@@ -1,19 +1,24 @@
-import { Component } from "@angular/core";
-import { AuthService } from "../../services/auth.service";
-import { FormsModule } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
+
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"],
+  selector: 'app-login',
   standalone: true,
-  imports: [FormsModule]
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
+  imports: [
+    FormsModule
+  ]
 })
 export class LoginComponent {
 
   email: string = "";
   password: string = "";
+  mensajeError: string = "";
 
   constructor(
     private authService: AuthService,
@@ -21,7 +26,6 @@ export class LoginComponent {
   ) {}
 
   onLogin() {
-
     const usuario = {
       email: this.email,
       password: this.password
@@ -29,13 +33,8 @@ export class LoginComponent {
 
     this.authService.login(usuario).subscribe({
       next: (res: any) => {
-
-        console.log("Login correcto", res);
-
         this.authService.guardarToken(res.token);
-
         const rol = this.authService.getRol();
-        console.log("Rol:", rol);
 
         if (rol === "CLIENTE") {
           this.router.navigate(['/cliente']);
@@ -45,9 +44,9 @@ export class LoginComponent {
           this.router.navigate(['/']);
         }
       },
-
-      error: (err) => {
-        console.log("Error en login", err);
+      error: (error) => {
+        console.log("Error en login", error);
+        this.mensajeError = "Credenciales incorrectas";
       }
     });
   }
