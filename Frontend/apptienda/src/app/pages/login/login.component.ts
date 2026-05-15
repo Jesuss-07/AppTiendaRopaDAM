@@ -34,6 +34,8 @@ export class LoginComponent {
       password: this.password
     };
 
+    console.log("Usuario:", usuario);
+
     this.authService.login(usuario).subscribe({
       next: (res: any) => {
 
@@ -46,7 +48,8 @@ export class LoginComponent {
 
         if (rol === "CLIENTE") {
           this.router.navigate(['/cliente']);
-          this.router.navigate(['/']);
+        }else if (rol === "VENDEDOR") {
+          this.router.navigate(['/vendedor']);
         }
       },
 
