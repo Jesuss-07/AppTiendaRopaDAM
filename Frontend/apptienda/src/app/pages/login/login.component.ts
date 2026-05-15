@@ -34,7 +34,6 @@ export class LoginComponent {
       password: this.password
     };
 
-    console.log("Usuario:", usuario);
 
     this.authService.login(usuario).subscribe({
       next: (res: any) => {
@@ -55,6 +54,7 @@ export class LoginComponent {
 
       error: (error) => {
         console.log("Error en login", error);
+            console.log("Usuario:", usuario);
       }
     });
   }
