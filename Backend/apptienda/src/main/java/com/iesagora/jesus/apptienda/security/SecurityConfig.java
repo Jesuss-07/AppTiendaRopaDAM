@@ -55,7 +55,7 @@ public class SecurityConfig {
 	        corsConfig.setAllowCredentials(true);
 	        //Se dejara el localhost para hacer comprovaciones en local y no tener que subirlo a GitHub sin probarlo
 	        corsConfig.addAllowedOrigin("http://localhost:4200");
-	        corsConfig.addAllowedOrigin("https://apptiendaropadam-production-41ce.up.railway.app");
+	        corsConfig.addAllowedOrigin("http://apptiendaropadam-production-41ce.up.railway.app");
 	        corsConfig.addAllowedHeader("*");
 	        corsConfig.addAllowedMethod("*");
 	        return corsConfig;
