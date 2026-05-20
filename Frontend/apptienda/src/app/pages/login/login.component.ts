@@ -58,7 +58,8 @@ export class LoginComponent {
       },
 
       error: (error) => {
-        console.log("Usuario:", usuario);
+        console.log("Usuario:", this.email);
+        console.log("Password:", this.password);
         console.log("Error en login", error);
       }
     });

@@ -1,11 +1,70 @@
-<form (ngSubmit)="onLogin()">
-  <label for="email">Email</label>
-  <input type="email" id="email" name="email" [(ngModel)]="email" required>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Tienda de ropa</title>
 
+  <!-- CONEXIÓN CON CSS -->
+  <link rel="stylesheet" href="./login.component.css">
+</head>
 
-  <label for="password">Contraseña</label>
-  <input type="password" id="password" name="password" [(ngModel)]="password" required>
+<body>
 
-  <button type="submit">Entrar</button>
-</form>
+  <div class="container">
+
+    <!-- PANEL DEL LOGOTIPO -->
+
+    <div class="left">
+
+      <div class="logo">
+        Insertar imagen creada en canva Logotipo de una tienda de ropa
+      </div>
+
+      <!-- Poner nombre de la tienda de Ropa -->
+      <h1>Tienda de ropa</h1>
+
+      <p>
+        Bienvenido a nuestra tienda online.
+        <br>
+        Encuentra las mejores prendas con un diseño moderno y elegante.
+      </p>
+
+    </div>
+
+    <!-- PANEL DE INICIO DE SESIÓN -->
+
+    <div class="derecha">
+
+      <div class="login-box">
+
+        <h2>Log in</h2>
+
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" placeholder="email@gmail.com">
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" placeholder="************">
+        </div>
+
+        <button class="btn">
+          Iniciar sesión
+        </button>
+
+        <!-- Poner un enlace a una página en la que te de opcion de ser Cliente o Vendedor -->
+        <div class="registro-text">
+          <a href="registro">No tiene cuenta?</a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
