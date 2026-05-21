@@ -1,8 +1,41 @@
-<div class="contenedor">
-  <h2>Selecciona el tipo de registro</h2>
+<div class="container">
 
-  <div class="botones">
-    <button class="btn cliente" (click)="registrarCliente()">Registrar Cliente</button>
-    <button class="btn vendedor" (click)="registrarVendedor()">Registrar Vendedor</button>
-  </div>
+    <!-- PANEL IZQUIERDO -->
+
+    <div class="izquierda">
+
+        <div class="logo">
+            Insertar logo tienda
+        </div>
+
+        <h1>Tienda de ropa</h1>
+
+        <p>
+            Selecciona el tipo de registro que deseas realizar.
+            <br>
+            Elige si quieres registrarte como cliente o vendedor.
+        </p>
+
+    </div>
+
+    <!-- PANEL DERECHO -->
+
+    <div class="derecha">
+
+        <div class="registro-box">
+
+            <h2>Selecciona tu registro</h2>
+
+            <button class="btn cliente" routerLink="/registro-cliente">
+                Registrar Cliente
+            </button>
+
+            <button class="btn vendedor" routerLink="/registro-vendedor">
+                Registrar Vendedor
+            </button>
+
+        </div>
+
+    </div>
+
 </div>
