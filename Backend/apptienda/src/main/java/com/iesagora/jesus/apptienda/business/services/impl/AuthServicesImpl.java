@@ -71,13 +71,10 @@ public class AuthServicesImpl implements AuthServices{
 	@Override
 	public Map<String, String> login(UsuarioDTO usuarioDTO) {
 		
-		/*authenticationManager.authenticate(
+		authenticationManager.authenticate(
 			    new UsernamePasswordAuthenticationToken(
 			        usuarioDTO.getEmail(),
-			        usuarioDTO.getPassword()));*/
-		
-		System.out.println("EMAIL: " + usuarioDTO.getEmail());
-		System.out.println("PASS: " + usuarioDTO.getPassword());
+			        usuarioDTO.getPassword()));
 
 		Usuario usuario = usuarioRepository.findByEmail(usuarioDTO.getEmail());
 		

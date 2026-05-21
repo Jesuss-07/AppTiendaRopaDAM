@@ -30,7 +30,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "usuario")
+@Table(name = "USUARIO")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Usuario implements UserDetails{
 	

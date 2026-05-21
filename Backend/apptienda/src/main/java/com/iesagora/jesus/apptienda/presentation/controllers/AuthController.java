@@ -50,8 +50,6 @@ public class AuthController {
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@Valid @RequestBody UsuarioDTO usuarioDTO) {
 		
-		System.out.println("Usuario: " + usuarioDTO);
-		
 		try {
 			return ResponseEntity.ok(authServices.login(usuarioDTO));
 		}catch(Exception e) {
