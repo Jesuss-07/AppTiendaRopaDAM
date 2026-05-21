@@ -1,38 +1,40 @@
-<div class="container">
+<div class="contenedor-principal">
 
-    <!-- PANEL IZQUIERDO -->
+    <div class="container">
 
-    <div class="izquierda">
+        <!-- PANEL IZQUIERDO -->
+        <div class="izquierda">
 
-        <div class="logo">
-            Insertar logo tienda
+            <div class="logo">
+                Insertar logo tienda
+            </div>
+
+            <h1>Tienda de ropa</h1>
+
+            <p>
+                Selecciona el tipo de registro que deseas realizar.
+                <br>
+                Elige si quieres registrarte como cliente o vendedor.
+            </p>
+
         </div>
 
-        <h1>Tienda de ropa</h1>
+        <!-- PANEL DERECHO -->
+        <div class="derecha">
 
-        <p>
-            Selecciona el tipo de registro que deseas realizar.
-            <br>
-            Elige si quieres registrarte como cliente o vendedor.
-        </p>
+            <div class="registro-box">
 
-    </div>
+                <h2>Selecciona tu registro</h2>
 
-    <!-- PANEL DERECHO -->
+                <button class="btn cliente" routerLink="/registro-cliente">
+                    Registrar Cliente
+                </button>
 
-    <div class="derecha">
+                <button class="btn vendedor" routerLink="/registro-vendedor">
+                    Registrar Vendedor
+                </button>
 
-        <div class="registro-box">
-
-            <h2>Selecciona tu registro</h2>
-
-            <button class="btn cliente" routerLink="/registro-cliente">
-                Registrar Cliente
-            </button>
-
-            <button class="btn vendedor" routerLink="/registro-vendedor">
-                Registrar Vendedor
-            </button>
+            </div>
 
         </div>
 
