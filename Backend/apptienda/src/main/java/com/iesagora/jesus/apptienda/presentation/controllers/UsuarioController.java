@@ -1,5 +1,7 @@
 package com.iesagora.jesus.apptienda.presentation.controllers;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,7 @@ public class UsuarioController {
 	@PutMapping("/bloquear")
 	public ResponseEntity<?> bloquearUsuario(@RequestParam String email){
 		try {
-			return ResponseEntity.ok(usuarioServices.bloquearUsuario(email));
+			return ResponseEntity.ok(Map.of("mensaje", usuarioServices.bloquearUsuario(email)));
 		}catch(Exception e){
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
