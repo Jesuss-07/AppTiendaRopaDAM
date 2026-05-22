@@ -37,53 +37,37 @@ export class LoginComponent {
   ) {}
 
   onLogin() {
-    this.mensaje = "";
 
-    const usuario = {
-      email: this.email,
-      password: this.password
-    };
+  const usuario = {
+    email: this.email,
+    password: this.password
+  };
 
-    this.authService.login(usuario).subscribe({
-      
-      next: (res: any) => {
+  this.authService.login(usuario).subscribe({
 
-        this.mensaje = "";
+    next: (res:any) => {
 
-        this.authService.guardarToken(res.token);
+      this.mensaje = ""; // mover aquí
 
-        const decoded: any = jwtDecode(res.token);
-        const rol = decoded.rol;
+      this.authService.guardarToken(res.token);
 
-        this.router.navigate(['/inicio']);
-      },
+      this.router.navigate(['/inicio']);
+    },
 
-      error: (error) => {
+    error: (error) => {
 
-        if (this.emailActual !== this.email) {
-          this.emailActual = this.email;
-          this.contadorErrores = 0; // Se reiniciara el contador cada vez que se cambie de email
-        } 
+      this.contadorErrores++;
+      this.mensaje = "Credenciales incorrectas";
 
-        this.contadorErrores++;
-        this.mensaje = "Credenciales incorrectas";
-        console.log("Intentos fallidos: ", this.contadorErrores);
-            console.log("Mensaje: " + this.mensaje);
+      if(this.contadorErrores === 3){
 
-        if (this.contadorErrores === 3) {
-          this.usuarioService.bloquearUsuario(this.email).subscribe({
-          next: (res: any) => {
-            console.log("Usuario bloqueado", res.mensaje);
+        this.usuarioService.bloquearUsuario(this.email).subscribe({
+          next:(res:any)=>{
             this.mensaje = res.mensaje;
-          },
-          error: (err) => {
-            console.error("Error al bloquear usuario", err);
-            this.mensaje = "Error al bloquear usuario. Por favor, intente nuevamente.";
           }
         });
-          return;
-        }
       }
-    });
-  }
+    }
+  });
+}
 }
