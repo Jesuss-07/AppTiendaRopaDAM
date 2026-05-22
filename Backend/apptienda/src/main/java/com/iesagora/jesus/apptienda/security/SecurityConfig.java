@@ -61,13 +61,14 @@ public class SecurityConfig {
 	        return corsConfig;
 	    }));
 		
-		// Configuracion de Seguridad
+		// Configuracion de Seguridad aqui van todas las URL
 		
 		http
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/empresa/**").permitAll()
+                .requestMatchers("/home/**").permitAll()
                 .anyRequest().authenticated())
         		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         		.authenticationProvider(authenticationProvider)
