@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Tienda de ropa</title>
-
-  <!-- CONEXIÓN CON CSS -->
-  <link rel="stylesheet" href="./login.component.css">
-</head>
-
-<body>
-
+<div class="contenedor-principal">
+  
   <div class="container">
 
     <!-- PANEL DEL LOGOTIPO -->
@@ -41,21 +29,26 @@
 
         <h2>Log in</h2>
 
-        <div class="input-group">
-          <label>Email</label>
-          <input type="email" placeholder="email@gmail.com">
-        </div>
 
-        <div class="input-group">
-          <label>Password</label>
-          <input type="password" placeholder="************">
-        </div>
+          <div class="input-group">
+            <label>Email</label>
+            <input type="email" [(ngModel)]="email" name="email" placeholder="email@gmail.com"/>        
+          </div>
 
-        <button class="btn">
-          Iniciar sesión
-        </button>
+          <div class="input-group">
+            <label>Password</label>
+            <input type="password" [(ngModel)]="password" name="password" placeholder="************"/>
+          </div>
 
-        <!-- Poner un enlace a una página en la que te de opcion de ser Cliente o Vendedor -->
+          <p class="mensaje-error" *ngIf="mensaje">
+            {{ mensaje }}
+          </p>
+
+          <button type="button" class="btn" (click)="onLogin()">
+            Iniciar sesión
+          </button>
+
+
         <div class="registro-text">
           <a routerLink="/registro">No tiene cuenta?</a>
         </div>
@@ -64,7 +57,4 @@
 
     </div>
 
-  </div>
-
-</body>
-</html>
+</div>
