@@ -1,0 +1,113 @@
+/* ===== HEADER GENERAL ===== */
+.header {
+  width: 100%;
+  height: 70px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  font-family: Arial, sans-serif;
+}
+
+/* ===== LADO IZQUIERDO ===== */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ===== NAV ===== */
+.nav {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+/* Subrayado al pasar el cursor */
+.nav-item:hover {
+  border-bottom: 2px solid black;
+}
+
+/* ===== LADO DERECHO ===== */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+/* ===== BUSCADOR ===== */
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.search-input:focus {
+  border-color: black;
+}
+
+/* ===== ICONOS ===== */
+.icon {
+  font-size: 22px;
+  cursor: pointer;
+  position: relative;
+}
+
+/* ===== MENÚ DESPLEGABLE USUARIO ===== */
+.user-icon:hover .user-menu {
+  display: flex;
+}
+
+.user-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px 0;
+  width: 150px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.user-menu a {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+}
+
+.user-menu a:hover {
+  background: #f2f2f2;
+}
+
+/* ===== CUERPO ===== */
+.content {
+  padding: 40px;
+}
