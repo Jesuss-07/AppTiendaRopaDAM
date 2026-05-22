@@ -5,9 +5,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 
 
 import com.iesagora.jesus.apptienda.business.dto.RegistroClienteDTO;
@@ -70,20 +72,25 @@ public class AuthServicesImpl implements AuthServices{
 
 	@Override
 	public Map<String, String> login(UsuarioDTO usuarioDTO) {
-		
-		authenticationManager.authenticate(
-			    new UsernamePasswordAuthenticationToken(
-			        usuarioDTO.getEmail(),
-			        usuarioDTO.getPassword()));
 
-		Usuario usuario = usuarioRepository.findByEmail(usuarioDTO.getEmail());
-		
-		if(usuario == null)
-			throw new IllegalStateException("No existe nadie con ese email.");
-					
-		String token = jwtUtils.generarToken(usuario);
-		return Map.of("token", token); 
-				
+		try {
+		    Authentication authentication = authenticationManager.authenticate(
+		        new UsernamePasswordAuthenticationToken(
+		            usuarioDTO.getEmail(),
+		            usuarioDTO.getPassword()
+		        )
+		    );
+	
+		    Usuario usuario = (Usuario) authentication.getPrincipal();
+	
+		    String token = jwtUtils.generarToken(usuario);
+	
+		    return Map.of("token", token);
+		    
+		}catch (BadCredentialsException e) {
+			throw new IllegalStateException("Email o contraseña incorrectos");
+		}
+		    		    
 	}
 	
 	
