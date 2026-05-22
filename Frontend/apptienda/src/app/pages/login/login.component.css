@@ -130,11 +130,15 @@
 }
 
 .mensaje-error{
+    display: block;
+    width: 100%;
     color: red;
-    font-size: 13px;
-    margin-bottom: 10px;
+    font-size: 14px;
     text-align: center;
-    font-weight: bold;
+    margin: 10px 0 15px 0;
+    padding: 8px;
+    border-radius: 6px;
+    background-color: #ffe5e5;
 }
 
 .btn{
