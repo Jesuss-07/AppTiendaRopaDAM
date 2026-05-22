@@ -3,6 +3,7 @@ import { AuthService } from "../../services/auth.service";
 import { FormsModule } from "@angular/forms";
 import { Router } from "@angular/router";
 import { RouterLink } from "@angular/router";
+import { jwtDecode } from "jwt-decode";
 
 
 
@@ -41,21 +42,14 @@ export class LoginComponent {
       
       next: (res: any) => {
 
-                    console.log("Usuario:", usuario);
-
-
         console.log("Login correcto", res);
 
         this.authService.guardarToken(res.token);
 
-        const rol = this.authService.getRol();
-        console.log("Rol:", rol);
+        const decoded: any = jwtDecode(res.token);
+        const rol = decoded.rol;
 
-        if (rol === "CLIENTE") {
-          this.router.navigate(['/cliente']);
-        }else if (rol === "VENDEDOR") {
-          this.router.navigate(['/vendedor']);
-        }
+        this.router.navigate(['/inicio']);
       },
 
       error: (error) => {
