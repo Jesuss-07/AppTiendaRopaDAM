@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { reportUnhandledError } from "rxjs/internal/util/reportUnhandledError";
 import { jwtDecode } from "jwt-decode";
 import { environment } from "../core/config/environment";
 
@@ -37,7 +36,7 @@ export class AuthService {
         localStorage.removeItem('token');
     }
 
-    estadoAunteticado() {
+    estadoAutenticado() {
         return this.obtenerToken() != null;
     }
 
@@ -46,6 +45,6 @@ export class AuthService {
         if (!token) return null;
 
         const datos: any = jwtDecode(token);
-        return datos.rol;
+        return datos?.rol ?? null;
     }
 }
