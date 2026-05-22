@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iesagora.jesus.apptienda.business.services.UsuarioServices;
 
 @RestController
-@RequestMapping("/opciones")
+@RequestMapping("/user")
 public class UsuarioController {
 	
 	private UsuarioServices usuarioServices;
