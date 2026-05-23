@@ -38,7 +38,7 @@ public class UsuarioController {
 	
 	@GetMapping("/cliente/me")
 	public ResponseEntity<?> getCliente(){
-		System.out.println();
+		System.out.println("Hola");
 		try {
 			
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -47,7 +47,7 @@ public class UsuarioController {
 			
 			Long id = usuario.getId(); 
 			
-			System.out.println(id);
+			System.out.println("Hola 2" + id);
 			
 			return ResponseEntity.ok(usuarioServices.obtenerCliente(id));
 		}catch(Exception e) {
