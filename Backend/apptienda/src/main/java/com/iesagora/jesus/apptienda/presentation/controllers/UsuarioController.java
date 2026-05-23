@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,20 +37,28 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/cliente/me")
-	public ResponseEntity<?> getCliente(Authentication auth){
-		Long id = obtenerId(auth);
-		System.out.println(id);
+	public ResponseEntity<?> getCliente(){
+		System.out.println();
 		try {
+			
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			
+			Long id = usuario.getId(); 
+			
+			System.out.println(id);
+			
 			return ResponseEntity.ok(usuarioServices.obtenerCliente(id));
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}		
 	}
 	
-	@PutMapping("/cliente/me")
-	public ResponseEntity<?> setCliente(Authentication auth, @RequestBody EditarClienteDTO clienteDTO){
+	/*@PutMapping("/cliente/me")
+	public ResponseEntity<?> setCliente(@RequestBody EditarClienteDTO clienteDTO){
 		try {
-			return ResponseEntity.ok(usuarioServices.actualizarCliente(obtenerId(auth), clienteDTO));
+			return ResponseEntity.ok(usuarioServices.actualizarCliente(, clienteDTO));
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -58,33 +67,19 @@ public class UsuarioController {
 	@GetMapping("/vendedor/me")
 	public ResponseEntity<?> getVendedor(Authentication auth){
 		try {
-			return ResponseEntity.ok(usuarioServices.obtenerVendedor(obtenerId(auth)));
+			return ResponseEntity.ok(usuarioServices.obtenerVendedor());
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}		
 	}
 	
 	@PutMapping("/vendedor/me")
-	public ResponseEntity<?> setVendedor(Authentication auth, @RequestBody EditarVendedorDTO vendedorDTO){
+	public ResponseEntity<?> setVendedor(@RequestBody EditarVendedorDTO vendedorDTO){
 		try {
-			return ResponseEntity.ok(usuarioServices.actualizarVendedor(obtenerId(auth), vendedorDTO));
+			return ResponseEntity.ok(usuarioServices.actualizarVendedor(, vendedorDTO));
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-	}
-	
-	
-	/**
-	 * ============================
-	 *       MÉTODOS PRIVADOS
-	 * ============================
-	 */
-
-	
-	private static Long obtenerId(Authentication auth) {
-		Usuario usuario = (Usuario) auth.getPrincipal();
-		System.out.println(usuario.getId());
-		return usuario.getId();
-	}
+	}*/
 	
 }
