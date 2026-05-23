@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-inicio',
@@ -8,7 +10,20 @@ import { Router } from '@angular/router';
     styleUrls: ['./inicio.component.css'],
     standalone: true,
     imports: [
-        RouterLink
+        RouterLink,
+        CommonModule
     ]
 })
-export class InicioComponent {}
+
+export class InicioComponent {
+
+  rol: string | null = null;
+
+  constructor(private authService: AuthService) {}  
+
+  ngOnInit(): void {
+    this.rol = this.authService.getRol();
+    console.log('Rol del usuario:', this.rol);
+  }
+
+}

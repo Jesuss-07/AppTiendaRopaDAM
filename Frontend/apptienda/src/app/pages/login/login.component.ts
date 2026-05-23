@@ -47,7 +47,7 @@ export class LoginComponent {
 
     next: (res:any) => {
 
-      this.mensaje = ""; // mover aquí
+      this.mensaje = "";
 
       this.authService.guardarToken(res.token);
 

@@ -1,16 +1,22 @@
-/* ===== HEADER GENERAL ===== */
+/* ===== HEADER PRINCIPAL ===== */
 .header {
-  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
   height: 70px;
-  background: white;
-  border-bottom: 1px solid #ddd;
+  width: 100%;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 40px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+
+  padding: 0 30px;
+  background: #fff;
+  border-bottom: 1px solid #e6e6e6;
+
+  z-index: 1000;
   font-family: Arial, sans-serif;
 }
 
@@ -18,7 +24,7 @@
 .header-left {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 35px;
 }
 
 .logo {
@@ -27,87 +33,123 @@
   cursor: pointer;
 }
 
-/* ===== NAV ===== */
+/* NAV */
 .nav {
   display: flex;
-  gap: 25px;
+  gap: 20px;
 }
 
 .nav-item {
   text-decoration: none;
-  color: black;
+  color: #000;
   font-size: 16px;
   position: relative;
-  padding-bottom: 4px;
 }
 
-/* Subrayado al pasar el cursor */
 .nav-item:hover {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #000;
 }
 
 /* ===== LADO DERECHO ===== */
 .header-right {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 20px;
 }
 
 /* ===== BUSCADOR ===== */
 .search-container {
-  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .search-input {
-  padding: 6px 12px;
+  padding: 6px 14px;
   border: 1px solid #ccc;
   border-radius: 20px;
   outline: none;
   transition: 0.2s;
+  width: 180px;
 }
 
 .search-input:focus {
-  border-color: black;
+  border-color: #000;
+  width: 200px;
 }
 
 /* ===== ICONOS ===== */
 .icon {
-  font-size: 22px;
-  cursor: pointer;
   position: relative;
+  cursor: pointer;
+  font-size: 22px;
 }
 
-/* ===== MENÚ DESPLEGABLE USUARIO ===== */
-.user-icon:hover .user-menu {
-  display: flex;
+.icon-symbol {
+  display: inline-block;
+}
+
+/* ===== MENÚ USUARIO ===== */
+.user-icon {
+  position: relative;
 }
 
 .user-menu {
   display: none;
-  flex-direction: column;
   position: absolute;
-  top: 30px;
+  top: 35px;
   right: 0;
+
   background: white;
-  border: 1px solid #ccc;
-  padding: 10px 0;
-  width: 150px;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  min-width: 160px;
+  overflow: hidden;
 }
 
 .user-menu a {
-  padding: 10px 15px;
+  display: block;
+  padding: 10px 12px;
   text-decoration: none;
-  color: black;
+  color: #000;
   font-size: 14px;
 }
 
-.user-menu a:hover {
-  background: #f2f2f2;
+.user-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
 }
 
-/* ===== CUERPO ===== */
+/* área "segura" para mantener hover */
+.user-menu {
+  display: none;
+  position: absolute;
+  top: 35px;
+  right: 0;
+
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  min-width: 160px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
+
+/* clave: hover en todo el bloque */
+.user-icon:hover .user-menu {
+  display: block;
+}
+
+/* mostrar menú */
+.user-icon:hover .user-menu {
+  display: block;
+}
+
+/* ===== CONTENIDO ===== */
 .content {
-  padding: 40px;
+  padding: 100px 30px 30px; /* importante por el fixed header */
 }

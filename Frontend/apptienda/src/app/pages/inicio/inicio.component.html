@@ -1,40 +1,46 @@
-<!-- Comienzo sin TS nada mas decorativo-->
 <header class="header">
   <div class="header-left">
     <span class="logo">Tienda Ropa</span>
 
     <nav class="nav">
-        <!-- Enlacces de navegación filtros de ropa mujer y ropa hombre-->
       <a class="nav-item" href="#">Mujer</a>
       <a class="nav-item" href="#">Hombre</a>
+      <a class="nav-item" href="#">Niños</a>
+      <a class="nav-item" href="#">Añadir Producto</a>
+
+
     </nav>
   </div>
 
   <div class="header-right">
+    <!-- Buscador -->
     <div class="search-container">
-      <input type="text" placeholder="Buscar..." class="search-input" />
+      <input type="text" placeholder="Buscar productos..." class="search-input" />
     </div>
 
+    <!-- Usuario -->
     <div class="icon user-icon">
-      <span>👤</span>
+      <span class="icon-symbol">👤</span>
 
       <div class="user-menu">
-        <a href="#">Editar Usuario</a>
-        <a href="/registro">Cerrar Sesión</a>
+        <a href="#">Editar usuario</a>
+        <a routerLink="/login">Cerrar sesión</a>
+        <!-- Opciones de administración y ventas -->
+        <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
+        <!-- Solo mostrar para administradores -->
+        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
+        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
+
       </div>
     </div>
 
+    <!-- Carrito -->
     <div class="icon">
-      <span>❤️</span>
-    </div>
-
-    <div class="icon">
-      <span>🛒</span>
+      <span class="icon-symbol">🛒</span>
     </div>
   </div>
 </header>
 
 <main class="content">
-  <!-- Aquí irán los productos -->
   <h2>Productos</h2>
 </main>
