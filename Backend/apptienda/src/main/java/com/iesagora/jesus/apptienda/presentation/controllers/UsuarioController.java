@@ -37,8 +37,9 @@ public class UsuarioController {
 	
 	@GetMapping("/cliente/me")
 	public ResponseEntity<?> getCliente(Authentication auth){
+		Long id = obtenerId(auth);
 		try {
-			return ResponseEntity.ok(usuarioServices.obtenerCliente(obtenerId(auth)));
+			return ResponseEntity.ok(usuarioServices.obtenerCliente());
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}		
