@@ -82,6 +82,9 @@ public class AuthServicesImpl implements AuthServices{
 		    );
 	
 		    Usuario usuario = (Usuario) authentication.getPrincipal();
+		    
+		    if(!usuario.isEstadoUsuario())
+		    	throw new IllegalStateException("Email Inhabilitado");
 	
 		    String token = jwtUtils.generarToken(usuario);
 	

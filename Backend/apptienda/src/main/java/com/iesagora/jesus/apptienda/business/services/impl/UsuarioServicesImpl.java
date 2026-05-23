@@ -1,8 +1,13 @@
 package com.iesagora.jesus.apptienda.business.services.impl;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.iesagora.jesus.apptienda.business.dto.EditarClienteDTO;
+import com.iesagora.jesus.apptienda.business.dto.EditarVendedorDTO;
+import com.iesagora.jesus.apptienda.business.model.Cliente;
 import com.iesagora.jesus.apptienda.business.model.Usuario;
+import com.iesagora.jesus.apptienda.business.model.Vendedor;
 import com.iesagora.jesus.apptienda.business.repositories.UsuarioRepository;
 import com.iesagora.jesus.apptienda.business.services.UsuarioServices;
 
@@ -10,9 +15,11 @@ import com.iesagora.jesus.apptienda.business.services.UsuarioServices;
 public class UsuarioServicesImpl implements UsuarioServices{
 	
 	private final UsuarioRepository usuarioRepository;
+	private final PasswordEncoder passwordEncoder;
 	
-	public UsuarioServicesImpl(UsuarioRepository usuarioRepository) {
+	public UsuarioServicesImpl(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
 		this.usuarioRepository = usuarioRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
@@ -29,4 +36,130 @@ public class UsuarioServicesImpl implements UsuarioServices{
 		return "Email bloqueado demasiados intentos";
 	}
 
+	@Override
+	public EditarClienteDTO obtenerCliente(String id) {
+		
+		Usuario usuario = obtenerUsuarioId(id);
+		
+		if (!(usuario instanceof Cliente cliente)) 
+	        throw new IllegalStateException("El usuario no es cliente");
+	    
+		
+		return cargarClienteDTO(cliente);
+	}
+
+	@Override
+	public EditarVendedorDTO obtenerVendedor(String id) {
+		
+		Usuario usuario = obtenerUsuarioId(id);
+		
+		if(!(usuario instanceof Vendedor vendedor)) 
+			throw new IllegalStateException("El usuario no es un vendedor");
+		
+		
+		return cargarVendedorDTO(vendedor);
+	}
+
+	@Override
+	public EditarClienteDTO actualizarCliente(String id, EditarClienteDTO clienteDTO) {
+
+		Usuario usuario = obtenerUsuarioId(id);
+		
+		if(!(usuario instanceof Cliente cliente)) 
+			throw new IllegalStateException("El usuario no es un cliente");
+		
+		cliente.setNombre(clienteDTO.getNombre());
+	    cliente.setApellido(clienteDTO.getApellido());
+	    
+	    validarEmail(clienteDTO.getEmail(), Long.parseLong(id));
+		cliente.setEmail(clienteDTO.getEmail());
+
+	    cliente.setTelefono(clienteDTO.getTelefono());
+	    cliente.setDireccion1(clienteDTO.getDireccion1());
+	    cliente.setDireccion2(clienteDTO.getDireccion2());
+	    cliente.setCp(clienteDTO.getCp());
+	    cliente.setPais(clienteDTO.getPais());
+	    cliente.setCiudad(clienteDTO.getCiudad());
+	    cliente.setProvincia(clienteDTO.getProvincia());
+	    actualizarPassword(cliente, clienteDTO.getPassword());
+		
+	    usuarioRepository.save(cliente);
+	    
+		return cargarClienteDTO(cliente);
+	}
+
+	@Override
+	public EditarVendedorDTO actualizarVendedor(String id, EditarVendedorDTO vendedorDTO) {
+
+		Usuario usuario = obtenerUsuarioId(id);
+		
+		if(!(usuario instanceof Vendedor vendedor)) 
+			throw new IllegalStateException("El usuario no es un vendedor");
+
+		vendedor.setNombre(vendedorDTO.getNombre());
+		vendedor.setApellido(vendedorDTO.getApellido());
+		validarEmail(vendedorDTO.getEmail(), Long.parseLong(id));
+		vendedor.setEmail(vendedorDTO.getEmail());
+		
+		actualizarPassword(vendedor, vendedorDTO.getPassword());
+		
+		usuarioRepository.save(vendedor);
+		
+		return cargarVendedorDTO(vendedor);
+	}
+	
+	
+	/**
+	 * ============================
+	 *       MÉTODOS PRIVADOS
+	 * ============================
+	 */
+	
+	
+	private EditarClienteDTO cargarClienteDTO(Cliente usuario) {
+		EditarClienteDTO clienteDTO = new EditarClienteDTO();
+		
+		clienteDTO.setNombre(usuario.getNombre());
+		clienteDTO.setApellido(usuario.getApellido());
+		clienteDTO.setEmail(usuario.getEmail());
+		clienteDTO.setTelefono(usuario.getTelefono());
+		clienteDTO.setDireccion1(usuario.getDireccion1());
+		clienteDTO.setDireccion2(usuario.getDireccion2());
+		clienteDTO.setCp(usuario.getCp());
+		clienteDTO.setPais(usuario.getPais());
+		clienteDTO.setCiudad(usuario.getCiudad());
+		clienteDTO.setProvincia(usuario.getProvincia());
+		
+		return clienteDTO;
+	}
+	
+	private EditarVendedorDTO cargarVendedorDTO(Vendedor usuario) {
+		EditarVendedorDTO vendedorDTO = new EditarVendedorDTO();
+		
+		vendedorDTO.setNombre(usuario.getNombre());
+		vendedorDTO.setApellido(usuario.getApellido());
+		vendedorDTO.setEmail(usuario.getEmail());
+		
+		return vendedorDTO;
+	}
+
+	private Usuario obtenerUsuarioId(String id) {
+		return usuarioRepository.findById(Long.parseLong(id))
+		        .orElseThrow(() -> new IllegalStateException("Usuario no encontrado"));
+	}
+	
+	private void actualizarPassword(Usuario usuario, String password) {
+		if(password != null && !password.isBlank()) {
+			usuario.setPassword(passwordEncoder.encode(password));
+		}
+	}
+	
+	private void validarEmail(String email, Long id) {
+		Usuario usuario = usuarioRepository.findByEmail(email);
+		
+		if(usuario != null && !usuario.getId().equals(id)) 
+			throw new IllegalStateException("El email ya pertenece a otra persona");
+		
+	}
+	
 }
