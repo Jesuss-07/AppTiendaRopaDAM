@@ -37,7 +37,7 @@ public class UsuarioServicesImpl implements UsuarioServices{
 	}
 
 	@Override
-	public EditarClienteDTO obtenerCliente(String id) {
+	public EditarClienteDTO obtenerCliente(Long id) {
 		
 		Usuario usuario = obtenerUsuarioId(id);
 		
@@ -49,7 +49,7 @@ public class UsuarioServicesImpl implements UsuarioServices{
 	}
 
 	@Override
-	public EditarVendedorDTO obtenerVendedor(String id) {
+	public EditarVendedorDTO obtenerVendedor(Long id) {
 		
 		Usuario usuario = obtenerUsuarioId(id);
 		
@@ -61,7 +61,7 @@ public class UsuarioServicesImpl implements UsuarioServices{
 	}
 
 	@Override
-	public EditarClienteDTO actualizarCliente(String id, EditarClienteDTO clienteDTO) {
+	public EditarClienteDTO actualizarCliente(Long id, EditarClienteDTO clienteDTO) {
 
 		Usuario usuario = obtenerUsuarioId(id);
 		
@@ -71,7 +71,7 @@ public class UsuarioServicesImpl implements UsuarioServices{
 		cliente.setNombre(clienteDTO.getNombre());
 	    cliente.setApellido(clienteDTO.getApellido());
 	    
-	    validarEmail(clienteDTO.getEmail(), Long.parseLong(id));
+	    validarEmail(clienteDTO.getEmail(), id);
 		cliente.setEmail(clienteDTO.getEmail());
 
 	    cliente.setTelefono(clienteDTO.getTelefono());
@@ -89,7 +89,7 @@ public class UsuarioServicesImpl implements UsuarioServices{
 	}
 
 	@Override
-	public EditarVendedorDTO actualizarVendedor(String id, EditarVendedorDTO vendedorDTO) {
+	public EditarVendedorDTO actualizarVendedor(Long id, EditarVendedorDTO vendedorDTO) {
 
 		Usuario usuario = obtenerUsuarioId(id);
 		
@@ -98,7 +98,7 @@ public class UsuarioServicesImpl implements UsuarioServices{
 
 		vendedor.setNombre(vendedorDTO.getNombre());
 		vendedor.setApellido(vendedorDTO.getApellido());
-		validarEmail(vendedorDTO.getEmail(), Long.parseLong(id));
+		validarEmail(vendedorDTO.getEmail(), id);
 		vendedor.setEmail(vendedorDTO.getEmail());
 		
 		actualizarPassword(vendedor, vendedorDTO.getPassword());
@@ -143,8 +143,8 @@ public class UsuarioServicesImpl implements UsuarioServices{
 		return vendedorDTO;
 	}
 
-	private Usuario obtenerUsuarioId(String id) {
-		return usuarioRepository.findById(Long.parseLong(id))
+	private Usuario obtenerUsuarioId(Long id) {
+		return usuarioRepository.findById(id)
 		        .orElseThrow(() -> new IllegalStateException("Usuario no encontrado"));
 	}
 	
@@ -157,7 +157,7 @@ public class UsuarioServicesImpl implements UsuarioServices{
 	private void validarEmail(String email, Long id) {
 		Usuario usuario = usuarioRepository.findByEmail(email);
 		
-		if(usuario != null && !usuario.getId().equals(id)) 
+		if(usuario != null && !usuario.getId().equals(id))
 			throw new IllegalStateException("El email ya pertenece a otra persona");
 		
 	}

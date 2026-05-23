@@ -7,12 +7,12 @@ public interface UsuarioServices {
 	
 	String bloquearUsuario(String email);
 	
-	EditarClienteDTO obtenerCliente(String id);
+	EditarClienteDTO obtenerCliente(Long id);
 	
-	EditarVendedorDTO obtenerVendedor(String id);
+	EditarVendedorDTO obtenerVendedor(Long id);
 	
-	EditarClienteDTO actualizarCliente(String id, EditarClienteDTO editarClienteDTO);
+	EditarClienteDTO actualizarCliente(Long id, EditarClienteDTO editarClienteDTO);
 	
-	EditarVendedorDTO actualizarVendedor(String id, EditarVendedorDTO editarVendedorDTO);
+	EditarVendedorDTO actualizarVendedor(Long id, EditarVendedorDTO editarVendedorDTO);
 
 }

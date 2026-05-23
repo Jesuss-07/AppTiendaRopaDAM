@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.iesagora.jesus.apptienda.business.dto.EditarClienteDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarVendedorDTO;
+import com.iesagora.jesus.apptienda.business.model.Usuario;
 import com.iesagora.jesus.apptienda.business.services.UsuarioServices;
 
 @RestController
@@ -37,8 +38,7 @@ public class UsuarioController {
 	@GetMapping("/cliente/me")
 	public ResponseEntity<?> getCliente(Authentication auth){
 		try {
-			String id = obtenerId(auth);	
-			return ResponseEntity.ok(usuarioServices.obtenerCliente(id));
+			return ResponseEntity.ok(usuarioServices.obtenerCliente(obtenerId(auth)));
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}		
@@ -47,8 +47,7 @@ public class UsuarioController {
 	@PutMapping("/cliente/me")
 	public ResponseEntity<?> setCliente(Authentication auth, @RequestBody EditarClienteDTO clienteDTO){
 		try {
-			String id = obtenerId(auth);	
-			return ResponseEntity.ok(usuarioServices.actualizarCliente(id, clienteDTO));
+			return ResponseEntity.ok(usuarioServices.actualizarCliente(obtenerId(auth), clienteDTO));
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -57,8 +56,7 @@ public class UsuarioController {
 	@GetMapping("/vendedor/me")
 	public ResponseEntity<?> getVendedor(Authentication auth){
 		try {
-			String id = obtenerId(auth);	
-			return ResponseEntity.ok(usuarioServices.obtenerVendedor(id));
+			return ResponseEntity.ok(usuarioServices.obtenerVendedor(obtenerId(auth)));
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}		
@@ -67,8 +65,7 @@ public class UsuarioController {
 	@PutMapping("/vendedor/me")
 	public ResponseEntity<?> setVendedor(Authentication auth, @RequestBody EditarVendedorDTO vendedorDTO){
 		try {
-			String id = obtenerId(auth);	
-			return ResponseEntity.ok(usuarioServices.actualizarVendedor(id, vendedorDTO));
+			return ResponseEntity.ok(usuarioServices.actualizarVendedor(obtenerId(auth), vendedorDTO));
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -82,8 +79,10 @@ public class UsuarioController {
 	 */
 
 	
-	private static String obtenerId(Authentication auth) {
-		return auth.getPrincipal().toString();	
+	private static Long obtenerId(Authentication auth) {
+		Usuario usuario = (Usuario) auth.getPrincipal();
+		System.out.println(usuario.getId());
+		return usuario.getId();
 	}
 	
 }
