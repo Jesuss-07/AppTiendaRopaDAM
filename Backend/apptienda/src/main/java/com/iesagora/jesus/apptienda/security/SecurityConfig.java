@@ -69,7 +69,7 @@ public class SecurityConfig {
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/empresa/**").permitAll()
                 .requestMatchers("/home/**").permitAll()
-                .requestMatchers("/user/**").permitAll()
+                .requestMatchers("/user/**").authenticated()
                 .anyRequest().authenticated())
         		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         		.authenticationProvider(authenticationProvider)
