@@ -23,7 +23,7 @@
       <span class="icon-symbol">👤</span>
 
       <div class="user-menu">
-        <a href="#">Editar usuario</a>
+        <a (click)="editarUser()">Editar usuario</a>
         <a routerLink="/login">Cerrar sesión</a>
         <!-- Opciones de administración y ventas -->
         <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>

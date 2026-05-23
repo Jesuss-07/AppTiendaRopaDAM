@@ -19,11 +19,21 @@ export class InicioComponent {
 
   rol: string | null = null;
 
-  constructor(private authService: AuthService) {}  
+  constructor(private authService: AuthService, private router: Router) {}  
 
   ngOnInit(): void {
     this.rol = this.authService.getRol();
     console.log('Rol del usuario:', this.rol);
+  }
+
+  editarUser(): void {
+    if (this.rol === 'ADMINISTRADOR') {}
+    else if (this.rol === 'VENDEDOR') {
+      this.router.navigate(['/editor/vendedor']);
+    }
+    else if (this.rol === 'CLIENTE') {
+      this.router.navigate(['/editor/cliente']);
+    }
   }
 
 }
