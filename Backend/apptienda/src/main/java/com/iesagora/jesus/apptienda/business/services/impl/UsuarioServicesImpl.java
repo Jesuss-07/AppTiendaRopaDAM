@@ -129,6 +129,7 @@ public class UsuarioServicesImpl implements UsuarioServices{
 		clienteDTO.setPais(usuario.getPais());
 		clienteDTO.setCiudad(usuario.getCiudad());
 		clienteDTO.setProvincia(usuario.getProvincia());
+		System.out.println("Usuario" + usuario.toString() + " " + clienteDTO.toString());
 		
 		return clienteDTO;
 	}
