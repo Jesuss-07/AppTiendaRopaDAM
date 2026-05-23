@@ -38,6 +38,7 @@ public class UsuarioController {
 	@GetMapping("/cliente/me")
 	public ResponseEntity<?> getCliente(Authentication auth){
 		Long id = obtenerId(auth);
+		System.out.println(id);
 		try {
 			return ResponseEntity.ok(usuarioServices.obtenerCliente(id));
 		}catch(Exception e) {
