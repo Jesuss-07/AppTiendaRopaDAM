@@ -39,7 +39,7 @@ public class UsuarioController {
 	public ResponseEntity<?> getCliente(Authentication auth){
 		Long id = obtenerId(auth);
 		try {
-			return ResponseEntity.ok(usuarioServices.obtenerCliente());
+			return ResponseEntity.ok(usuarioServices.obtenerCliente(id));
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}		
