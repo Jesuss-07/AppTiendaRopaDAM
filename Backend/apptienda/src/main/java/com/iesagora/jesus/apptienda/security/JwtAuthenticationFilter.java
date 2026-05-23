@@ -31,6 +31,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     	final String jwt;
     	final String userEmail;
     	
+        System.out.println("JWT FILTER EJECUTADO");
+        System.out.println("Auth header: " + authHeader);
+    	
     	String path = request.getServletPath();
 
         if (path.startsWith("/auth")) {
