@@ -47,38 +47,43 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     	}
     	jwt = authHeader.substring(7);
     	id = jwtUtils.extractClaim(jwt, claims -> claims.get("id", Long.class));
-    	
+
+    	System.out.println("ID TOKEN: " + id);
+
     	if(id != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
     	    var usuario = usuarioRepository.findById(id).orElse(null);
 
-    	    System.out.println("ID token: " + id);
-    	    System.out.println("Usuario encontrado: " + usuario);
+    	    System.out.println("USUARIO DB: " + usuario);
 
     	    if(usuario != null) {
-    	        boolean valido = jwtUtils.validacionToken(jwt, usuario);
+    	        System.out.println("VALIDACION TOKEN: " + jwtUtils.validacionToken(jwt, usuario));
+    	    }
 
-    	        System.out.println("Token válido: " + valido);
+    	    if(usuario != null && jwtUtils.validacionToken(jwt, usuario)) {
 
-    	        if(valido) {
-
-    	            System.out.println("Authorities: " + usuario.getAuthorities());
-
-    	            UsernamePasswordAuthenticationToken authToken =
+    	        UsernamePasswordAuthenticationToken authToken =
     	                new UsernamePasswordAuthenticationToken(
-    	                    usuario,
-    	                    null,
-    	                    usuario.getAuthorities()
+    	                        usuario,
+    	                        null,
+    	                        usuario.getAuthorities()
     	                );
 
-    	            authToken.setDetails(
-    	                new WebAuthenticationDetailsSource().buildDetails(request)
-    	            );
+    	        authToken.setDetails(
+    	                new WebAuthenticationDetailsSource()
+    	                        .buildDetails(request)
+    	        );
 
-    	            SecurityContextHolder.getContext().setAuthentication(authToken);
+    	        SecurityContextHolder.getContext()
+    	                .setAuthentication(authToken);
 
-    	            System.out.println("AUTH SET: " + authToken);
-    	        }
+    	        System.out.println("AUTH SET: " + authToken);
+
+    	        System.out.println(
+    	                "CONTEXT AUTH: " +
+    	                SecurityContextHolder.getContext()
+    	                        .getAuthentication()
+    	        );
     	    }
     	}
         
