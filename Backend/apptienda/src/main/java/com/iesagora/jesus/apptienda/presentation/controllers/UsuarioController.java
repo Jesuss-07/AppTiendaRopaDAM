@@ -73,24 +73,42 @@ public class UsuarioController {
 		}
 	}
 	
-	/*
+	
 	
 	@GetMapping("/vendedor/me")
-	public ResponseEntity<?> getVendedor(Authentication auth){
+	public ResponseEntity<?> getVendedor(){
 		try {
-			return ResponseEntity.ok(usuarioServices.obtenerVendedor());
+			
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			
+			Long id = usuario.getId(); 
+			
+			System.out.println("Actualizar user");
+			
+			return ResponseEntity.ok(usuarioServices.obtenerVendedor(id));
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}		
 	}
 	
-	@PutMapping("/vendedor/me")
+	@PutMapping("/vendedor/editar")
 	public ResponseEntity<?> setVendedor(@RequestBody EditarVendedorDTO vendedorDTO){
 		try {
-			return ResponseEntity.ok(usuarioServices.actualizarVendedor(, vendedorDTO));
+			
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			
+			Long id = usuario.getId(); 
+			
+			System.out.println("Actualizar user");
+			
+			return ResponseEntity.ok(usuarioServices.actualizarVendedor(id, vendedorDTO));
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-	}*/
+	}
 	
 }
