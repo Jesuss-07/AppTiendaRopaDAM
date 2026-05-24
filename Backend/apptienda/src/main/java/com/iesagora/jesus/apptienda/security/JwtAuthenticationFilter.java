@@ -52,6 +52,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     		var usuario = usuarioRepository.findById(id).orElse(null);    		
     		if(usuario != null && jwtUtils.validacionToken(jwt, usuario)) {
     			
+    		    System.out.println("Usuario: " + usuario.getEmail());
+    		    System.out.println("Authorities: " + usuario.getAuthorities());
+    			
     			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
     			
     			authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
