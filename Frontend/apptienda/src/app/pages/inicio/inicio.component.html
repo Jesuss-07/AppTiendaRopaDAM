@@ -24,7 +24,7 @@
 
       <div class="user-menu">
         <a (click)="editarUser()">Editar usuario</a>
-        <a routerLink="/login">Cerrar sesión</a>
+        <a (click)="logout()">Cerrar sesión</a>
         <!-- Opciones de administración y ventas -->
         <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
         <!-- Solo mostrar para administradores -->
@@ -32,11 +32,6 @@
         <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
 
       </div>
-    </div>
-
-    <!-- Carrito -->
-    <div class="icon">
-      <span class="icon-symbol">🛒</span>
     </div>
   </div>
 </header>

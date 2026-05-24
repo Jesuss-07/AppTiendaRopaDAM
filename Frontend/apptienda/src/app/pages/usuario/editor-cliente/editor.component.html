@@ -1,0 +1,106 @@
+<header class="header">
+  <div class="header-left">
+    <span class="logo">Tienda Ropa</span>
+  </div>
+
+  <div class="header-right">
+    <!-- Usuario -->
+    <div class="icon user-icon">
+      <span class="icon-symbol">👤</span>
+
+      <div class="user-menu">
+        <a (click)="logout()">Cerrar sesión</a>
+        <!-- Opciones de administración y ventas -->
+        <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
+        <!-- Solo mostrar para administradores -->
+        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
+        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
+      </div>
+    </div>
+
+    <!-- Carrito -->
+    <div class="icon">
+      <span class="icon-symbol">🛒</span>
+    </div>
+  </div>
+</header>
+<main class="content">
+  <div class="form-container">
+    <h2>Editar usuario</h2>
+
+    <form (ngSubmit)="guardarDatos()" #form="ngForm">
+
+      <div class="grid">
+        <div class="input-group">
+          <label>Nombre</label>
+          <input type="text" [(ngModel)]="cliente.nombre" name="nombre" required>
+        </div>
+
+        <div class="input-group">
+          <label>Apellido</label>
+          <input type="text" [(ngModel)]="cliente.apellido" name="apellido" required>
+        </div>
+
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" [(ngModel)]="cliente.email" name="email" required>
+        </div>
+
+        <div class="input-group">
+          <label>Nueva contraseña</label>
+          <input type="password" [(ngModel)]="cliente.password" name="password" (input)="validarPassword()">
+          <div class="password-checks">
+            <p [class.ok]="tieneMinimo(cliente.password)">✔ Mínimo 8 caracteres</p>
+            <p [class.ok]="tieneMayuscula(cliente.password)">✔ Al menos una mayúscula</p>
+            <p [class.ok]="tieneMinuscula(cliente.password)">✔ Al menos una minúscula</p>
+            <p [class.ok]="tieneNumero(cliente.password)">✔ Al menos un número</p>
+            <p [class.ok]="tieneSimbolo(cliente.password)">✔ Al menos un símbolo</p>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Teléfono</label>
+          <input type="text" [(ngModel)]="cliente.telefono" name="telefono">
+        </div>
+
+        <div class="input-group">
+          <label>Confirmar contraseña</label>
+          <input type="password" [(ngModel)]="cliente.passwordConfirm" name="passwordConfirm" (input)="validarPassword()">
+          <small class="error" *ngIf="passwordError">{{ passwordError }}</small>
+        </div>
+
+        <div class="input-group">
+          <label>Dirección 1</label>
+          <input type="text" [(ngModel)]="cliente.direccion1" name="direccion1">
+        </div>
+
+        <div class="input-group">
+          <label>Dirección 2</label>
+          <input type="text" [(ngModel)]="cliente.direccion2" name="direccion2">
+        </div>
+
+        <div class="input-group">
+          <label>Código Postal</label>
+          <input type="text" [(ngModel)]="cliente.cp" name="cp">
+        </div>
+
+        <div class="input-group">
+          <label>País</label>
+          <input type="text" [(ngModel)]="cliente.pais" name="pais">
+        </div>
+
+        <div class="input-group">
+          <label>Ciudad</label>
+          <input type="text" [(ngModel)]="cliente.ciudad" name="ciudad">
+        </div>
+
+        <div class="input-group">
+          <label>Provincia</label>
+          <input type="text" [(ngModel)]="cliente.provincia" name="provincia">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary">Guardar cambios</button>
+    </form>
+  </div>
+</main>
