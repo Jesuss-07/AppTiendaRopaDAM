@@ -55,14 +55,25 @@ public class UsuarioController {
 		}		
 	}
 	
-	/*@PutMapping("/cliente/me")
+	@PutMapping("/cliente/editar")
 	public ResponseEntity<?> setCliente(@RequestBody EditarClienteDTO clienteDTO){
 		try {
-			return ResponseEntity.ok(usuarioServices.actualizarCliente(, clienteDTO));
+			
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			
+			Long id = usuario.getId(); 
+			
+			System.out.println("Actualizar user");
+			
+			return ResponseEntity.ok(usuarioServices.actualizarCliente(id, clienteDTO));
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	/*
 	
 	@GetMapping("/vendedor/me")
 	public ResponseEntity<?> getVendedor(Authentication auth){
