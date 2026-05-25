@@ -14,7 +14,7 @@
         <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
         <!-- Solo mostrar para administradores -->
         <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
-        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
+        <a href="/empresa" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
       </div>
     </div>
     <!-- Carrito -->
@@ -24,19 +24,15 @@
   </div>
 </header>
 <main class="content">
-    <h1>Empresas registradas</h1>
-    <div *ngIf="cargando" class="loading">
-      Cargando empresas...
+  <h1>Empresas registradas</h1>
+  <div *ngIf="cargando === true" class="cargando">
+    Cargando empresas...
+  </div>
+  <div class="empresa-grid">
+    <div class="empresa-card" *ngFor="let empresa of (empresas$ | async)">
+      <img [src]="empresa.logoEmpresa || 'https://placehold.co/250x150?text=Sin+logo'">
+      <h3>{{ empresa.nombreEmpresa }}</h3>
+      <p>{{ empresa.direccionEmpresa }}</p>
     </div>
-    <div class="empresa-grid">
-      <div class="empresa-card" *ngFor="let empresa of empresas">
-        <img [src]="empresa.logoEmpresa || 'https://placehold.co/250x150?text=Sin+logo'">
-        <h3>
-          {{empresa.nombreEmpresa}}
-        </h3>
-        <p>
-          {{empresa.direccionEmpresa}}
-        </p>
-      </div>
-    </div>
+  </div>
 </main>
