@@ -17,7 +17,13 @@ import { AuthService } from '../../services/auth.service';
 
 export class EmpresaComponent {
 
+  rol: string | null = null;
+
   constructor(private router: Router, private authService: AuthService) {}
+
+  ngOnInit() {
+    this.rol = this.authService.getRol();
+  }
 
   logout() {
     this.authService.logout();
