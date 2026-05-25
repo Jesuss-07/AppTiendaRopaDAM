@@ -1,7 +1,10 @@
 package com.iesagora.jesus.apptienda.business.services.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.iesagora.jesus.apptienda.business.dto.EmpresaDTO;
 import com.iesagora.jesus.apptienda.business.dto.RegistroEmpresaDTO;
 import com.iesagora.jesus.apptienda.business.model.Empresa;
 import com.iesagora.jesus.apptienda.business.repositories.EmpresaRepository;
@@ -25,6 +28,19 @@ public class EmpresaServicesImpl implements EmpresaServices{
 		Empresa empresa = crearEmpresa(empresaDTO);
 		empresaRepository.save(empresa);
 		
+	}
+	
+	@Override
+	public List<EmpresaDTO> obtenerEmpresas() {
+		
+		List<Empresa> empresas = empresaRepository.findAll();
+		
+		return empresas.stream()
+				.map(empresa -> new EmpresaDTO(
+						empresa.getIdEmpresa(),
+						empresa.getNombreEmpresa(),
+						empresa.getDireccionSede(),
+						empresa.getLogoEmpresa())).toList();
 	}
 	
 	
