@@ -15,11 +15,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 import com.iesagora.jesus.apptienda.business.model.Usuario;
 import com.iesagora.jesus.apptienda.business.repositories.UsuarioRepository;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 	
 	@Autowired
@@ -67,7 +69,7 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/empresa/**").permitAll()
+                .requestMatchers("/empresa/**").authenticated()
                 .requestMatchers("/home/**").permitAll()
                 .requestMatchers("/user/**").authenticated()
                 .anyRequest().authenticated())

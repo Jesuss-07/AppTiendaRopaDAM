@@ -1,6 +1,7 @@
 package com.iesagora.jesus.apptienda.presentation.controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ public class EmpresaController {
 	}
 	
 	@PostMapping("/registro")
+	@PreAuthorize("hasRole('ADMINISTRADOR')")
 	public ResponseEntity<?> registroEmpresa(@RequestBody RegistroEmpresaDTO empresaDTO){
 		
 		try {
@@ -33,6 +35,7 @@ public class EmpresaController {
 	}
 	
 	@GetMapping("/lista")
+	@PreAuthorize("hasRole('ADMINISTRADOR')")
 	public ResponseEntity<?> listarEmpresas(){
 		try {
 			return ResponseEntity.ok(empresaServices.obtenerEmpresas());
