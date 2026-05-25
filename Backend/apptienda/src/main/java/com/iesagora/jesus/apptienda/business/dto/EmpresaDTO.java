@@ -15,7 +15,7 @@ public class EmpresaDTO {
 	
 	private Long id;
 	private String nombreEmpresa;
-	private String direccionEmpersa;
+	private String direccionEmpresa;
 	private String logoEmpresa;
 
 }
