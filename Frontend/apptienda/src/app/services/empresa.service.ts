@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { reportUnhandledError } from "rxjs/internal/util/reportUnhandledError";
-import { jwtDecode } from "jwt-decode";
 import { environment } from "../core/config/environment";
-
+import { EmpresaDTO } from "../model/empresa.dto";
+import { Observable } from "rxjs";
 @Injectable({
     providedIn: 'root'
 })
@@ -17,8 +16,8 @@ export class EmpresaService {
         return this.http.post(`${this.apiUrl}/registro`, empresa);
     }
 
-    getEmpresas() {
-        return this.http.get(`${this.apiUrl}/lista`);
+    obtenerEmpresas(): Observable<EmpresaDTO[]> {
+        return this.http.get<EmpresaDTO[]>(`${this.apiUrl}/lista`);
     }
 
 }
