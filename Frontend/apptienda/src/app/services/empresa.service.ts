@@ -17,4 +17,8 @@ export class EmpresaService {
         return this.http.post(`${this.apiUrl}/registro`, empresa);
     }
 
+    getEmpresas() {
+        return this.http.get(`${this.apiUrl}/lista`);
+    }
+
 }

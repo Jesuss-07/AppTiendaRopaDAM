@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-empresa',
@@ -16,6 +17,10 @@ import { CommonModule } from '@angular/common';
 
 export class EmpresaComponent {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }
