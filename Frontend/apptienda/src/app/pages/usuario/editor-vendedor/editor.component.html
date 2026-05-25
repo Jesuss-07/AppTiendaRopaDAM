@@ -24,3 +24,100 @@
     </div>
   </div>
 </header>
+<main class="content">
+  <div class="form-container">
+    <h2>Editar vendedor</h2>
+
+    <form (ngSubmit)="guardarDatos()" #form="ngForm">
+
+      <div class="grid">
+
+        <div class="input-group">
+          <label>Nombre</label>
+          <input
+            type="text"
+            [(ngModel)]="vendedor.nombre"
+            name="nombre"
+            required>
+        </div>
+
+        <div class="input-group">
+          <label>Apellido</label>
+          <input
+            type="text"
+            [(ngModel)]="vendedor.apellido"
+            name="apellido"
+            required>
+        </div>
+
+        <div class="input-group full-width">
+          <label>Email</label>
+          <input
+            type="email"
+            [(ngModel)]="vendedor.email"
+            name="email"
+            required>
+        </div>
+
+        <div class="input-group">
+          <label>Nueva contraseña</label>
+
+          <input
+            type="password"
+            [(ngModel)]="vendedor.password"
+            name="password"
+            (input)="validarPassword()">
+
+          <div class="password-checks">
+
+            <p [class.ok]="tieneMinimo(vendedor.password)">
+              ✔ Mínimo 8 caracteres
+            </p>
+
+            <p [class.ok]="tieneMayuscula(vendedor.password)">
+              ✔ Al menos una mayúscula
+            </p>
+
+            <p [class.ok]="tieneMinuscula(vendedor.password)">
+              ✔ Al menos una minúscula
+            </p>
+
+            <p [class.ok]="tieneNumero(vendedor.password)">
+              ✔ Al menos un número
+            </p>
+
+            <p [class.ok]="tieneSimbolo(vendedor.password)">
+              ✔ Al menos un símbolo
+            </p>
+
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Confirmar contraseña</label>
+
+          <input
+            type="password"
+            [(ngModel)]="vendedor.passwordConfirm"
+            name="passwordConfirm"
+            (input)="validarPassword()">
+
+          <small
+            class="error"
+            *ngIf="passwordError">
+
+            {{ passwordError }}
+
+          </small>
+
+        </div>
+
+      </div>
+
+      <button type="submit" class="btn-primary">
+        Guardar cambios
+      </button>
+
+    </form>
+  </div>
+</main>
