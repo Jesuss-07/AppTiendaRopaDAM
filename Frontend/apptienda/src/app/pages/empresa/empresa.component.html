@@ -17,10 +17,26 @@
         <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
       </div>
     </div>
-
     <!-- Carrito -->
     <div class="icon">
       <span class="icon-symbol">🛒</span>
     </div>
   </div>
 </header>
+<main class="content">
+    <h1>Empresas registradas</h1>
+    <div *ngIf="cargando" class="loading">
+      Cargando empresas...
+    </div>
+    <div class="empresa-grid">
+      <div class="empresa-card" *ngFor="let empresa of empresas">
+        <img [src]="empresa.logoEmpresa || 'https://placehold.co/250x150?text=Sin+logo'">
+        <h3>
+          {{empresa.nombreEmpresa}}
+        </h3>
+        <p>
+          {{empresa.direccionEmpresa}}
+        </p>
+      </div>
+    </div>
+</main>
