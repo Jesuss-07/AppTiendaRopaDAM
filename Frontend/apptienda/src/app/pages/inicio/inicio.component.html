@@ -24,13 +24,12 @@
 
       <div class="user-menu">
         <a (click)="editarUser()">Editar usuario</a>
-        <a (click)="logout()">Cerrar sesión</a>
         <!-- Opciones de administración y ventas -->
-        <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
+        <a routerLink="/producto" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
         <!-- Solo mostrar para administradores -->
         <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
-        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
-
+        <a routerLink="/empresa" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
+        <a (click)="logout()">Cerrar sesión</a>
       </div>
     </div>
   </div>
