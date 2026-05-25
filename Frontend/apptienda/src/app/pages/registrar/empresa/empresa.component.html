@@ -1,24 +1,135 @@
-<h2>Registro de Empresa</h2>
+<header class="header">
+  <div class="header-left">
+    <span class="logo">Tienda Ropa</span>
+  </div>
+  <div class="header-right">
+    <!-- Usuario -->
+    <div class="icon user-icon">
+      <span class="icon-symbol">👤</span>
 
-<form (ngSubmit)="onRegistroEmpresa()">
+      <div class="user-menu">
+        <a (click)="logout()">Cerrar sesión</a>
+        <!-- Opciones de administración y ventas -->
+        <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
+        <!-- Solo mostrar para administradores -->
+        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
+        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
+      </div>
+    </div>
 
-  <label>Nombre de la Empresa</label>
-  <input type="text" name="nombreEmpresa" [(ngModel)]="empresa.nombreEmpresa" required>
+    <!-- Carrito -->
+    <div class="icon">
+      <span class="icon-symbol">🛒</span>
+    </div>
+  </div>
+</header>
+<main class="content">
 
-  <label>CIF</label>
-  <input type="text" name="cif" [(ngModel)]="empresa.cif" required>
+    <div class="form-container">
 
-  <label>Email de Contacto</label>
-  <input type="email" name="emailContacto" [(ngModel)]="empresa.emailContacto" required>
+        <h2>Registro de Empresa</h2>
 
-  <label>Teléfono de Contacto</label>
-  <input type="text" name="telefonoContacto" [(ngModel)]="empresa.telefonoContacto">
+        <form
+            #empresaForm="ngForm"
+            (ngSubmit)="onRegistroEmpresa()">
 
-  <label>Dirección de la Sede</label>
-  <input type="text" name="direccionSede" [(ngModel)]="empresa.direccionSede">
+            <div class="grid">
 
-  <label>Logo de la Empresa (URL)</label>
-  <input type="text" name="logoEmpresa" [(ngModel)]="empresa.logoEmpresa">
+                <div class="input-group">
+                    <label>Nombre de la empresa</label>
 
-  <button type="submit">Registrar Empresa</button>
-</form>
+                    <input
+                        type="text"
+                        name="nombreEmpresa"
+                        [(ngModel)]="empresa.nombreEmpresa"
+                        placeholder="Ej: ZARA"
+                        required>
+                </div>
+
+
+                <div class="input-group">
+                    <label>CIF</label>
+
+                    <input
+                        type="text"
+                        name="cif"
+                        [(ngModel)]="empresa.cif"
+                        placeholder="Ej: A12345678"
+                        required>
+                </div>
+
+
+                <div class="input-group full-width">
+                    <label>Email de contacto</label>
+
+                    <input
+                        type="email"
+                        name="emailContacto"
+                        [(ngModel)]="empresa.emailContacto"
+                        placeholder="ejemplo@gmail.com"
+                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$"
+                        required>
+
+                    <small
+                        class="error"
+                        *ngIf="empresaForm.controls['emailContacto']?.invalid 
+                        && empresaForm.controls['emailContacto']?.touched">
+
+                        Introduce un email válido
+                    </small>
+
+                </div>
+
+
+                <div class="input-group">
+                    <label>Teléfono de contacto</label>
+
+                    <input
+                        type="tel"
+                        name="telefonoContacto"
+                        [(ngModel)]="empresa.telefonoContacto"
+                        placeholder="Ej: 612345678"
+                        required>
+                </div>
+
+
+                <div class="input-group">
+                    <label>Dirección de la sede</label>
+
+                    <input
+                        type="text"
+                        name="direccionSede"
+                        [(ngModel)]="empresa.direccionSede"
+                        placeholder="Ej: HUELVA, C.C. Holea, Local 12"
+                        required>
+                </div>
+
+
+                <div class="input-group full-width">
+
+                    <label>Logo empresa (opcional)</label>
+
+                    <input
+                        type="text"
+                        name="logoEmpresa"
+                        [(ngModel)]="empresa.logoEmpresa"
+                        placeholder="https://miempresa.com/logo.png">
+
+                </div>
+
+            </div>
+
+            <button
+                class="btn-primary"
+                type="submit"
+                [disabled]="empresaForm.invalid">
+
+                Registrar Empresa
+
+            </button>
+
+        </form>
+
+    </div>
+
+</main>

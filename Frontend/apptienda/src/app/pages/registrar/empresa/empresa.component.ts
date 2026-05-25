@@ -1,17 +1,22 @@
 import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { EmpresaService } from "../../../services/empresa.service";
 import { Router } from "@angular/router";
+import { AuthService } from "../../../services/auth.service";
 
 @Component({
     selector: "app-empresa",
     standalone: true,
-    imports: [FormsModule],
+    imports: [
+        CommonModule,
+        FormsModule
+    ],
     templateUrl: "./empresa.component.html",
     styleUrl: "./empresa.component.css",
 })
 
-export class EmpresaComponent {
+export class RegistroEmpresaComponent {
 
     empresa = {
         nombreEmpresa: '',
@@ -22,17 +27,29 @@ export class EmpresaComponent {
         logoEmpresa: ''   
     };
 
-    constructor(private empresaService: EmpresaService, private router: Router) {}
+    rol: string | null = null;
+
+    constructor(private empresaService: EmpresaService, private router: Router, private authService: AuthService) {}
+
+    ngOnInit() {
+        this.rol = this.authService.getRol();
+        console.log('Rol del usuario:', this.rol);
+    }
 
     onRegistroEmpresa() {
         this.empresaService.registroEmpresa(this.empresa).subscribe({
             next: (res) => {
                 console.log('Registro exitoso:', res);
-                this.router.navigate(['/login']);
+                this.router.navigate(['/inicio']); // Redirige a la página de empresa después del registro exitoso
             },
             error: (err) => {
                 console.error('Error en el registro:', err);
             }
         });
+    }
+
+    logout() {
+        localStorage.removeItem('token');
+        this.router.navigate(['/login']);
     }
 }
