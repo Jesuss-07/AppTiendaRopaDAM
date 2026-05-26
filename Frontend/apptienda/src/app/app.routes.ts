@@ -20,6 +20,6 @@ export const routes: Routes = [
     { path: 'editor/cliente', component: EditorClienteComponent },
     { path: 'editor/vendedor', component: EditorVendedorComponent },
     { path: 'empresa', component: EmpresaComponent },
-    { path: 'empresa/editar', component: EditarEmpresaComponent },
+    { path: 'empresa/editar/:id', component: EditarEmpresaComponent },
     { path: '', redirectTo: 'login' , pathMatch: 'full' }
 ];
