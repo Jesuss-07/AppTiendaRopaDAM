@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "../core/config/environment";
 import { EmpresaDTO } from "../model/empresa.dto";
 import { Observable } from "rxjs";
+import { ActualizarEmpresaDTO } from "../model/actualizar-empresa.dto";
 @Injectable({
     providedIn: 'root'
 })
@@ -20,4 +21,16 @@ export class EmpresaService {
         return this.http.get<EmpresaDTO[]>(`${this.apiUrl}/lista`);
     }
 
+    obtenerEmpresaPorId(id: number): Observable<ActualizarEmpresaDTO> {
+        return this.http.get<ActualizarEmpresaDTO>(`${this.apiUrl}/${id}`);
+    }
+
+    actualizarEmpresa(id: number, empresa: any) {
+        return this.http.put(`${this.apiUrl}/${id}`, empresa);
+    }
+
+    borrarEmpresa(id: number) {
+        return this.http.delete(`${this.apiUrl}/${id}`);
+    }
+    
 }
