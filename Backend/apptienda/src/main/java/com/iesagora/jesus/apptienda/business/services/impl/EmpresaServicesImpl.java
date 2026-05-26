@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.iesagora.jesus.apptienda.business.dto.ActualizarEmpresaDTO;
 import com.iesagora.jesus.apptienda.business.dto.EmpresaDTO;
 import com.iesagora.jesus.apptienda.business.dto.RegistroEmpresaDTO;
 import com.iesagora.jesus.apptienda.business.model.Empresa;
@@ -41,6 +42,37 @@ public class EmpresaServicesImpl implements EmpresaServices{
 						empresa.getNombreEmpresa(),
 						empresa.getDireccionSede(),
 						empresa.getLogoEmpresa())).toList();
+	}
+	
+	@Override
+	public ActualizarEmpresaDTO obtenerEmpresaId(Long id) {
+		
+		Empresa empresa = empresaRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Empresa no encontrada con el id " + id));
+			
+		ActualizarEmpresaDTO empresaDTO = new ActualizarEmpresaDTO();		
+		
+		empresaDTO.setNombreEmpresa(empresa.getNombreEmpresa());
+		empresaDTO.setDireccionSede(empresa.getDireccionSede());
+		empresaDTO.setEmailContacto(empresa.getEmailContacto());
+		empresaDTO.setTelefonoContacto(empresa.getTelefonoContacto());
+		empresaDTO.setLogoEmpresa(empresa.getLogoEmpresa());
+		
+		return empresaDTO;
+	}
+
+	@Override
+	public void actualizarEmpresa(Long id, ActualizarEmpresaDTO empresaDTO) {
+		Empresa empresa = empresaRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Empresa no encontrada con el id " + id));
+	
+		empresa.setNombreEmpresa(empresaDTO.getNombreEmpresa());
+		empresa.setDireccionSede(empresaDTO.getDireccionSede());
+		empresa.setEmailContacto(empresaDTO.getEmailContacto());
+		empresa.setTelefonoContacto(empresaDTO.getTelefonoContacto());
+		empresa.setLogoEmpresa(empresaDTO.getLogoEmpresa());
+		
+		empresaRepository.save(empresa);
 	}
 	
 	
