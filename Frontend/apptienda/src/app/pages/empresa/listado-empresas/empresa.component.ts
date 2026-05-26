@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { EmpresaService } from '../../../services/empresa.service';
 import { EmpresaDTO } from '../../../model/empresa.dto';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-empresa',
@@ -17,7 +17,12 @@ import { Observable } from 'rxjs';
 })
 export class EmpresaComponent {
 
-  empresas$!: Observable<EmpresaDTO[]>;
+  private refresh$ = new BehaviorSubject<void>(undefined);
+
+  empresas$: Observable<EmpresaDTO[]> = this.refresh$.pipe(
+    switchMap(() => this.empresaService.obtenerEmpresas()),
+    tap(() => this.cargando = false)
+  );
   rol: string | null = null;
 
   cargando = true;
@@ -26,10 +31,29 @@ export class EmpresaComponent {
 
   ngOnInit() {
     this.rol = this.authService.getRol();
-    this.empresas$ = this.empresaService.obtenerEmpresas();
-    this.empresas$.subscribe(() => {
-      this.cargando = false;
+
+  }
+
+  editarEmpresa(id: number) {
+    this.router.navigate(['/empresa/editar', id]);
+  }
+
+  borrarEmpresa(id: number) {
+    if (!confirm('¿Estás seguro de que deseas eliminar esta empresa?')) return;
+
+    this.cargando = true;
+
+    this.empresaService.borrarEmpresa(id).subscribe({
+      next: () => this.refresh$.next(),
+      error: err => {
+        console.error(err);
+        this.cargando = false;
+      }
     });
+  }
+
+  nuevaEmpresa() {
+    this.router.navigate(['/registro/empresa']);
   }
 
   logout() {
