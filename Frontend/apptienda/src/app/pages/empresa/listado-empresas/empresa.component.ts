@@ -11,7 +11,9 @@ import { Observable } from 'rxjs';
   templateUrl: './empresa.component.html',
   styleUrls: ['./empresa.component.css'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [
+    CommonModule
+  ]
 })
 export class EmpresaComponent {
 

@@ -64,7 +64,7 @@
     <p>Explora las empresas disponibles</p>
   </div>
   <div *ngIf="cargando" class="loading">
-    <div class="spinner"></div>
+    <div class="spinner" *ngIf="cargando === true"></div>
     <span>
       Cargando empresas...
     </span>
@@ -92,7 +92,7 @@
             📍 {{empresa.direccionEmpresa}}
           </p>
           <div class="acciones">
-            <button href="/empresa/editar" class="btn-editar">
+            <button class="btn-editar">
               Editar
             </button>
             <button class="btn-eliminar">
