@@ -16,4 +16,6 @@ public interface EmpresaServices {
 	
 	void actualizarEmpresa(Long id, ActualizarEmpresaDTO empresaDTO);
 	
+	void borrarEmpresa(Long id);
+	
 }

@@ -2,6 +2,7 @@ package com.iesagora.jesus.apptienda.presentation.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,5 +68,16 @@ public class EmpresaController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-
+	
+	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('ADMINISTRADOR')")
+	public ResponseEntity<?> borrarEmpresa(@PathVariable Long id){
+		try {
+			empresaServices.borrarEmpresa(id);
+			return ResponseEntity.noContent().build();
+		}catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 }

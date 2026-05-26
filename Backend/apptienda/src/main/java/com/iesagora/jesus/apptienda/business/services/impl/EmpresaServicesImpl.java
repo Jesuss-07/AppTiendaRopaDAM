@@ -47,9 +47,7 @@ public class EmpresaServicesImpl implements EmpresaServices{
 	@Override
 	public ActualizarEmpresaDTO obtenerEmpresaId(Long id) {
 		
-		Empresa empresa = empresaRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Empresa no encontrada con el id " + id));
-			
+		Empresa empresa = obtenerEmpresa(id);			
 		ActualizarEmpresaDTO empresaDTO = new ActualizarEmpresaDTO();		
 		
 		empresaDTO.setNombreEmpresa(empresa.getNombreEmpresa());
@@ -63,9 +61,7 @@ public class EmpresaServicesImpl implements EmpresaServices{
 
 	@Override
 	public void actualizarEmpresa(Long id, ActualizarEmpresaDTO empresaDTO) {
-		Empresa empresa = empresaRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Empresa no encontrada con el id " + id));
-	
+		Empresa empresa = obtenerEmpresa(id);
 		empresa.setNombreEmpresa(empresaDTO.getNombreEmpresa());
 		empresa.setDireccionSede(empresaDTO.getDireccionSede());
 		empresa.setEmailContacto(empresaDTO.getEmailContacto());
@@ -73,6 +69,12 @@ public class EmpresaServicesImpl implements EmpresaServices{
 		empresa.setLogoEmpresa(empresaDTO.getLogoEmpresa());
 		
 		empresaRepository.save(empresa);
+	}
+	
+	@Override
+	public void borrarEmpresa(Long id) {
+		Empresa empresa = obtenerEmpresa(id); 		
+		empresaRepository.delete(empresa);
 	}
 	
 	
@@ -95,6 +97,11 @@ public class EmpresaServicesImpl implements EmpresaServices{
 		empresa.setTelefonoContacto(empresaDTO.getTelefonoContacto());
 		
 		return empresa;
+	}
+	
+	private Empresa obtenerEmpresa(Long id) {
+		return empresaRepository.findById(id)
+				.orElseThrow(() -> new IllegalStateException("Empresa no encontrada con el id " + id));
 	}
 
 }
