@@ -8,6 +8,7 @@ import { RegistroEmpresaComponent } from './pages/registrar/empresa/empresa.comp
 import { VendedorComponent } from './pages/registrar/vendedor/vendedor.component';
 import { EditorVendedorComponent } from './pages/usuario/editor-vendedor/editor.component';
 import { EmpresaComponent } from './pages/empresa/listado-empresas/empresa.component';
+import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/empresa.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -19,5 +20,6 @@ export const routes: Routes = [
     { path: 'editor/cliente', component: EditorClienteComponent },
     { path: 'editor/vendedor', component: EditorVendedorComponent },
     { path: 'empresa', component: EmpresaComponent },
+    { path: 'empresa/editar', component: EditarEmpresaComponent },
     { path: '', redirectTo: 'login' , pathMatch: 'full' }
 ];
