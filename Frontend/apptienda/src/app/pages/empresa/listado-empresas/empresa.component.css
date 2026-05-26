@@ -1,0 +1,351 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 70px;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 30px;
+  background: #fff;
+  border-bottom: 1px solid #e6e6e6;
+
+  z-index: 1000;
+  font-family: Arial, sans-serif;
+}
+
+/* ===== LADO IZQUIERDO ===== */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* NAV */
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #000;
+  font-size: 16px;
+  position: relative;
+}
+
+.nav-item:hover {
+  border-bottom: 2px solid #000;
+}
+
+/* ===== LADO DERECHO ===== */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ===== BUSCADOR ===== */
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  padding: 6px 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  transition: 0.2s;
+  width: 180px;
+}
+
+.search-input:focus {
+  border-color: #000;
+  width: 200px;
+}
+
+/* ===== ICONOS ===== */
+.icon {
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+}
+
+.icon-symbol {
+  display: inline-block;
+}
+
+/* ===== MENÚ USUARIO ===== */
+.user-icon {
+  position: relative;
+}
+
+.user-menu {
+  display: none;
+  position: absolute;
+  top: 35px;
+  right: 0;
+
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  min-width: 160px;
+  overflow: hidden;
+}
+
+.user-menu a {
+  display: block;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: #000;
+  font-size: 14px;
+}
+
+.user-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.user-menu {
+  display: none;
+  position: absolute;
+  top: 35px;
+  right: 0;
+
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  min-width: 160px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
+
+.user-icon:hover .user-menu {
+  display: block;
+}
+
+.user-icon:hover .user-menu {
+  display: block;
+}
+
+/* ===== CONTENIDO ===== */
+
+.content{
+  padding:120px 40px 50px;
+  background:#f7f8fa;
+  min-height:100vh;
+}
+
+.page-header{
+  text-align:center;
+  margin-bottom:50px;
+}
+
+.page-header h1{
+  font-size:36px;
+  margin-bottom:10px;
+  color:#111;
+}
+
+.page-header p{
+  color:#666;
+  font-size:16px;
+}
+
+.loading{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:15px;
+  margin:40px 0;
+  font-size:18px;
+}
+
+.spinner{
+  width:30px;
+  height:30px;
+  border:4px solid #ddd;
+  border-top:4px solid black;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+
+  from{
+    transform:rotate(0deg);
+  }
+
+  to{
+    transform:rotate(360deg);
+  }
+
+}
+
+.empty-state{
+  text-align:center;
+  margin-top:50px;
+  padding:40px;
+  background:white;
+  border-radius:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.empty-state h2{
+  margin-bottom:10px;
+}
+
+.empty-state p{
+  color:#666;
+}
+
+.empresa-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fill,minmax(320px,1fr));
+
+  gap:30px;
+
+}
+
+.empresa-card{
+
+  background:white;
+  border-radius:18px;
+
+  overflow:hidden;
+
+  box-shadow:
+  0 6px 20px rgba(0,0,0,.08);
+
+  transition:all .3s ease;
+}
+
+.empresa-card:hover{
+
+  transform:translateY(-8px);
+
+  box-shadow:
+  0 15px 35px rgba(0,0,0,.15);
+
+}
+
+.logo-container{
+  height:220px;
+  overflow:hidden;
+}
+
+.logo-container img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.5s;
+}
+
+.empresa-card:hover img{
+  transform:scale(1.05);
+
+}
+
+.empresa-info{
+  padding:25px;
+}
+
+.empresa-info h3{
+  margin-bottom:12px;
+  font-size:24px;
+  color:#111;
+}
+
+.direccion{
+  color:#666;
+  margin-bottom:25px;
+}
+
+.btn-ver{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:black;
+  color:white;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.btn-ver:hover{
+  background:#333;
+}
+
+.acciones{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.acciones button{
+    flex:1;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-editar{
+    background:#007bff;
+    color:white;
+}
+
+.btn-editar:hover{
+    background:#005fd1;
+}
+
+
+.btn-eliminar{
+  background:#dc3545;
+  color:white;
+}
+
+.btn-eliminar:hover{
+  background:#b52a37;
+}
+
+.btn-ver{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:black;
+  color:white;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+.btn-ver:hover{
+  background:#333;
+}

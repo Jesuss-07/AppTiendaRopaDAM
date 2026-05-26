@@ -7,7 +7,7 @@ import { EditorClienteComponent } from './pages/usuario/editor-cliente/editor.co
 import { RegistroEmpresaComponent } from './pages/registrar/empresa/empresa.component';
 import { VendedorComponent } from './pages/registrar/vendedor/vendedor.component';
 import { EditorVendedorComponent } from './pages/usuario/editor-vendedor/editor.component';
-import { EmpresaComponent } from './pages/empresa/empresa.component';
+import { EmpresaComponent } from './pages/empresa/listado-empresas/empresa.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
