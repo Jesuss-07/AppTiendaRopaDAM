@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -11,7 +12,8 @@ import { CommonModule } from '@angular/common';
     standalone: true,
     imports: [
         RouterLink,
-        CommonModule
+        CommonModule,
+        RouterModule
     ]
 })
 

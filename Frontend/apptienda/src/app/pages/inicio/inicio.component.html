@@ -1,23 +1,17 @@
 <header class="header">
   <div class="header-left">
-    <span class="logo">Tienda Ropa</span>
-
+    <a class="logo" routerLink="/inicio">Tienda Ropa</a>
     <nav class="nav">
       <a class="nav-item" href="#">Mujer</a>
       <a class="nav-item" href="#">Hombre</a>
       <a class="nav-item" href="#">Niños</a>
-      <a class="nav-item" href="#">Añadir Producto</a>
+      <a class="nav-item" href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Añadir Producto</a>
 
 
     </nav>
   </div>
 
   <div class="header-right">
-    <!-- Buscador -->
-    <div class="search-container">
-      <input type="text" placeholder="Buscar productos..." class="search-input" />
-    </div>
-
     <!-- Usuario -->
     <div class="icon user-icon">
       <span class="icon-symbol">👤</span>
@@ -25,12 +19,16 @@
       <div class="user-menu">
         <a (click)="editarUser()">Editar usuario</a>
         <!-- Opciones de administración y ventas -->
-        <a routerLink="/producto" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
+        <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
         <!-- Solo mostrar para administradores -->
         <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
-        <a routerLink="/empresa" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
+        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
         <a (click)="logout()">Cerrar sesión</a>
       </div>
+    </div>
+
+    <div class="icon">
+      <span class="icon-symbol">🛒</span>
     </div>
   </div>
 </header>
