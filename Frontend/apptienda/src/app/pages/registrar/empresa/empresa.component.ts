@@ -4,13 +4,15 @@ import { FormsModule } from "@angular/forms";
 import { EmpresaService } from "../../../services/empresa.service";
 import { Router } from "@angular/router";
 import { AuthService } from "../../../services/auth.service";
+import { RouterModule } from "@angular/router";
 
 @Component({
     selector: "app-empresa",
     standalone: true,
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        RouterModule
     ],
     templateUrl: "./empresa.component.html",
     styleUrl: "./empresa.component.css",
@@ -46,6 +48,16 @@ export class RegistroEmpresaComponent {
                 console.error('Error en el registro:', err);
             }
         });
+    }
+
+    editarUser(): void {
+        if (this.rol === 'ADMINISTRADOR') {}
+        else if (this.rol === 'VENDEDOR') {
+        this.router.navigate(['/editor/vendedor']);
+        }
+        else if (this.rol === 'CLIENTE') {
+        this.router.navigate(['/editor/cliente']);
+        }
     }
 
     logout() {
