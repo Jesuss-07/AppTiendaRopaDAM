@@ -22,12 +22,12 @@
         <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
         <!-- Solo mostrar para administradores -->
         <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
-        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
+        <a href="/empresa" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
         <a (click)="logout()">Cerrar sesión</a>
       </div>
     </div>
 
-    <div class="icon">
+    <div class="icon" *ngIf="rol === 'CLIENTE'">
       <span class="icon-symbol">🛒</span>
     </div>
   </div>
