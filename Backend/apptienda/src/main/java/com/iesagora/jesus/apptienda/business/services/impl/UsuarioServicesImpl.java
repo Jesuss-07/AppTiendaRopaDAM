@@ -1,25 +1,31 @@
 package com.iesagora.jesus.apptienda.business.services.impl;
 
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.iesagora.jesus.apptienda.business.dto.EditarClienteDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarVendedorDTO;
+import com.iesagora.jesus.apptienda.business.dto.VistaVendedorDTO;
 import com.iesagora.jesus.apptienda.business.model.Cliente;
 import com.iesagora.jesus.apptienda.business.model.Usuario;
 import com.iesagora.jesus.apptienda.business.model.Vendedor;
 import com.iesagora.jesus.apptienda.business.repositories.UsuarioRepository;
+import com.iesagora.jesus.apptienda.business.repositories.VendedorRepository;
 import com.iesagora.jesus.apptienda.business.services.UsuarioServices;
 
 @Service
 public class UsuarioServicesImpl implements UsuarioServices{
 	
-	private final UsuarioRepository usuarioRepository;
-	private final PasswordEncoder passwordEncoder;
+	private final UsuarioRepository 	usuarioRepository;
+	private final VendedorRepository 	vendedorRepository;
+	private final PasswordEncoder 		passwordEncoder;
 	
-	public UsuarioServicesImpl(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
-		this.usuarioRepository = usuarioRepository;
-		this.passwordEncoder = passwordEncoder;
+	public UsuarioServicesImpl(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder, VendedorRepository vendedorRepository) {
+		this.usuarioRepository 	= usuarioRepository;
+		this.passwordEncoder 	= passwordEncoder;
+		this.vendedorRepository = vendedorRepository;
 	}
 
 	@Override
@@ -106,6 +112,22 @@ public class UsuarioServicesImpl implements UsuarioServices{
 		usuarioRepository.save(vendedor);
 		
 		return cargarVendedorDTO(vendedor);
+	}
+	
+	@Override
+	public List<VistaVendedorDTO> obtenerVendedoresCif(String cif) {
+		
+		List<Vendedor> vendedores = vendedorRepository.findByEmpresaCif(cif);
+		
+		return vendedores.stream().map(vendedor -> {
+			VistaVendedorDTO vendedorDTO = new VistaVendedorDTO();
+			
+			vendedorDTO.setNombre(vendedor.getNombre());
+			vendedorDTO.setApellido(vendedor.getApellido());
+			vendedorDTO.setEmailCorporativo(vendedor.getEmail());
+			
+			return vendedorDTO;
+		}).toList();
 	}
 	
 	

@@ -1,7 +1,10 @@
 package com.iesagora.jesus.apptienda.business.services;
 
+import java.util.List;
+
 import com.iesagora.jesus.apptienda.business.dto.EditarClienteDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarVendedorDTO;
+import com.iesagora.jesus.apptienda.business.dto.VistaVendedorDTO;
 
 public interface UsuarioServices {
 	
@@ -14,5 +17,7 @@ public interface UsuarioServices {
 	EditarClienteDTO actualizarCliente(Long id, EditarClienteDTO editarClienteDTO);
 	
 	EditarVendedorDTO actualizarVendedor(Long id, EditarVendedorDTO editarVendedorDTO);
+	
+	List<VistaVendedorDTO> obtenerVendedoresCif(String cif);
 
 }

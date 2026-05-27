@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.iesagora.jesus.apptienda.business.dto.ActualizarEmpresaDTO;
 import com.iesagora.jesus.apptienda.business.dto.EmpresaDTO;
 import com.iesagora.jesus.apptienda.business.dto.RegistroEmpresaDTO;
+import com.iesagora.jesus.apptienda.business.dto.VistaEmpresaDTO;
 import com.iesagora.jesus.apptienda.business.model.Empresa;
 import com.iesagora.jesus.apptienda.business.repositories.EmpresaRepository;
 import com.iesagora.jesus.apptienda.business.services.EmpresaServices;
@@ -75,6 +76,21 @@ public class EmpresaServicesImpl implements EmpresaServices{
 	public void borrarEmpresa(Long id) {
 		Empresa empresa = obtenerEmpresa(id); 		
 		empresaRepository.delete(empresa);
+	}
+	
+	@Override
+	public VistaEmpresaDTO obtenerVistaEmpresa(Long id) {
+		Empresa empresa = obtenerEmpresa(id); 	
+		VistaEmpresaDTO empresaDTO = new VistaEmpresaDTO();
+		
+		empresaDTO.setNombreEmpresa(empresa.getNombreEmpresa());
+		empresaDTO.setCif(empresa.getCif());
+		empresaDTO.setDireccionSede(empresa.getDireccionSede());
+		empresaDTO.setEmailContacto(empresa.getEmailContacto());
+		empresaDTO.setTelefonoContacto(empresa.getTelefonoContacto());
+		empresaDTO.setLogoEmpresa(empresa.getLogoEmpresa());
+		
+		return empresaDTO;
 	}
 	
 	
