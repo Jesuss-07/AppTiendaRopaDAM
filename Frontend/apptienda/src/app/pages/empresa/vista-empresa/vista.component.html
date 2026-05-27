@@ -1,0 +1,92 @@
+<header class="header">
+  <div class="header-left">
+    <a class="logo" routerLink="/inicio">Tienda Ropa</a>
+  </div>
+
+  <div class="header-right">
+    <!-- Usuario -->
+    <div class="icon user-icon">
+      <span class="icon-symbol">👤</span>
+
+      <div class="user-menu">
+        <a (click)="editarUser()">Editar usuario</a>
+        <!-- Opciones de administración y ventas -->
+        <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
+        <!-- Solo mostrar para administradores -->
+        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
+        <a href="/empresa" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
+        <a (click)="logout()">Cerrar sesión</a>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="content">
+  <ng-container *ngIf="loading; else contentTpl">
+    <div class="loading-box">
+      <p>Cargando datos de la empresa...</p>
+    </div>
+  </ng-container>
+  <ng-template #contentTpl>
+    <section class="empresa-card">
+      <div class="empresa-header">
+        <img
+          class="empresa-logo"
+          [src]="empresa?.logoEmpresa || 'https://placehold.co/200x200?text=Sin+Logo'"
+          alt="Logo empresa">
+        <div class="empresa-datos">
+
+          <h1>{{ empresa?.nombreEmpresa }}</h1>
+
+          <p><strong>CIF:</strong> {{ empresa?.cif }}</p>
+
+          <p><strong>Email:</strong> {{ empresa?.emailContacto }}</p>
+
+          <p><strong>Teléfono:</strong> {{ empresa?.telefonoContacto }}</p>
+
+          <p><strong>Dirección:</strong> {{ empresa?.direccionEmpresa }}</p>
+
+        </div>
+      </div>
+    </section>
+    <section class="vendedores-section">
+
+      <div class="section-header">
+        <h2>Vendedores</h2>
+      </div>
+
+      <div class="table-container">
+        <table class="tabla-vendedores">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Email</th>
+              <th *ngIf="isAdmin">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let vendedor of vendedores">
+              <td>{{ vendedor.nombre }}</td>
+              <td>{{ vendedor.apellido }}</td>
+              <td>{{ vendedor.emailCorporativo }}</td>
+              <td *ngIf="isAdmin" class="acciones">
+                <button
+                  class="btn-editar"
+                  (click)="editarVendedor(vendedor.emailCorporativo)">
+                  Editar
+                </button>
+
+                <button
+                  class="btn-bloquear"
+                  [disabled]="bloqueandoEmail === vendedor.emailCorporativo"
+                  (click)="bloquearVendedor(vendedor.emailCorporativo)">
+                  Bloquear
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </ng-template>
+</main>
