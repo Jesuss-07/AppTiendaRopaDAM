@@ -35,34 +35,55 @@ export class VistaEmpresaComponent {
         private router: Router
     ) {}
 
-    ngOnInit() {
+ngOnInit() {
 
-        this.rol = this.authService.getRol();
-        this.isAdmin = this.rol === 'ADMINISTRADOR';
-        this.route.paramMap.pipe(
+    this.rol = this.authService.getRol();
+    this.isAdmin = this.rol === 'ADMINISTRADOR';
 
-            switchMap(params => {
-                const id = Number(params.get('id'));
-                return this.empresaService.obtenerVistaEmpresa(id);
-            }),
-            tap(empresaData => {
-                this.empresa = empresaData;
-            }),
+    this.loading = true;
 
-            switchMap(empresaData =>
-                this.usuarioService.obtenerVendedoresPorEmpresa(empresaData.cif)
-            )
-        ).subscribe({
-            next: (vendedoresData) => {
-                this.vendedores = vendedoresData;
-                this.loading = false;
-            },
-            error: (err) => {
-                console.error('Error cargando datos:', err);
-                this.loading = false;
+    this.route.paramMap.pipe(
+
+        switchMap(params => {
+            const id = Number(params.get('id'));
+            return this.empresaService.obtenerVistaEmpresa(id);
+        }),
+
+        tap(empresaData => {
+            console.log('EMPRESA:', empresaData);
+            this.empresa = empresaData;
+        }),
+
+        switchMap(empresaData => {
+
+            if (!empresaData?.cif) {
+                console.error('ERROR: CIF NO EXISTE');
+                return [];
             }
-        });
-    }
+
+            return this.usuarioService.obtenerVendedoresPorEmpresa(
+                empresaData.cif
+            );
+        })
+
+    ).subscribe({
+
+        next: (vendedoresData: any) => {
+            this.vendedores = vendedoresData ?? [];
+            this.loading = false;
+        },
+
+        error: (err) => {
+            console.error('ERROR GLOBAL:', err);
+            this.loading = false;
+        },
+
+        complete: () => {
+            this.loading = false;
+        }
+
+    });
+}
 
     bloquearVendedor(email: string): void {
 
