@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { AuthService } from "../../../services/auth.service";
+import { RouterModule } from "@angular/router";
 @Component({
   selector: "app-editor-cliente",
   templateUrl: "./editor.component.html",
@@ -11,7 +12,8 @@ import { AuthService } from "../../../services/auth.service";
     standalone: true,
     imports: [
       FormsModule,
-      CommonModule
+      CommonModule,
+      RouterModule
     ]
 })
 export class EditorClienteComponent {
