@@ -25,6 +25,10 @@ export class UsuarioService {
     return this.http.get(`${this.apiUrl}/vendedor/me`);
   }
 
+  getAdministrador(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/administrador/me`);
+  }
+
   updateCliente(clienteDTO: EditarClienteDTO): Observable<any> {
     return this.http.put(
       `${this.apiUrl}/cliente/editar`,
