@@ -1,5 +1,4 @@
 export interface VistaEmpresaDTO {
-    id: number;
     nombreEmpresa: string;
     cif: string;
     emailContacto: string;
