@@ -35,11 +35,7 @@ public class UsuarioController {
 		System.out.println("Hola");
 		try {
 			
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			
-			Usuario usuario = (Usuario) auth.getPrincipal();
-			
-			Long id = usuario.getId(); 
+			Long id = obtenerId();
 			
 			System.out.println("Hola 2" + id);
 			
@@ -53,12 +49,8 @@ public class UsuarioController {
 	@PreAuthorize("hasRole('VENDEDOR')")
 	public ResponseEntity<?> getVendedor(){
 		try {
-			
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			
-			Usuario usuario = (Usuario) auth.getPrincipal();
-			
-			Long id = usuario.getId(); 
+						
+			Long id = obtenerId();
 			
 			System.out.println("Actualizar user");
 			
@@ -66,6 +58,20 @@ public class UsuarioController {
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}		
+	}
+	
+	@GetMapping("administrador/me")
+	@PreAuthorize("hasRole('ADMINISTRADOR')")
+	public ResponseEntity<?> getAdministrador(){
+		try {
+			
+			Long id = obtenerId();
+
+			return ResponseEntity.ok().body(usuarioServices.obtenerAdminDTO(id));
+			
+		}catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@GetMapping("/vendedores/empresa/{cif}")
@@ -123,6 +129,20 @@ public class UsuarioController {
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
+	}
+	
+	
+	/**
+	 * ============================
+	 *       MÉTODOS PRIVADOS
+	 * ============================
+	 */
+	
+	
+	private Long obtenerId() {
+ 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario usuario = (Usuario) auth.getPrincipal();		
+		return usuario.getId();
 	}
 	
 }

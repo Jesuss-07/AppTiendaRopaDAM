@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.iesagora.jesus.apptienda.business.dto.AdministradorDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarClienteDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarVendedorDTO;
 import com.iesagora.jesus.apptienda.business.dto.VistaVendedorDTO;
+import com.iesagora.jesus.apptienda.business.model.Administrador;
 import com.iesagora.jesus.apptienda.business.model.Cliente;
 import com.iesagora.jesus.apptienda.business.model.Usuario;
 import com.iesagora.jesus.apptienda.business.model.Vendedor;
@@ -129,6 +131,23 @@ public class UsuarioServicesImpl implements UsuarioServices{
 			
 			return vendedorDTO;
 		}).toList();
+	}
+	
+	@Override
+	public AdministradorDTO obtenerAdminDTO(Long id) {
+		
+		Usuario usuario = obtenerUsuarioId(id);
+		AdministradorDTO adminDTO = new AdministradorDTO();
+
+		if(!(usuario instanceof Administrador admin))
+			throw new IllegalStateException("El usuario no es un un Administrador");
+		
+		adminDTO.setNombre(admin.getNombre());
+		adminDTO.setApellido(admin.getApellido());
+		adminDTO.setEmail(admin.getEmail());
+		adminDTO.setTelefono(admin.getTelefono());
+
+		return adminDTO;
 	}
 	
 	
