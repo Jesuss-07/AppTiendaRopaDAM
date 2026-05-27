@@ -60,6 +60,16 @@ export class EmpresaComponent {
     this.router.navigate(['/empresa/vista', id]);
   }
 
+  editarUser(): void {
+    if (this.rol === 'ADMINISTRADOR') {}
+    else if (this.rol === 'VENDEDOR') {
+      this.router.navigate(['/editor/vendedor']);
+    }
+    else if (this.rol === 'CLIENTE') {
+      this.router.navigate(['/editor/cliente']);
+    }
+  }
+
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);

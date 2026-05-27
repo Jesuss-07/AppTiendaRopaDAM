@@ -1,6 +1,6 @@
 <header class="header">
   <div class="header-left">
-    <span class="logo">Tienda Ropa</span>
+    <a class="logo" routerLink="/inicio">Tienda Ropa</a>
   </div>
 
   <div class="header-right">
@@ -9,15 +9,17 @@
       <span class="icon-symbol">👤</span>
 
       <div class="user-menu">
-        <a (click)="logout()">Cerrar sesión</a>
+        <a (click)="editarUser()">Editar usuario</a>
         <!-- Opciones de administración y ventas -->
         <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
         <!-- Solo mostrar para administradores -->
         <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
+        <a href="/empresa" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
+        <a (click)="logout()">Cerrar sesión</a>
       </div>
     </div>
-    <!-- Carrito -->
-    <div class="icon">
+
+    <div class="icon" *ngIf="rol === 'CLIENTE'">
       <span class="icon-symbol">🛒</span>
     </div>
   </div>
