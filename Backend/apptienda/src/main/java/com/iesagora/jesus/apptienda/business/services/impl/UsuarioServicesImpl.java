@@ -125,6 +125,7 @@ public class UsuarioServicesImpl implements UsuarioServices{
 			vendedorDTO.setNombre(vendedor.getNombre());
 			vendedorDTO.setApellido(vendedor.getApellido());
 			vendedorDTO.setEmailCorporativo(vendedor.getEmail());
+			vendedorDTO.setTelefono(vendedor.getTelefono());
 			
 			return vendedorDTO;
 		}).toList();

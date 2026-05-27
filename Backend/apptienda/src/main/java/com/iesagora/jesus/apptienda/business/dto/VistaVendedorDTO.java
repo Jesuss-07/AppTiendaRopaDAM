@@ -16,5 +16,6 @@ public class VistaVendedorDTO {
 	private String nombre;
 	private String apellido;
 	private String emailCorporativo;
+	private String telefono;
 
 }
