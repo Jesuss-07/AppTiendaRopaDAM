@@ -4,6 +4,7 @@ import { environment } from "../core/config/environment";
 import { EmpresaDTO } from "../model/empresa.dto";
 import { Observable } from "rxjs";
 import { ActualizarEmpresaDTO } from "../model/actualizar-empresa.dto";
+import { VistaEmpresaDTO } from "../model/vista-empresa.dto";
 @Injectable({
     providedIn: 'root'
 })
@@ -23,6 +24,10 @@ export class EmpresaService {
 
     obtenerEmpresaPorId(id: number): Observable<ActualizarEmpresaDTO> {
         return this.http.get<ActualizarEmpresaDTO>(`${this.apiUrl}/${id}`);
+    }
+
+    obtenerVistaEmpresa(id: number): Observable<VistaEmpresaDTO> {
+        return this.http.get<VistaEmpresaDTO>(`${this.apiUrl}/vista/${id}`);
     }
 
     actualizarEmpresa(id: number, empresa: any) {

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../core/config/environment';
 import { Observable } from 'rxjs';
 import { EditarClienteDTO } from '../model/editar-cliente.dto';
+import { VistaVendedorDTO } from '../model/vista-vendedor.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +45,9 @@ export class UsuarioService {
     );
   }
 
-
+  obtenerVendedoresPorEmpresa(cif: string): Observable<VistaVendedorDTO[]> {
+    return this.http.get<VistaVendedorDTO[]>(
+        `${this.apiUrl}/vendedores/empresa/${cif}`
+    );
+  }
 }
