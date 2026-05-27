@@ -1,5 +1,7 @@
 package com.iesagora.jesus.apptienda.business.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.iesagora.jesus.apptienda.business.model.Vendedor;
@@ -7,5 +9,7 @@ import com.iesagora.jesus.apptienda.business.model.Vendedor;
 public interface VendedorRepository extends JpaRepository<Vendedor, Long>{
 
 	Vendedor findByEmail(String email);
+	
+	List<Vendedor> findByEmpresaCif(String cif);
 		
 }
