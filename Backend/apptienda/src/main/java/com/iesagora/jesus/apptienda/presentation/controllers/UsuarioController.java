@@ -3,9 +3,11 @@ package com.iesagora.jesus.apptienda.presentation.controllers;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,16 +29,8 @@ public class UsuarioController {
 		this.usuarioServices = usuarioServices;
 	}
 	
-	@PutMapping("/bloquear")
-	public ResponseEntity<?> bloquearUsuario(@RequestParam String email){
-		try {
-			return ResponseEntity.ok(Map.of("mensaje", usuarioServices.bloquearUsuario(email)));
-		}catch(Exception e){
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
-	
 	@GetMapping("/cliente/me")
+	@PreAuthorize("hasRole('CLIENTE')")
 	public ResponseEntity<?> getCliente(){
 		System.out.println("Hola");
 		try {
@@ -55,27 +49,8 @@ public class UsuarioController {
 		}		
 	}
 	
-	@PutMapping("/cliente/editar")
-	public ResponseEntity<?> setCliente(@RequestBody EditarClienteDTO clienteDTO){
-		try {
-			
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			
-			Usuario usuario = (Usuario) auth.getPrincipal();
-			
-			Long id = usuario.getId(); 
-			
-			System.out.println("Actualizar user");
-			
-			return ResponseEntity.ok(usuarioServices.actualizarCliente(id, clienteDTO));
-		}catch(Exception e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
-	
-	
-	
 	@GetMapping("/vendedor/me")
+	@PreAuthorize("hasRole('VENDEDOR')")
 	public ResponseEntity<?> getVendedor(){
 		try {
 			
@@ -93,7 +68,46 @@ public class UsuarioController {
 		}		
 	}
 	
+	@GetMapping("/vendedores/empresa/{cif}")
+	@PreAuthorize("hasAnyRole('ADMINISTRADOR','VENDEDOR')")
+	public ResponseEntity<?> listaVendedoresEmpresa(@PathVariable String cif){
+		try {
+			return ResponseEntity.ok().body(usuarioServices.obtenerVendedoresCif(cif));
+		}catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@PutMapping("/bloquear")
+	public ResponseEntity<?> bloquearUsuario(@RequestParam String email){
+		try {
+			return ResponseEntity.ok(Map.of("mensaje", usuarioServices.bloquearUsuario(email)));
+		}catch(Exception e){
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@PutMapping("/cliente/editar")
+	@PreAuthorize("hasRole('CLIENTE')")
+	public ResponseEntity<?> setCliente(@RequestBody EditarClienteDTO clienteDTO){
+		try {
+			
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			
+			Long id = usuario.getId(); 
+			
+			System.out.println("Actualizar user");
+			
+			return ResponseEntity.ok(usuarioServices.actualizarCliente(id, clienteDTO));
+		}catch(Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 	@PutMapping("/vendedor/editar")
+	@PreAuthorize("hasRole('VENDEDOR')")
 	public ResponseEntity<?> setVendedor(@RequestBody EditarVendedorDTO vendedorDTO){
 		try {
 			

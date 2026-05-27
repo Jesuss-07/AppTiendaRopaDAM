@@ -58,6 +58,16 @@ public class EmpresaController {
 		}
 	}
 	
+	@GetMapping("/vista/{id}")
+	@PreAuthorize("hasAnyRole('ADMINISTRADOR','VENDEDOR')")
+	public ResponseEntity<?> obtenerVistaEmpresa(@PathVariable Long id){
+		try {
+			return ResponseEntity.ok().body(empresaServices.obtenerVistaEmpresa(id));
+		}catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 	@PutMapping("/{id}")
 	@PreAuthorize("hasRole('ADMINISTRADOR')")
 	public ResponseEntity<?> actualizarEmpresa(@PathVariable Long id, @RequestBody ActualizarEmpresaDTO empresaDTO){
