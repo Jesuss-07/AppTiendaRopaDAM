@@ -56,6 +56,10 @@ export class EmpresaComponent {
     this.router.navigate(['/registro/empresa']);
   }
 
+  verEmpresa(id: number) {
+    this.router.navigate(['/empresa/vista', id]);
+  }
+
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
