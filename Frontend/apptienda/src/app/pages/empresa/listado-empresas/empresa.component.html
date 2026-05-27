@@ -14,7 +14,6 @@
         <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
         <!-- Solo mostrar para administradores -->
         <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
-        <a href="/empresa" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
         <a (click)="logout()">Cerrar sesión</a>
       </div>
     </div>

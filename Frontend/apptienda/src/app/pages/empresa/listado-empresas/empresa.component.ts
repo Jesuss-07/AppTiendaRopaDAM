@@ -5,6 +5,7 @@ import { AuthService } from '../../../services/auth.service';
 import { EmpresaService } from '../../../services/empresa.service';
 import { EmpresaDTO } from '../../../model/empresa.dto';
 import { Observable, BehaviorSubject, switchMap, tap } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-empresa',
@@ -12,7 +13,8 @@ import { Observable, BehaviorSubject, switchMap, tap } from 'rxjs';
   styleUrls: ['./empresa.component.css'],
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ]
 })
 export class EmpresaComponent {

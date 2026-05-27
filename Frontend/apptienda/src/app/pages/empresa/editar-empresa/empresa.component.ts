@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ActualizarEmpresaDTO } from '../../../model/actualizar-empresa.dto';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-empresa',
@@ -14,7 +15,8 @@ import { FormsModule } from '@angular/forms';
     standalone: true,
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        RouterModule
     ]
 })
 export class EditarEmpresaComponent {
@@ -52,6 +54,16 @@ export class EditarEmpresaComponent {
                 console.error('Error al actualizar la empresa:', err);
             }
         });
+    }
+
+    editarUser(): void {
+        if (this.rol === 'ADMINISTRADOR') {}
+        else if (this.rol === 'VENDEDOR') {
+        this.router.navigate(['/editor/vendedor']);
+        }
+        else if (this.rol === 'CLIENTE') {
+        this.router.navigate(['/editor/cliente']);
+        }
     }
 
     logout() {
