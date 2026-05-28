@@ -138,9 +138,6 @@ public class UsuarioServicesImpl implements UsuarioServices{
 		
 		Usuario usuario = obtenerUsuarioId(id);
 		EditarAdministradorDTO adminDTO = new EditarAdministradorDTO();
-
-		if(!"ADMINISTRADOR".equals(usuario.getRol()))
-			throw new IllegalStateException("El usuario no es un un Administrador");
 		
 		adminDTO.setNombre(usuario.getNombre());
 		adminDTO.setApellido(usuario.getApellido());
