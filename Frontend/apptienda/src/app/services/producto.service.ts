@@ -25,7 +25,6 @@ export class ProductoService {
     return this.http.get<EditarProductoDTO>(`${this.apiUrl}/obtener/${id}`);
   }
 
-  //METODO NO LISTO
   eliminarProducto(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/eliminar/${id}`);
   }
