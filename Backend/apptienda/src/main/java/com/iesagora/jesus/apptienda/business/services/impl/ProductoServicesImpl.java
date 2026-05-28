@@ -1,24 +1,30 @@
 package com.iesagora.jesus.apptienda.business.services.impl;
 
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.iesagora.jesus.apptienda.business.dto.CrearProductoDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarProductoDTO;
+import com.iesagora.jesus.apptienda.business.dto.ListarProductoDTO;
 import com.iesagora.jesus.apptienda.business.model.Producto;
 import com.iesagora.jesus.apptienda.business.model.Usuario;
 import com.iesagora.jesus.apptienda.business.model.Vendedor;
 import com.iesagora.jesus.apptienda.business.repositories.ProductoRepository;
+import com.iesagora.jesus.apptienda.business.repositories.VendedorRepository;
 import com.iesagora.jesus.apptienda.business.services.ProductoServices;
 
 @Service
 public class ProductoServicesImpl implements ProductoServices{
 	
 	private final ProductoRepository productoRepository;
+	private final VendedorRepository vendedorRepository;
 	
-	public ProductoServicesImpl(ProductoRepository productoRepository) {
+	public ProductoServicesImpl(ProductoRepository productoRepository, VendedorRepository vendedorRepository) {
 		this.productoRepository = productoRepository;
+		this.vendedorRepository = vendedorRepository;
 	}
 
 	@Override
@@ -58,6 +64,41 @@ public class ProductoServicesImpl implements ProductoServices{
 		return null;
 	}
 
+	@Override
+	public List<ListarProductoDTO> listarProductosPorVendedor(Long id) {
+		
+		Vendedor vendedor = vendedorRepository.findById(id)
+				.orElseThrow(() -> new IllegalStateException("No se encontro vendedor con id: " + id));
+						
+	    List<Producto> productos = productoRepository.findByEmpresa_IdEmpresa(vendedor.getEmpresa().getIdEmpresa());
+		
+		return productos.stream().map(this::convertirDTO).toList();
+	}
+	
+	
+	/**
+	 * ============================
+	 *       MÉTODOS PRIVADOS
+	 * ============================
+	 */
+	
+
+	private ListarProductoDTO convertirDTO(Producto producto) {
+		
+		ListarProductoDTO productoDTO = new ListarProductoDTO();
+		
+		productoDTO.setIdProducto(producto.getIdProducto());
+		productoDTO.setNombreProducto(producto.getNombreProducto());
+		productoDTO.setPrecio(producto.getPrecio());
+		productoDTO.setStock(producto.getStock());
+		productoDTO.setTalla(producto.getTalla());
+		productoDTO.setColor(producto.getColor());
+		productoDTO.setCategoria(producto.getCategoria());
+		productoDTO.setImagenProducto(producto.getImagenProducto());
+		
+		return productoDTO;
+	}
+	
 }
 
 

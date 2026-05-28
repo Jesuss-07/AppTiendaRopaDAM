@@ -1,7 +1,10 @@
 package com.iesagora.jesus.apptienda.business.services;
 
+import java.util.List;
+
 import com.iesagora.jesus.apptienda.business.dto.CrearProductoDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarProductoDTO;
+import com.iesagora.jesus.apptienda.business.dto.ListarProductoDTO;
 
 public interface ProductoServices {
 	
@@ -10,5 +13,7 @@ public interface ProductoServices {
 	void eliminarProducto(Long id);
 	
 	EditarProductoDTO editarProducto();
+	
+	List<ListarProductoDTO> listarProductosPorVendedor(Long id);
 
 }
