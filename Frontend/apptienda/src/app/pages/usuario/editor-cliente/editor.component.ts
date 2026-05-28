@@ -88,16 +88,6 @@ export class EditorClienteComponent {
     });
   }
 
-
-
-  editarUsuario() {
-    if(this.rol === 'VENDEDOR') {
-      this.router.navigate(['/editor/vendedor']);
-    } else if(this.rol === 'CLIENTE') {
-      this.router.navigate(['/editor/cliente']);
-    }
-  }
-
   logout() {
     this.authServices.logout();
     this.router.navigate(['/login']);

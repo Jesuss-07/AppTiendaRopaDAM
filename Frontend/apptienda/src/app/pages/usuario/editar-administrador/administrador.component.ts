@@ -19,7 +19,7 @@ import { EditarAdministradorDTO } from "../../../model/editarr-administrador.dto
 })
 export class EditarAdministradorComponent {
 
-    admi: EditarAdministradorDTO = {
+    admin: EditarAdministradorDTO = {
         nombre: '',
         apellido: '',
         email: '',
@@ -40,8 +40,8 @@ export class EditarAdministradorComponent {
     cargarDatos() {
         this.usuarioService.getAdministrador().subscribe({
             next: (data) => {
-                Object.assign(this.admi, data);
-                console.log('Administrador cargado:', this.admi);
+                Object.assign(this.admin, data);
+                console.log('Administrador cargado:', this.admin);
             },
             error: (err) => {
                 console.error("Error al cargar los datos del administrador:", err);

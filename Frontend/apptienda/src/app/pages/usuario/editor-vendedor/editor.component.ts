@@ -71,19 +71,6 @@ export class EditorVendedorComponent {
       }
     });
   }
-
-  editarUsuario() {
-    if(this.rol === 'VENDEDOR') {
-      this.router.navigate(['/editor/vendedor']);
-    } else if(this.rol === 'CLIENTE') {
-      this.router.navigate(['/editor/cliente']);
-    }
-  }    
-    
-  logout() {
-    this.authServices.logout();
-    this.router.navigate(['/login']);
-  }
   
   validarPassword() {
     const pass = this.vendedor.password || "";
@@ -137,6 +124,11 @@ export class EditorVendedorComponent {
 
   tieneSimbolo(password: string) {
     return /[!@#$%^&*(),.?":{}|<>]/.test(password || '');
+  }
+
+  logout() {
+    this.authServices.logout();
+    this.router.navigate(['/login']);
   }
   
 }
