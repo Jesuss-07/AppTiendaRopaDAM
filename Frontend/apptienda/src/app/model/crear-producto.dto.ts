@@ -1,4 +1,6 @@
 import { Talla } from "./talla.enum";
+import { CategoriaRopa } from "./categoria.enum";
+
 export interface CrearProductoDTO {
 
     nombreProducto: string;
@@ -7,7 +9,7 @@ export interface CrearProductoDTO {
     stock: number;
     talla: Talla;    
     color: string;
-    categoria: string;
+    categoria: CategoriaRopa;
     imagenProducto: string;
 
 }
