@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class AdministradorDTO {
+public class EditarAdministradorDTO {
 	
 	private String 	nombre;
 	private String 	apellido;

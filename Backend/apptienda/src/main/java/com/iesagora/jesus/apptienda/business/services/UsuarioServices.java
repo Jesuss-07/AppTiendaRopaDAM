@@ -5,7 +5,7 @@ import java.util.List;
 import com.iesagora.jesus.apptienda.business.dto.EditarClienteDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarVendedorDTO;
 import com.iesagora.jesus.apptienda.business.dto.VistaVendedorDTO;
-import com.iesagora.jesus.apptienda.business.dto.AdministradorDTO;
+import com.iesagora.jesus.apptienda.business.dto.EditarAdministradorDTO;
 
 public interface UsuarioServices {
 	
@@ -21,6 +21,8 @@ public interface UsuarioServices {
 	
 	List<VistaVendedorDTO> obtenerVendedoresCif(String cif);
 	
-	AdministradorDTO obtenerAdminDTO(Long id);
+	EditarAdministradorDTO obtenerAdminDTO(Long id);
+	
+	EditarAdministradorDTO actualizarAdminDTO(Long id, EditarAdministradorDTO editarAdministradorDTO);
 
 }

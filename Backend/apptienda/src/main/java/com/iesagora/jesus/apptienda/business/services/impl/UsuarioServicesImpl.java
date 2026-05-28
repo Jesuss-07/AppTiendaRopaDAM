@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.iesagora.jesus.apptienda.business.dto.AdministradorDTO;
+import com.iesagora.jesus.apptienda.business.dto.EditarAdministradorDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarClienteDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarVendedorDTO;
 import com.iesagora.jesus.apptienda.business.dto.VistaVendedorDTO;
@@ -134,10 +134,10 @@ public class UsuarioServicesImpl implements UsuarioServices{
 	}
 	
 	@Override
-	public AdministradorDTO obtenerAdminDTO(Long id) {
+	public EditarAdministradorDTO obtenerAdminDTO(Long id) {
 		
 		Usuario usuario = obtenerUsuarioId(id);
-		AdministradorDTO adminDTO = new AdministradorDTO();
+		EditarAdministradorDTO adminDTO = new EditarAdministradorDTO();
 
 		if(!(usuario instanceof Administrador admin))
 			throw new IllegalStateException("El usuario no es un un Administrador");
@@ -148,6 +148,25 @@ public class UsuarioServicesImpl implements UsuarioServices{
 		adminDTO.setTelefono(admin.getTelefono());
 
 		return adminDTO;
+	}
+	
+	@Override
+	public EditarAdministradorDTO actualizarAdminDTO(Long id, EditarAdministradorDTO editarAdministradorDTO) {
+		Usuario usuario = obtenerUsuarioId(id);
+		
+		if(!(usuario instanceof Administrador admin))
+			throw new IllegalStateException("El usuario no es un un Administrador");
+
+		admin.setNombre(editarAdministradorDTO.getNombre());
+		admin.setApellido(editarAdministradorDTO.getApellido());
+		admin.setTelefono(editarAdministradorDTO.getTelefono());
+		validarEmail(editarAdministradorDTO.getEmail(), id);
+		admin.setEmail(editarAdministradorDTO.getEmail());
+		actualizarPassword(admin, editarAdministradorDTO.getPassword());
+		
+		usuarioRepository.save(admin);
+		
+		return cargarAdministradorDTO(admin);
 	}
 	
 	
@@ -184,6 +203,18 @@ public class UsuarioServicesImpl implements UsuarioServices{
 		vendedorDTO.setEmail(usuario.getEmail());
 		
 		return vendedorDTO;
+	}
+	
+	private EditarAdministradorDTO cargarAdministradorDTO(Administrador admin) {
+
+	    EditarAdministradorDTO adminDTO = new EditarAdministradorDTO();
+
+	    adminDTO.setNombre(admin.getNombre());
+	    adminDTO.setApellido(admin.getApellido());
+	    adminDTO.setEmail(admin.getEmail());
+	    adminDTO.setTelefono(admin.getTelefono());
+
+	    return adminDTO;
 	}
 
 	private Usuario obtenerUsuarioId(Long id) {

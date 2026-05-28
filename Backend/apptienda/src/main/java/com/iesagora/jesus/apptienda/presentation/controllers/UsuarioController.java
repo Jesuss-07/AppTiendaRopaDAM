@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.iesagora.jesus.apptienda.business.dto.EditarAdministradorDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarClienteDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarVendedorDTO;
 import com.iesagora.jesus.apptienda.business.model.Usuario;
@@ -98,11 +99,7 @@ public class UsuarioController {
 	public ResponseEntity<?> setCliente(@RequestBody EditarClienteDTO clienteDTO){
 		try {
 			
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			
-			Usuario usuario = (Usuario) auth.getPrincipal();
-			
-			Long id = usuario.getId(); 
+			Long id = obtenerId(); 
 			
 			System.out.println("Actualizar user");
 			
@@ -117,12 +114,8 @@ public class UsuarioController {
 	public ResponseEntity<?> setVendedor(@RequestBody EditarVendedorDTO vendedorDTO){
 		try {
 			
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			
-			Usuario usuario = (Usuario) auth.getPrincipal();
-			
-			Long id = usuario.getId(); 
-			
+			Long id = obtenerId(); 
+					
 			System.out.println("Actualizar user");
 			
 			return ResponseEntity.ok(usuarioServices.actualizarVendedor(id, vendedorDTO));
@@ -130,6 +123,22 @@ public class UsuarioController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	@PutMapping("/administrador/editar")
+	@PreAuthorize("hasRole('ADMINISTRADOR')")
+	public ResponseEntity<?> setAdministrador(@RequestBody EditarAdministradorDTO administradorDTO){
+		try {
+			
+			Long id = obtenerId(); 
+
+			System.out.println("Actualizar user");
+			return ResponseEntity.ok().body(usuarioServices.actualizarAdminDTO(id, administradorDTO));
+			
+		}catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 	
 	
 	/**
