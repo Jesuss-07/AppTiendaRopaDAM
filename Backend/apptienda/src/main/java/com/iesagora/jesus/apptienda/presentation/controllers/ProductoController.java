@@ -5,12 +5,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iesagora.jesus.apptienda.business.dto.CrearProductoDTO;
+import com.iesagora.jesus.apptienda.business.dto.EditarProductoDTO;
 import com.iesagora.jesus.apptienda.business.model.Usuario;
 import com.iesagora.jesus.apptienda.business.services.ProductoServices;
 
@@ -42,6 +45,16 @@ public class ProductoController {
 	public ResponseEntity<?> listarProductoVendedor(){
 		try {
 			return ResponseEntity.ok().body(productoServices.listarProductosPorVendedor(obtenerId()));
+		}catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@PutMapping("/editar/{id}")
+	@PreAuthorize("hasAnyRole('ADMINISTRADOR','VENDEDOR')")
+	public ResponseEntity<?> editarProducto(@PathVariable Long id, @RequestBody EditarProductoDTO productoDTO){
+		try {
+			return ResponseEntity.ok().body(productoServices.editarProducto(id, productoDTO));
 		}catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}

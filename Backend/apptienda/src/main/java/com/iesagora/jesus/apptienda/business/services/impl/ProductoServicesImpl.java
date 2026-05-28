@@ -59,9 +59,21 @@ public class ProductoServicesImpl implements ProductoServices{
 	}
 
 	@Override
-	public EditarProductoDTO editarProducto() {
-		// TODO Auto-generated method stub
-		return null;
+	public EditarProductoDTO editarProducto(Long id, EditarProductoDTO productoDTO) {
+		Producto producto = obtenerProducto(id);
+		
+        producto.setNombreProducto(productoDTO.getNombreProducto());
+        producto.setDescripcion(productoDTO.getDescripcion());
+        producto.setPrecio(productoDTO.getPrecio());
+        producto.setStock(productoDTO.getStock());
+        producto.setTalla(productoDTO.getTalla());
+        producto.setColor(productoDTO.getColor());
+        producto.setCategoria(productoDTO.getCategoria());
+        producto.setImagenProducto(productoDTO.getImagenProducto());	
+		
+		productoRepository.save(producto);
+        
+		return productoDTO;
 	}
 
 	@Override
@@ -97,6 +109,11 @@ public class ProductoServicesImpl implements ProductoServices{
 		productoDTO.setImagenProducto(producto.getImagenProducto());
 		
 		return productoDTO;
+	}
+	
+	private Producto obtenerProducto(Long id) {
+		return productoRepository.findById(id)
+				.orElseThrow(() -> new IllegalStateException("No se encontro producto con id: " + id));
 	}
 	
 }

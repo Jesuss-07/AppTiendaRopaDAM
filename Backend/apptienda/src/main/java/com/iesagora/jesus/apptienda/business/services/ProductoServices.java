@@ -12,7 +12,7 @@ public interface ProductoServices {
 	
 	void eliminarProducto(Long id);
 	
-	EditarProductoDTO editarProducto();
+	EditarProductoDTO editarProducto(Long id, EditarProductoDTO productoDTO);
 	
 	List<ListarProductoDTO> listarProductosPorVendedor(Long id);
 
