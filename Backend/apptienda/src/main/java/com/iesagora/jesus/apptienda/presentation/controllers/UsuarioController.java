@@ -61,12 +61,16 @@ public class UsuarioController {
 		}		
 	}
 	
-	@GetMapping("administrador/me")
+	@GetMapping("/administrador/me")
 	@PreAuthorize("hasRole('ADMINISTRADOR')")
 	public ResponseEntity<?> getAdministrador(){
 		try {
 			
-			Long id = obtenerId();
+	 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			Usuario usuario = (Usuario) auth.getPrincipal();		
+
+			
+			Long id = usuario.getId();
 
 			return ResponseEntity.ok().body(usuarioServices.obtenerAdminDTO(id));
 			
@@ -149,8 +153,10 @@ public class UsuarioController {
 	
 	
 	private Long obtenerId() {
+		
  		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuario = (Usuario) auth.getPrincipal();		
+
 		return usuario.getId();
 	}
 	
