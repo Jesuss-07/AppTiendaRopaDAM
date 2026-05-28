@@ -9,8 +9,7 @@
       <span class="icon-symbol">👤</span>
 
       <div class="user-menu">
-        <!-- Opciones de administración y ventas -->
-        <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
+        <a routerLink="/productos" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
         <!-- Solo mostrar para administradores -->
         <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
         <a (click)="paginaEmpresa()" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
