@@ -7,92 +7,140 @@ import { FormsModule } from "@angular/forms";
 import { EditarAdministradorDTO } from "../../../model/editarr-administrador.dto";
 
 @Component({
-    selector: "app-editar-administrador",
-    templateUrl: "./administrador.component.html",
-    styleUrls: ["./administrador.component.css"],
-    standalone: true,
-    imports: [
-        CommonModule, 
-        RouterModule,
-        FormsModule
-    ]
+  selector: "app-editar-administrador",
+  templateUrl: "./administrador.component.html",
+  styleUrls: ["./administrador.component.css"],
+  standalone: true,
+  imports: [CommonModule, RouterModule, FormsModule]
 })
 export class EditarAdministradorComponent {
 
-    admin: EditarAdministradorDTO = {
-        nombre: '',
-        apellido: '',
-        email: '',
-        password: '',
-        telefono: ''
+  admin: EditarAdministradorDTO = {
+    nombre: '',
+    apellido: '',
+    email: '',
+    telefono: '',
+    password: ''
+  };
+
+  rol: string | null = null;
+
+  password: string = "";
+  passwordConfirm: string = "";
+  passwordError: string = "";
+
+  constructor(
+    private usuarioService: UsuarioService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.rol = this.authService.getRol();
+    this.cargarDatos();
+  }
+
+  cargarDatos() {
+    this.usuarioService.getAdministrador().subscribe({
+      next: (data) => {
+          console.log("ADMIN RAW:", data);
+        Object.assign(this.admin, data);
+      },
+      error: (err) => {
+        console.error("Error al cargar admin:", err);
+      }
+    });
+  }
+
+  guardarDatos() {
+
+    if (this.passwordError) return;
+
+    const dto: any = {
+      nombre: this.admin.nombre,
+      apellido: this.admin.apellido,
+      email: this.admin.email,
+      telefono: this.admin.telefono
     };
 
-    rol: string | null = null;
-    passwordConfirm: string = '';
-    passwordError: string = "";
-
-    constructor(private usuarioService: UsuarioService, private authService: AuthService, private router: Router) {}
-    
-    ngOnInit() {
-        this.rol = this.authService.getRol();
+    // solo enviar password si realmente se escribió
+    if (this.password && this.password.length > 0) {
+      dto.password = this.password;
     }
 
-    cargarDatos() {
-        this.usuarioService.getAdministrador().subscribe({
-            next: (data) => {
-                Object.assign(this.admin, data);
-                console.log('Administrador cargado:', this.admin);
-            },
-            error: (err) => {
-                console.error("Error al cargar los datos del administrador:", err);
-            }
-        });
+    this.usuarioService.updateAdministrador(dto).subscribe({
+      next: () => {
+        alert("Administrador actualizado correctamente");
+        this.router.navigate(['/inicio']);
+      },
+      error: (err) => {
+        console.error(err);
+        alert("Error al guardar");
+      }
+    });
+  }
+
+  validarPassword() {
+
+    if (!this.password && !this.passwordConfirm) {
+      this.passwordError = "";
+      return;
     }
 
-    guardarDatos() {
-        if (this.passwordError) {
-            return;
-        }
-
-        
-
+    if (this.password !== this.passwordConfirm) {
+      this.passwordError = "Las contraseñas no coinciden";
+      return;
     }
 
-    paginaEmpresa(): void {
-        if (this.rol === 'ADMINISTRADOR') {
-        this.router.navigate(['/empresa']);
-        } else if (this.rol === 'VENDEDOR') {
-        this.irEmpresa();
-        }
+    const pass = this.password;
+
+    const valid =
+      this.tieneMinimo(pass) &&
+      this.tieneMayuscula(pass) &&
+      this.tieneMinuscula(pass) &&
+      this.tieneNumero(pass) &&
+      this.tieneSimbolo(pass);
+
+    if (!valid) {
+      this.passwordError = "La contraseña no cumple los requisitos";
+      return;
     }
 
-    irEmpresa(): void {
+    this.passwordError = "";
+  }
 
+  paginaEmpresa(): void {
+    if (this.rol === 'ADMINISTRADOR') {
+      this.router.navigate(['/empresa']);
+    } else if (this.rol === 'VENDEDOR') {
+      this.irEmpresa();
     }
+  }
 
-    logout() {
-        this.authService.logout();
-        this.router.navigate(['/login']);
-    }
+  irEmpresa(): void {}
 
-    tieneMinimo(password: string) {
-        return password?.length >= 8;
-    }
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 
-    tieneMayuscula(password: string) {
-        return /[A-Z]/.test(password || '');
-    }
+  tieneMinimo(p: string) {
+    return (p || '').length >= 8;
+  }
 
-    tieneMinuscula(password: string) {
-        return /[a-z]/.test(password || '');
-    }
+  tieneMayuscula(p: string) {
+    return /[A-Z]/.test(p || '');
+  }
 
-    tieneNumero(password: string) {
-        return /[0-9]/.test(password || '');
-    }
+  tieneMinuscula(p: string) {
+    return /[a-z]/.test(p || '');
+  }
 
-    tieneSimbolo(password: string) {
-        return /[!@#$%^&*(),.?":{}|<>]/.test(password || '');
-    }
+  tieneNumero(p: string) {
+    return /[0-9]/.test(p || '');
+  }
 
+  tieneSimbolo(p: string) {
+    return /[!@#$%^&*(),.?":{}|<>]/.test(p || '');
+  }
 }

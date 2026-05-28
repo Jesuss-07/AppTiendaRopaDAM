@@ -23,3 +23,68 @@
     </div>
   </div>
 </header>
+<main class="content">
+  <div class="form-container">
+    <h2>Editar administrador</h2>
+
+    <form (ngSubmit)="guardarDatos()" #form="ngForm">
+
+      <div class="grid">
+
+        <div class="input-group">
+          <label>Nombre</label>
+          <input type="text" [(ngModel)]="admin.nombre" name="nombre" required>
+        </div>
+
+        <div class="input-group">
+          <label>Apellido</label>
+          <input type="text" [(ngModel)]="admin.apellido" name="apellido" required>
+        </div>
+
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" [(ngModel)]="admin.email" name="email" required>
+        </div>
+
+        <div class="input-group">
+          <label>Teléfono</label>
+          <input type="text" [(ngModel)]="admin.telefono" name="telefono">
+        </div>
+
+        <div class="input-group">
+          <label>Nueva contraseña</label>
+          <input type="password"
+                 [(ngModel)]="password"
+                 name="password"
+                 (input)="validarPassword()">
+
+          <div class="password-checks">
+            <p [class.ok]="tieneMinimo(password)">✔ Mínimo 8 caracteres</p>
+            <p [class.ok]="tieneMayuscula(password)">✔ Mayúscula</p>
+            <p [class.ok]="tieneMinuscula(password)">✔ Minúscula</p>
+            <p [class.ok]="tieneNumero(password)">✔ Número</p>
+            <p [class.ok]="tieneSimbolo(password)">✔ Símbolo</p>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Confirmar contraseña</label>
+          <input type="password"
+                 [(ngModel)]="passwordConfirm"
+                 name="passwordConfirm"
+                 (input)="validarPassword()">
+
+          <small class="error" *ngIf="passwordError">
+            {{ passwordError }}
+          </small>
+        </div>
+
+      </div>
+
+      <button type="submit" class="btn-primary">
+        Guardar cambios
+      </button>
+
+    </form>
+  </div>
+</main>

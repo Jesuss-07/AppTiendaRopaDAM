@@ -1,100 +1,56 @@
-/* ===== HEADER PRINCIPAL ===== */
+/* ===== HEADER ===== */
 .header {
   position: fixed;
-  top:0;
-  left:0;
-  right:0;
+  top: 0;
+  left: 0;
+  right: 0;
 
-  height:70px;
+  height: 70px;
 
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  padding:0 30px;
+  padding: 0 30px;
 
-  background:#fff;
-  border-bottom:1px solid #e6e6e6;
+  background: #fff;
+  border-bottom: 1px solid #e6e6e6;
 
-  z-index:1000;
-  box-sizing:border-box;
+  z-index: 1000;
+  box-sizing: border-box;
 
   font-family: Arial, sans-serif;
 }
 
-/* ===== LADO IZQUIERDO ===== */
 .header-left {
   display: flex;
   align-items: center;
-  gap: 35px;
 }
 
-.logo{
-  font-size:22px;
-  font-weight:bold;
-  cursor:pointer;
-  text-decoration:none;
-  color:black;
-}
-
-/* NAV */
-.nav {
-  display: flex;
-  gap: 20px;
-}
-
-.nav-item {
+.logo {
+  font-size: 22px;
+  font-weight: bold;
   text-decoration: none;
-  color: #000;
-  font-size: 16px;
-  position: relative;
+  color: black;
 }
 
-.nav-item:hover {
-  border-bottom: 2px solid #000;
-}
-
-/* ===== LADO DERECHO ===== */
 .header-right {
   display: flex;
   align-items: center;
   gap: 25px;
 }
 
-/* ===== BUSCADOR ===== */
-.search-container {
-  display: flex;
-  align-items: center;
-}
-
-.search-input {
-  padding: 6px 14px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  outline: none;
-  transition: 0.2s;
-  width: 180px;
-}
-
-.search-input:focus {
-  border-color: #000;
-  width: 200px;
-}
-
-/* ===== ICONOS ===== */
+/* ===== USER ===== */
 .icon {
   position: relative;
   cursor: pointer;
   font-size: 22px;
 }
 
-.icon-symbol {
-  display: inline-block;
-}
-
-/* ===== MENÚ USUARIO ===== */
 .user-icon {
-  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
 }
 
 .user-menu {
@@ -109,46 +65,95 @@
 
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   min-width: 160px;
-  overflow: hidden;
+  z-index: 1000;
 }
 
 .user-menu a {
   display: block;
   padding: 10px 12px;
   text-decoration: none;
-  color: #000;
+  color: black;
   font-size: 14px;
 }
 
-.user-icon {
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: 10px;
+.user-icon:hover .user-menu {
+  display: block;
 }
 
-/* área "segura" para mantener hover */
-.user-menu {
-  display: none;
-  position: absolute;
-  top: 35px;
-  right: 0;
+/* ===== CONTENT ===== */
+.content {
+  padding: 120px 20px 40px;
+  display: flex;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 850px;
 
   background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  min-width: 160px;
+  padding: 40px;
+  border-radius: 16px;
 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  z-index: 1000;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
 }
 
-/* clave: hover en todo el bloque */
-.user-icon:hover .user-menu {
-  display: block;
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
-/* mostrar menú */
-.user-icon:hover .user-menu {
-  display: block;
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+input:focus {
+  border-color: #000;
+}
+
+.btn-primary {
+  margin-top: 30px;
+  width: 100%;
+  padding: 14px;
+
+  background: #111;
+  color: white;
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 17px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #333;
+}
+
+.password-checks {
+  font-size: 12px;
+  color: #777;
+}
+
+.password-checks p.ok {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.error {
+  color: #d9534f;
+  font-size: 13px;
 }
