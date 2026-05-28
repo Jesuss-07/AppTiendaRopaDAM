@@ -2,6 +2,7 @@ package com.iesagora.jesus.apptienda.business.dto;
 
 import java.math.BigDecimal;
 
+import com.iesagora.jesus.apptienda.business.model.CategoriaRopa;
 import com.iesagora.jesus.apptienda.business.model.Talla;
 
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ public class CrearProductoDTO {
     private Integer stock;
     private Talla talla;    
     private String color;
-    private String categoria;
+    private CategoriaRopa categoria;
     private String imagenProducto;
 
 }

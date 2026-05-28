@@ -51,7 +51,9 @@ public class Producto {
     @Enumerated(EnumType.STRING)
     private Talla talla;    
     private String color;
-    private String categoria;
+    
+    @Enumerated(EnumType.STRING)
+    private CategoriaRopa categoria;
 
     @Column(name = "imagen_producto")
     private String imagenProducto;
