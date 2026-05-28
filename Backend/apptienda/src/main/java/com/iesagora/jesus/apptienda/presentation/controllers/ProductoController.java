@@ -62,9 +62,9 @@ public class ProductoController {
 	
 	@PutMapping("/editar/{id}")
 	@PreAuthorize("hasAnyRole('ADMINISTRADOR','VENDEDOR')")
-	public ResponseEntity<?> editarProducto(@PathVariable Long idEmpresa, @RequestBody EditarProductoDTO productoDTO){
+	public ResponseEntity<?> editarProducto(@PathVariable Long id, @RequestBody EditarProductoDTO productoDTO){
 		try {
-			return ResponseEntity.ok().body(productoServices.editarProducto(idEmpresa, productoDTO));
+			return ResponseEntity.ok().body(productoServices.editarProducto(id, productoDTO));
 		}catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
