@@ -66,11 +66,7 @@ public class UsuarioController {
 	public ResponseEntity<?> getAdministrador(){
 		try {
 			
-	 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			Usuario usuario = (Usuario) auth.getPrincipal();		
-
-			
-			Long id = usuario.getId();
+			Long id = obtenerId();
 
 			return ResponseEntity.ok().body(usuarioServices.obtenerAdminDTO(id));
 			
@@ -153,10 +149,8 @@ public class UsuarioController {
 	
 	
 	private Long obtenerId() {
-		
  		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuario = (Usuario) auth.getPrincipal();		
-
 		return usuario.getId();
 	}
 	
