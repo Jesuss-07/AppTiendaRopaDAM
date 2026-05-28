@@ -54,8 +54,10 @@ public class ProductoServicesImpl implements ProductoServices{
 
 	@Override
 	public void eliminarProducto(Long id) {
-		// TODO Auto-generated method stub
+		Producto producto = productoRepository.findById(id)
+				.orElseThrow(() -> new IllegalStateException("No se encuentra el producto con el id: " + id));
 		
+		productoRepository.delete(producto);
 	}
 	
 	@Override

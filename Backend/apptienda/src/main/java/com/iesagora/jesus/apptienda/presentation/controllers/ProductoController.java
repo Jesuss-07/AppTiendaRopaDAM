@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,6 +66,17 @@ public class ProductoController {
 	public ResponseEntity<?> editarProducto(@PathVariable Long id, @RequestBody EditarProductoDTO productoDTO){
 		try {
 			return ResponseEntity.ok().body(productoServices.editarProducto(id, productoDTO));
+		}catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@DeleteMapping("/eliminar/{id}")
+	@PreAuthorize("hasAnyRole('ADMINISTRADOR','VENDEDOR')")
+	public ResponseEntity<?> eliminarProducto(@PathVariable("id") Long id){
+		try {
+			productoServices.eliminarProducto(id);
+			return ResponseEntity.noContent().build();
 		}catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
