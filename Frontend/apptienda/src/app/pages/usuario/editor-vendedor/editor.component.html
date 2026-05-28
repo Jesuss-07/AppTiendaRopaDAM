@@ -4,22 +4,14 @@
   </div>
 
   <div class="header-right">
-    <!-- Usuario -->
     <div class="icon user-icon">
       <span class="icon-symbol">👤</span>
 
       <div class="user-menu">
-        <!-- Opciones de administración y ventas -->
-        <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
-        <!-- Solo mostrar para administradores -->
-        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
-        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
+        <a routerLink="/productos">Productos</a>
+        <a href="#" >Empresa</a>
         <a (click)="logout()">Cerrar sesión</a>
       </div>
-    </div>
-
-    <div class="icon" *ngIf="rol === 'CLIENTE'">
-      <span class="icon-symbol">🛒</span>
     </div>
   </div>
 </header>
