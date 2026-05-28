@@ -21,6 +21,10 @@ export class ProductoService {
     return this.http.put<EditarProductoDTO>(`${this.apiUrl}/editar/${id}`, productoDTO);
   }
 
+  obtenerProducto(id: number): Observable<EditarProductoDTO> {
+    return this.http.get<EditarProductoDTO>(`${this.apiUrl}/obtener/${id}`);
+  }
+
   //METODO NO LISTO
   eliminarProducto(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/eliminar/${id}`);
