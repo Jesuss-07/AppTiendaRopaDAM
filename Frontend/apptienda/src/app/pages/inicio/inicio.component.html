@@ -5,7 +5,7 @@
       <a class="nav-item" href="#">Mujer</a>
       <a class="nav-item" href="#">Hombre</a>
       <a class="nav-item" href="#">Niños</a>
-      <a class="nav-item" href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Añadir Producto</a>
+      <a routerLink="/registro/producto" class="nav-item" *ngIf="rol === 'VENDEDOR'">Añadir Producto</a>
 
 
     </nav>
