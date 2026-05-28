@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../core/config/environment';
 import { Observable } from 'rxjs';
+import { ListarProductosVendedorDTO } from '../model/Listar-productos-vendedor.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +25,8 @@ export class ProductoService {
     return this.http.delete(`${this.apiUrl}/eliminar/${id}`);
   }
 
-  //METODO NO LISTO
-  listarProductos(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/listar`);
+  listarProductos(): Observable<ListarProductosVendedorDTO[]> {
+    return this.http.get<ListarProductosVendedorDTO[]>(`${this.apiUrl}/listar`);
   }
 
 }
