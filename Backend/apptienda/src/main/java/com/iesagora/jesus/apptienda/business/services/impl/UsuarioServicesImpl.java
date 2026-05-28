@@ -9,7 +9,6 @@ import com.iesagora.jesus.apptienda.business.dto.EditarAdministradorDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarClienteDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarVendedorDTO;
 import com.iesagora.jesus.apptienda.business.dto.VistaVendedorDTO;
-import com.iesagora.jesus.apptienda.business.model.Administrador;
 import com.iesagora.jesus.apptienda.business.model.Cliente;
 import com.iesagora.jesus.apptienda.business.model.Usuario;
 import com.iesagora.jesus.apptienda.business.model.Vendedor;
@@ -151,19 +150,16 @@ public class UsuarioServicesImpl implements UsuarioServices{
 	public EditarAdministradorDTO actualizarAdminDTO(Long id, EditarAdministradorDTO editarAdministradorDTO) {
 		Usuario usuario = obtenerUsuarioId(id);
 		
-		if(!(usuario instanceof Administrador admin))
-			throw new IllegalStateException("El usuario no es un un Administrador");
-
-		admin.setNombre(editarAdministradorDTO.getNombre());
-		admin.setApellido(editarAdministradorDTO.getApellido());
-		admin.setTelefono(editarAdministradorDTO.getTelefono());
+		usuario.setNombre(editarAdministradorDTO.getNombre());
+		usuario.setApellido(editarAdministradorDTO.getApellido());
+		usuario.setTelefono(editarAdministradorDTO.getTelefono());
 		validarEmail(editarAdministradorDTO.getEmail(), id);
-		admin.setEmail(editarAdministradorDTO.getEmail());
-		actualizarPassword(admin, editarAdministradorDTO.getPassword());
+		usuario.setEmail(editarAdministradorDTO.getEmail());
+		actualizarPassword(usuario, editarAdministradorDTO.getPassword());
 		
-		usuarioRepository.save(admin);
+		usuarioRepository.save(usuario);
 		
-		return cargarAdministradorDTO(admin);
+		return cargarAdministradorDTO(usuario);
 	}
 	
 	
@@ -202,7 +198,7 @@ public class UsuarioServicesImpl implements UsuarioServices{
 		return vendedorDTO;
 	}
 	
-	private EditarAdministradorDTO cargarAdministradorDTO(Administrador admin) {
+	private EditarAdministradorDTO cargarAdministradorDTO(Usuario admin) {
 
 	    EditarAdministradorDTO adminDTO = new EditarAdministradorDTO();
 
