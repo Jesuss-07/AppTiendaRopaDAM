@@ -6,7 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.iesagora.jesus.apptienda.business.dto.CrearProductoDTO;
+import com.iesagora.jesus.apptienda.business.dto.ProductoDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarProductoDTO;
 import com.iesagora.jesus.apptienda.business.dto.ListarProductoDTO;
 import com.iesagora.jesus.apptienda.business.model.Producto;
@@ -28,7 +28,7 @@ public class ProductoServicesImpl implements ProductoServices{
 	}
 
 	@Override
-	public void crearProducto(CrearProductoDTO productoDTO) {
+	public void crearProducto(ProductoDTO productoDTO) {
 		
  		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuario = (Usuario) auth.getPrincipal();		
@@ -56,6 +56,25 @@ public class ProductoServicesImpl implements ProductoServices{
 	public void eliminarProducto(Long id) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public ProductoDTO obtenerProductoDTO(Long id) {
+		Producto producto = productoRepository.findById(id)
+				.orElseThrow(() -> new IllegalStateException("No se encuentra el producto con el id: " + id));
+		
+		ProductoDTO productoDTO = new ProductoDTO();
+		
+        productoDTO.setNombreProducto(producto.getNombreProducto());
+        productoDTO.setDescripcion(producto.getDescripcion());
+        productoDTO.setPrecio(producto.getPrecio());
+        productoDTO.setStock(producto.getStock());
+        productoDTO.setTalla(producto.getTalla());
+        productoDTO.setColor(producto.getColor());
+        productoDTO.setCategoria(producto.getCategoria());
+        productoDTO.setImagenProducto(producto.getImagenProducto());	
+		
+		return productoDTO;
 	}
 
 	@Override
@@ -115,6 +134,7 @@ public class ProductoServicesImpl implements ProductoServices{
 		return productoRepository.findById(id)
 				.orElseThrow(() -> new IllegalStateException("No se encontro producto con id: " + id));
 	}
+
 	
 }
 

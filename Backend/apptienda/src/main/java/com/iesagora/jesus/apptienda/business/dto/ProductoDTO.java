@@ -16,7 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CrearProductoDTO {
+public class ProductoDTO {
 	
     private String nombreProducto;
     private String descripcion;
