@@ -19,7 +19,7 @@
       <div class="user-menu">
         <a (click)="editarUser()">Editar usuario</a>
         <!-- Opciones de administración y ventas -->
-        <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
+        <a routerLink="/productos" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
         <a (click)="paginaEmpresa()" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Empresa</a>
         <!-- Solo mostrar para administradores -->
         <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
