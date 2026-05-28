@@ -57,7 +57,9 @@ export class EditarEmpresaComponent {
     }
 
     editarUser(): void {
-        if (this.rol === 'ADMINISTRADOR') {}
+        if (this.rol === 'ADMINISTRADOR') {
+        this.router.navigate(['/editor/administrador']);
+        }
         else if (this.rol === 'VENDEDOR') {
         this.router.navigate(['/editor/vendedor']);
         }

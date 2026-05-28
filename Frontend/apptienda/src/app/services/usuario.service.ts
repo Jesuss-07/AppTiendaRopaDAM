@@ -4,6 +4,7 @@ import { environment } from '../core/config/environment';
 import { Observable } from 'rxjs';
 import { EditarClienteDTO } from '../model/editar-cliente.dto';
 import { VistaVendedorDTO } from '../model/vista-vendedor.dto';
+import { EditarAdministradorDTO } from '../model/editarr-administrador.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,16 @@ export class UsuarioService {
     return this.http.put(
       `${this.apiUrl}/vendedor/editar`,
       vendedorDTO,
+      {
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+  }
+
+  updateAdministrador(administradorDTO: EditarAdministradorDTO): Observable<any> {
+    return this.http.put(
+      `${this.apiUrl}/administrador/editar`,
+      administradorDTO,
       {
         headers: { 'Content-Type': 'application/json' }
       }

@@ -1,14 +1,6 @@
 <header class="header">
   <div class="header-left">
     <a class="logo" routerLink="/inicio">Tienda Ropa</a>
-    <nav class="nav">
-      <a class="nav-item" href="#">Mujer</a>
-      <a class="nav-item" href="#">Hombre</a>
-      <a class="nav-item" href="#">Niños</a>
-      <a class="nav-item" href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Añadir Producto</a>
-
-
-    </nav>
   </div>
 
   <div class="header-right">
@@ -17,12 +9,11 @@
       <span class="icon-symbol">👤</span>
 
       <div class="user-menu">
-        <a (click)="editarUser()">Editar usuario</a>
         <!-- Opciones de administración y ventas -->
         <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
-        <a (click)="paginaEmpresa()" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Empresa</a>
         <!-- Solo mostrar para administradores -->
         <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
+        <a (click)="paginaEmpresa()" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
         <a (click)="logout()">Cerrar sesión</a>
       </div>
     </div>
@@ -32,7 +23,3 @@
     </div>
   </div>
 </header>
-
-<main class="content">
-  <h2>Productos</h2>
-</main>

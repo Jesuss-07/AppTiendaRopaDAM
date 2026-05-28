@@ -29,13 +29,27 @@ export class InicioComponent {
   }
 
   editarUser(): void {
-    if (this.rol === 'ADMINISTRADOR') {}
+    if (this.rol === 'ADMINISTRADOR') {
+      this.router.navigate(['/editor/administrador']);
+    }
     else if (this.rol === 'VENDEDOR') {
       this.router.navigate(['/editor/vendedor']);
     }
     else if (this.rol === 'CLIENTE') {
       this.router.navigate(['/editor/cliente']);
     }
+  }
+
+  paginaEmpresa(): void {
+    if (this.rol === 'ADMINISTRADOR') {
+      this.router.navigate(['/empresa']);
+    } else if (this.rol === 'VENDEDOR') {
+      this.irEmpresa();
+    }
+  }
+
+  irEmpresa(): void {
+
   }
 
   logout(){

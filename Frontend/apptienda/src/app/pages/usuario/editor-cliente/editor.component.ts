@@ -56,38 +56,37 @@ export class EditorClienteComponent {
   }
 
   guardarDatos() {
+    if (this.passwordError) 
+      return;
 
-  if (this.passwordError) 
-    return;
+    const dto: any = {
+      nombre: this.cliente.nombre ?? "",
+      apellido: this.cliente.apellido ?? "",
+      email: this.cliente.email ?? "",
+      telefono: this.cliente.telefono ?? "",
+      direccion1: this.cliente.direccion1 ?? "",
+      direccion2: this.cliente.direccion2 ?? "",
+      cp: this.cliente.cp ?? "",
+      pais: this.cliente.pais ?? "",
+      ciudad: this.cliente.ciudad ?? "",
+      provincia: this.cliente.provincia ?? ""
+    };
 
-  const dto: any = {
-    nombre: this.cliente.nombre ?? "",
-    apellido: this.cliente.apellido ?? "",
-    email: this.cliente.email ?? "",
-    telefono: this.cliente.telefono ?? "",
-    direccion1: this.cliente.direccion1 ?? "",
-    direccion2: this.cliente.direccion2 ?? "",
-    cp: this.cliente.cp ?? "",
-    pais: this.cliente.pais ?? "",
-    ciudad: this.cliente.ciudad ?? "",
-    provincia: this.cliente.provincia ?? ""
-  };
-
-  if (this.cliente.password) {
-    dto.password = this.cliente.password;
-  }
-
-  this.usuarioService.updateCliente(dto).subscribe({
-    next: () => {
-      alert("Datos guardados correctamente");
-      this.router.navigate(['/inicio']);
-    },
-    error: (err) => {
-      console.error("Error al guardar los datos del cliente:", err);
-      alert("Error al guardar los datos. Por favor, inténtalo de nuevo.");
+    if (this.cliente.password) {
+      dto.password = this.cliente.password;
     }
-  });
-}
+
+    this.usuarioService.updateCliente(dto).subscribe({
+      next: () => {
+        alert("Datos guardados correctamente");
+        this.router.navigate(['/inicio']);
+      },
+      error: (err) => {
+        console.error("Error al guardar los datos del cliente:", err);
+        alert("Error al guardar los datos. Por favor, inténtalo de nuevo.");
+      }
+    });
+  }
 
 
 
