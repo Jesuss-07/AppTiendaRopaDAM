@@ -12,6 +12,7 @@ import { EmpresaComponent } from './pages/empresa/listado-empresas/empresa.compo
 import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/empresa.component';
 import { VistaEmpresaComponent } from './pages/empresa/vista-empresa/vista.component';
 import { ProductoComponent } from './pages/registrar/producto/producto.component';
+import { ListarProductoComponent } from './pages/producto/listar-producto/producto.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -27,5 +28,6 @@ export const routes: Routes = [
     { path: 'empresa', component: EmpresaComponent },
     { path: 'empresa/editar/:id', component: EditarEmpresaComponent },
     { path: 'empresa/vista/:id', component: VistaEmpresaComponent },
+    { path: 'productos', component: ListarProductoComponent },
     { path: '', redirectTo: 'login' , pathMatch: 'full' }
 ];
