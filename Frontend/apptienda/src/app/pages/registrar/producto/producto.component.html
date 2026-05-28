@@ -1,0 +1,147 @@
+<header class="header">
+  <div class="header-left">
+    <a class="logo" routerLink="/inicio">Tienda Ropa</a>
+  </div>
+
+  <div class="header-right">
+    <div class="icon user-icon">
+      <span class="icon-symbol">👤</span>
+
+      <div class="user-menu">
+        <a (click)="editarUser()">Editar usuario</a>
+        <a (click)="paginaEmpresa()">Empresa</a>
+        <a (click)="logout()">Cerrar sesión</a>
+      </div>
+    </div>
+  </div>
+</header>
+<form class="producto-form" (ngSubmit)="crearProducto()" #form="ngForm">
+
+  <h2>Crear producto</h2>
+
+  <div class="form-group">
+    <label [class.error]="!producto.nombreProducto">
+      Nombre del producto 
+    </label>
+
+    <input
+      id="nombre"
+      type="text"
+      [(ngModel)]="producto.nombreProducto"
+      name="nombreProducto"
+      placeholder="Ej: Camiseta Oversize"
+      required/>
+
+  </div>
+
+  <div class="form-group">
+    <label>Descripción</label>
+
+    <textarea
+      id="descripcion"
+      [(ngModel)]="producto.descripcion"
+      name="descripcion"
+      placeholder="Describe el producto..."
+      rows="4">
+    </textarea>
+
+  </div>
+
+  <div class="form-row">
+
+    <div class="form-group">
+
+      <label [class.error]="producto.precio <= 0">
+        Precio
+      </label>
+
+      <input
+        id="precio"
+        type="number"
+        [(ngModel)]="producto.precio"
+        name="precio"
+        placeholder="0.00"
+        required/>
+
+    </div>
+
+    <div class="form-group">
+      <label [class.error]="producto.stock <= 0">
+        Stock
+      </label>
+
+      <input
+        id="stock"
+        type="number"
+        [(ngModel)]="producto.stock"
+        name="stock"
+        placeholder="0"
+        required/>
+
+    </div>
+
+  </div>
+
+  <div class="form-row">
+
+    <div class="form-group">
+      <label [class.error]="!producto.color">
+        Color
+      </label>
+
+      <input
+        id="color"
+        type="text"
+        [(ngModel)]="producto.color"
+        name="color"
+        placeholder="Negro"
+        required/>
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Talla</label>
+      <select
+        id="talla"
+        [(ngModel)]="producto.talla"
+        name="talla">
+        <option *ngFor="let t of Talla | keyvalue" [ngValue]="t.value">
+          {{ t.value }}
+        </option>
+      </select>
+
+    </div>
+
+    <div class="form-group">
+      <label>Categoría</label>
+
+      <select
+        id="categoria"
+        [(ngModel)]="producto.categoria"
+        name="categoria">
+        <option *ngFor="let c of CategoriaRopa | keyvalue" [ngValue]="c.value">
+          {{ c.value }}
+        </option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label>URL de imagen</label>
+
+    <input
+      id="imagen"
+      type="text"
+      [(ngModel)]="producto.imagenProducto"
+      name="imagen"
+      placeholder="https://imagen..."/>
+  </div>
+
+  <button type="submit" 
+    [disabled]=" !producto.nombreProducto || !producto.color || producto.precio <= 0 || producto.stock <= 0">
+    Crear producto
+  </button>
+
+</form>
