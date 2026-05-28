@@ -11,6 +11,7 @@ import { EditorVendedorComponent } from './pages/usuario/editor-vendedor/editor.
 import { EmpresaComponent } from './pages/empresa/listado-empresas/empresa.component';
 import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/empresa.component';
 import { VistaEmpresaComponent } from './pages/empresa/vista-empresa/vista.component';
+import { ProductoComponent } from './pages/registrar/producto/producto.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -18,6 +19,7 @@ export const routes: Routes = [
     { path: 'registro/cliente', component: ClienteComponent },
     { path: 'registro/vendedor', component: VendedorComponent },
     { path: 'registro/empresa', component: RegistroEmpresaComponent },
+    { path: 'registro/producto', component: ProductoComponent },
     { path: 'inicio', component: InicioComponent },
     { path: 'editor/cliente', component: EditorClienteComponent },
     { path: 'editor/vendedor', component: EditorVendedorComponent },
