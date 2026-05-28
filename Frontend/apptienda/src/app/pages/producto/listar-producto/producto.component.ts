@@ -1,0 +1,77 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
+import { ProductoService } from '../../../services/producto.service';
+import { ListarProductosVendedorDTO } from '../../../model/Listar-productos-vendedor.dto';
+
+import { Observable, BehaviorSubject, switchMap, tap } from 'rxjs';
+
+@Component({
+  selector: 'app-listar-producto',
+  templateUrl: './producto.component.html',
+  styleUrls: ['./producto.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule
+  ]
+})
+export class ListarProductoComponent implements OnInit {
+
+  private refresh$ = new BehaviorSubject<void>(undefined);
+
+  productos$: Observable<ListarProductosVendedorDTO[]> = this.refresh$.pipe(
+    switchMap(() => this.productoService.listarProductos()),
+    tap(() => this.cargando = false)
+  );
+
+  rol: string | null = null;
+  cargando = true;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private productoService: ProductoService
+  ) {}
+
+  ngOnInit() {
+    this.rol = this.authService.getRol();
+  }
+
+  editarProducto(id: number) {
+    this.router.navigate(['/producto/editar', id]);
+  }
+
+  borrarProducto(id: number) {
+    if (!confirm('¿Seguro que quieres eliminar este producto?')) return;
+
+    this.cargando = true;
+
+    this.productoService.eliminarProducto(id).subscribe({
+      next: () => this.refresh$.next(),
+      error: err => {
+        console.error(err);
+        this.cargando = false;
+      }
+    });
+  }
+
+  recargar() {
+    this.cargando = true;
+    this.refresh$.next();
+  }
+
+  editarUser() {
+    this.router.navigate(['/editor/vendedor']);
+  }
+
+  paginaEmpresa() {
+    this.router.navigate(['/empresa']);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+}

@@ -1,0 +1,103 @@
+<header class="header">
+  <div class="header-left">
+    <a class="logo" routerLink="/inicio">Tienda Ropa</a>
+  </div>
+
+  <div class="header-right">
+    <!-- Usuario -->
+    <div class="icon user-icon">
+      <span class="icon-symbol">👤</span>
+
+      <div class="user-menu">
+        <a (click)="editarUser()">Editar usuario</a>
+        <a (click)="paginaEmpresa()">Empresa</a>
+        <a (click)="logout()">Cerrar sesión</a>
+      </div>
+      
+    </div>
+  </div>
+</header>
+<main class="content">
+  <div class="page-header">
+    <h1>Mis productos</h1>
+
+    <button
+      class="btn-add"
+      routerLink="/registro/producto"
+    >
+      + Nuevo producto
+    </button>
+  </div>
+
+  <div *ngIf="cargando" class="loading">
+    <div class="spinner"></div>
+
+    <span>
+      Cargando productos...
+    </span>
+  </div>
+
+  <ng-container *ngIf="(productos$ | async) as productos">
+
+    <div *ngIf="!cargando && productos.length === 0"class="empty-state">
+      <h2>No tienes productos</h2>
+
+      <p>
+        Todavía no has añadido productos.
+      </p>
+    </div>
+
+    <div class="producto-grid">
+      <div class="producto-card" *ngFor="let producto of productos">
+        <div class="imagen-container">
+          <img
+            [src]="producto.imagenProducto || 'https://placehold.co/400x300?text=Sin+Imagen'"
+            alt="Producto"
+          >
+        </div>
+
+        <div class="producto-info">
+          <div class="producto-top">
+            <h3>
+              {{ producto.nombreProducto }}
+            </h3>
+
+            <span class="precio">
+              {{ producto.precio }} €
+            </span>
+          </div>
+
+          <div class="detalles">
+            <p><strong>Stock:</strong>
+              {{ producto.stock }}
+            </p>
+
+            <p><strong>Talla:</strong>
+              {{ producto.talla }}
+            </p>
+
+            <p><strong>Color:</strong>
+              {{ producto.color }}
+            </p>
+
+            <p><strong>Categoría:</strong>
+              {{ producto.categoria }}
+            </p>
+          </div>
+
+          <div class="acciones">
+            <button class="btn-editar"
+              (click)="editarProducto(producto.idProducto)">
+              Editar
+            </button>
+
+            <button class="btn-eliminar"
+              (click)="borrarProducto(producto.idProducto)">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</main>
