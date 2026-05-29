@@ -11,15 +11,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
-
+import com.iesagora.jesus.apptienda.business.dto.RegistroAdministradorDTO;
 import com.iesagora.jesus.apptienda.business.dto.RegistroClienteDTO;
 import com.iesagora.jesus.apptienda.business.dto.RegistroVendedorDTO;
 import com.iesagora.jesus.apptienda.business.dto.UsuarioDTO;
+import com.iesagora.jesus.apptienda.business.model.Administrador;
 import com.iesagora.jesus.apptienda.business.model.Cliente;
 import com.iesagora.jesus.apptienda.business.model.Empresa;
 import com.iesagora.jesus.apptienda.business.model.Rol;
 import com.iesagora.jesus.apptienda.business.model.Usuario;
 import com.iesagora.jesus.apptienda.business.model.Vendedor;
+import com.iesagora.jesus.apptienda.business.repositories.AdministradorRespository;
 import com.iesagora.jesus.apptienda.business.repositories.ClienteRepository;
 import com.iesagora.jesus.apptienda.business.repositories.EmpresaRepository;
 import com.iesagora.jesus.apptienda.business.repositories.UsuarioRepository;
@@ -30,10 +32,11 @@ import com.iesagora.jesus.apptienda.security.JwtUtils;
 @Service
 public class AuthServicesImpl implements AuthServices{
 	
-	private final UsuarioRepository 	usuarioRepository;
-	private final ClienteRepository 	clienteRepository;
-	private final VendedorRepository 	vendedorRepository;
-	private final EmpresaRepository		empresaRepository;
+	private final UsuarioRepository 		usuarioRepository;
+	private final ClienteRepository 		clienteRepository;
+	private final VendedorRepository 		vendedorRepository;
+	private final AdministradorRespository 	administradorRespository;
+	private final EmpresaRepository			empresaRepository;
 	
 	private PasswordEncoder passwordEncoder;
 	
@@ -43,12 +46,13 @@ public class AuthServicesImpl implements AuthServices{
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
-	public AuthServicesImpl(UsuarioRepository usuarioRepository, ClienteRepository clienteRepository, VendedorRepository vendedorRepository, EmpresaRepository empresaRepository, PasswordEncoder passwordEncoder) {
+	public AuthServicesImpl(UsuarioRepository usuarioRepository, ClienteRepository clienteRepository, VendedorRepository vendedorRepository, EmpresaRepository empresaRepository, PasswordEncoder passwordEncoder, AdministradorRespository 	administradorRespository) {
 		this.usuarioRepository = usuarioRepository;
 		this.clienteRepository = clienteRepository;
 		this.vendedorRepository = vendedorRepository;
 		this.empresaRepository = empresaRepository;
 		this.passwordEncoder = passwordEncoder;
+		this.administradorRespository = administradorRespository;
 	}
 
 
@@ -68,6 +72,15 @@ public class AuthServicesImpl implements AuthServices{
 		
 		Vendedor vendedor = crearVendedor(registroVendedorDTO);
 		vendedorRepository.save(vendedor);
+	}
+	
+	@Override
+	public void registroAdministrador(RegistroAdministradorDTO administradorDTO) {
+
+		validarUsuarioNoExiste(administradorDTO.getEmail());
+		
+		Administrador administrador = crearAdministrador(administradorDTO);
+		administradorRespository.save(administrador);
 	}
 
 	@Override
@@ -152,5 +165,20 @@ public class AuthServicesImpl implements AuthServices{
 		
 		return vendedor;
 	}
+	
+	private Administrador crearAdministrador(RegistroAdministradorDTO administradorDTO) {
+		
+		Administrador administrador = new Administrador();
+		
+		administrador.setNombre(administradorDTO.getNombre());
+		administrador.setApellido(administradorDTO.getApellido());
+		administrador.setEmail(administradorDTO.getEmail());
+		administrador.setTelefono(administradorDTO.getTelefono());
+		administrador.setEstadoUsuario(true);
+		administrador.setPassword(passwordEncoder.encode(administradorDTO.getPassword()));
+		administrador.setRol(Rol.ADMINISTRADOR);
 
+		return administrador;
+	}
+	
 }

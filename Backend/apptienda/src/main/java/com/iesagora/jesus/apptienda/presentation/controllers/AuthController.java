@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.iesagora.jesus.apptienda.business.dto.RegistroAdministradorDTO;
 import com.iesagora.jesus.apptienda.business.dto.RegistroClienteDTO;
 import com.iesagora.jesus.apptienda.business.dto.RegistroVendedorDTO;
 import com.iesagora.jesus.apptienda.business.dto.UsuarioDTO;
@@ -45,6 +46,16 @@ public class AuthController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		
+	}
+	
+	@PostMapping("/registro/administrador")
+	public ResponseEntity<?> registroAdministrador(@Valid @RequestBody RegistroAdministradorDTO administradorDTO){
+		try {
+			authServices.registroAdministrador(administradorDTO);
+			return ResponseEntity.status(201).build();
+		}catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@PostMapping("/login")
