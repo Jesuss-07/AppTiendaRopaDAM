@@ -14,6 +14,7 @@ import { VistaEmpresaComponent } from './pages/empresa/vista-empresa/vista.compo
 import { ProductoComponent } from './pages/registrar/producto/producto.component';
 import { ListarProductoComponent } from './pages/producto/listar-producto/producto.component';
 import { EditarProductoComponent } from './pages/producto/editar-producto/editar.component';
+import { DetalleComponent } from './pages/producto/detalle-producto/detalle.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -27,6 +28,7 @@ export const routes: Routes = [
     { path: 'editor/vendedor', component: EditorVendedorComponent },
     { path: 'editor/administrador', component: EditarAdministradorComponent },
     { path: 'producto/editar/:id', component: EditarProductoComponent },
+    { path: 'producto/detalle/:id', component: DetalleComponent },
     { path: 'empresa', component: EmpresaComponent },
     { path: 'empresa/editar/:id', component: EditarEmpresaComponent },
     { path: 'empresa/vista/:id', component: VistaEmpresaComponent },

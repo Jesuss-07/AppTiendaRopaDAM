@@ -32,7 +32,30 @@
     </div>
   </div>
 </header>
-
 <main class="content">
-  <h2>Productos</h2>
+
+  <h2 class="titulo">Productos</h2>
+
+  <div class="grid-productos">
+
+  <div class="card" *ngFor="let p of productos || []">
+      <div class="img-container">
+        <img [src]="p.imagenProducto || 'https://placehold.co/400x300?text=Sin+Imagen'" [alt]="p.nombreProducto" />      
+      </div>
+
+      <div class="info">
+        <p class="marca">{{ p.categoria }}</p>
+        <h3 class="nombre">{{ p.nombreProducto }}</h3>
+
+        <div class="precio">
+          <span class="actual">{{ p.precio }} €</span>
+        </div>
+
+        <button class="btn" (click)="detalleProducto(p.idProducto)">Ver producto</button>
+      </div>
+
+    </div>
+
+  </div>
+
 </main>
