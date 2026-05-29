@@ -13,9 +13,11 @@ public interface ProductoServices {
 	void eliminarProducto(Long id);
 	
 	ProductoDTO obtenerProductoDTO(Long id);
-	
+		                     
 	EditarProductoDTO editarProducto(Long id, EditarProductoDTO productoDTO);
 	
 	List<ListarProductoDTO> listarProductosPorVendedor(Long id);
+	
+	List<ListarProductoDTO> listarProductos();
 
 }

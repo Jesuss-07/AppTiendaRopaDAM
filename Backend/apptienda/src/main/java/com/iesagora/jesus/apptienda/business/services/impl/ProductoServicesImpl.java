@@ -108,6 +108,12 @@ public class ProductoServicesImpl implements ProductoServices{
 		return productos.stream().map(this::convertirDTO).toList();
 	}
 	
+	@Override
+	public List<ListarProductoDTO> listarProductos() {
+	    List<Producto> productos = productoRepository.findAll();
+		return productos.stream().map(this::convertirDTO).toList();
+	}
+	
 	
 	/**
 	 * ============================

@@ -51,6 +51,16 @@ public class ProductoController {
 		}
 	}
 	
+	@GetMapping("/listar/productos")
+	@PreAuthorize("hasRole('ADMINISTRADOR')")
+	public ResponseEntity<?> listarProductos(){
+		try {
+			return ResponseEntity.ok().body(productoServices.listarProductos());
+		}catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 	@GetMapping("/obtener/{id}")
 	@PreAuthorize("hasAnyRole('ADMINISTRADOR','VENDEDOR')")
 	public ResponseEntity<?> obtenerProducto(@PathVariable Long id){
