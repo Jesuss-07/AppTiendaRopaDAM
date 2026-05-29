@@ -140,8 +140,22 @@
       placeholder="https://imagen..."/>
   </div>
 
-  <button type="submit" 
-    [disabled]=" !producto.nombreProducto || !producto.color || producto.precio <= 0 || producto.stock <= 0">
+  <div class="form-group" *ngIf="rol === 'ADMINISTRADOR'">
+    <label [class.error]="!producto.cifEmpresa">
+      CIF
+    </label>
+
+    <input
+      id="cifEmpresa"
+      type="text"
+      [(ngModel)]="producto.cifEmpresa"
+      name="cifEmpresa"
+      placeholder="Ej: B12345678"
+      required/>
+  </div>
+
+  <button type="submit" [disabled]=" !producto.nombreProducto || !producto.color || producto.precio <= 0 || producto.stock <= 0 ||
+      (rol === 'ADMINISTRADOR' && !producto.cifEmpresa)">
     Crear producto
   </button>
 

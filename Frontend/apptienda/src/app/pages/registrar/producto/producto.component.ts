@@ -6,6 +6,7 @@ import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { ProductoService } from '../../../services/producto.service';
 import { CrearProductoDTO } from '../../../model/crear-producto.dto';
+import { CrearProductoAdminDTO } from '../../../model/crear-producto-admin.dto';
 import { Talla } from '../../../model/talla.enum';
 import { CategoriaRopa } from '../../../model/categoria.enum';
 
@@ -31,7 +32,8 @@ export class ProductoComponent {
         talla: Talla.S,
         color: '',
         categoria: CategoriaRopa.HOMBRE,
-        imagenProducto: ''
+        imagenProducto: '',
+        cifEmpresa: ''
     };
 
     Talla = Talla;
@@ -48,22 +50,34 @@ export class ProductoComponent {
     }
 
     crearProducto() {
-        if (!this.producto.nombreProducto || !this.producto.color || this.producto.precio <= 0 || this.producto.stock <= 0) {
+
+        const esAdmin = this.rol === 'ADMINISTRADOR';
+
+        if (
+            !this.producto.nombreProducto ||
+            !this.producto.color ||
+            this.producto.precio <= 0 ||
+            this.producto.stock <= 0 ||
+            (esAdmin && !this.producto.cifEmpresa)
+        ) {
             alert('Rellena todos los campos obligatorios correctamente');
             return;
         }
 
-        this.productoService.anadirProducto(this.producto).subscribe({
+        const request = esAdmin
+            ? this.productoService.anadirProductoAdmin(this.producto as CrearProductoAdminDTO)
+            : this.productoService.anadirProductoVendedor(this.producto as CrearProductoDTO);
+
+        request.subscribe({
             next: () => {
-            alert('Producto creado con éxito');
-            this.router.navigate(['/inicio']);
+                alert('Producto creado con éxito');
+                this.router.navigate(['/inicio']);
             },
             error: (err) => {
-            console.error('Error al crear producto', err);
-            alert('Error al crear producto');
+                console.error('Error al crear producto', err);
+                alert('Error al crear producto');
             }
         });
-
     }
 
     paginaEmpresa() {}
