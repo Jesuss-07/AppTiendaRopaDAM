@@ -74,7 +74,7 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/obtener/{id}")
-	@PreAuthorize("hasAnyRole('ADMINISTRADOR','VENDEDOR')")
+	@PreAuthorize("hasAnyRole('ADMINISTRADOR','VENDEDOR','CLIENTE')")
 	public ResponseEntity<?> obtenerProducto(@PathVariable Long id){
 	    try {
 	        return ResponseEntity.ok(productoServices.obtenerProductoDTO(id));
