@@ -25,6 +25,10 @@ export class ProductoService {
     return this.http.get<EditarProductoDTO>(`${this.apiUrl}/obtener/${id}`);
   }
 
+  listarTodosLosProductos(): Observable<ListarProductosVendedorDTO[]> {
+    return this.http.get<ListarProductosVendedorDTO[]>(`${this.apiUrl}//listar/productos`);
+  }
+
   eliminarProducto(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/eliminar/${id}`);
   }
