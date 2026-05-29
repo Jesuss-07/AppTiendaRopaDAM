@@ -11,5 +11,6 @@ export interface CrearProductoDTO {
     color: string;
     categoria: CategoriaRopa;
     imagenProducto: string;
+    cifEmpresa?: string;
 
 }
