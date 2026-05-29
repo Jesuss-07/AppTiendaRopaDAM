@@ -20,14 +20,19 @@ import { Observable, BehaviorSubject, switchMap, tap } from 'rxjs';
 export class ListarProductoComponent implements OnInit {
 
   private refresh$ = new BehaviorSubject<void>(undefined);
-
-  productos$: Observable<ListarProductosVendedorDTO[]> = this.refresh$.pipe(
-    switchMap(() => this.productoService.listarProductos()),
-    tap(() => this.cargando = false)
-  );
-
   rol: string | null = null;
   cargando = true;
+
+  productos$ = this.refresh$.pipe(
+    switchMap(() => {
+      if (this.rol === 'ADMINISTRADOR') {
+        return this.productoService.listarTodosLosProductos();
+      } else {
+        return this.productoService.listarProductos();
+      }
+    }),
+    tap(() => this.cargando = false)
+  );
 
   constructor(
     private authService: AuthService,
@@ -41,6 +46,7 @@ export class ListarProductoComponent implements OnInit {
 
   editarProducto(id: number) {
     this.router.navigate(['/producto/editar', id]);
+    this.refresh$.next();
   }
 
   borrarProducto(id: number) {
