@@ -64,7 +64,7 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/listar/productos")
-	@PreAuthorize("hasRole('ADMINISTRADOR')")
+	@PreAuthorize("hasAnyRole('ADMINISTRADOR','CLIENTE')")
 	public ResponseEntity<?> listarProductos(){
 		try {
 			return ResponseEntity.ok().body(productoServices.listarProductos());
@@ -72,18 +72,6 @@ public class ProductoController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
-	@GetMapping("/listar/clientes")
-	@PreAuthorize("hasRole('CLIENTE')")
-	public ResponseEntity<?> listarProductosCliente(){
-		try {
-			return ResponseEntity.ok().body(productoServices.listarProductos());
-		}catch (Exception e) {
-
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
-
 	
 	@GetMapping("/obtener/{id}")
 	@PreAuthorize("hasAnyRole('ADMINISTRADOR','VENDEDOR')")
