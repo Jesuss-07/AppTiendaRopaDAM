@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../core/config/environment';
 import { Observable } from 'rxjs';
 import { CrearProductoDTO } from '../model/crear-producto.dto';
+import { CrearProductoAdminDTO } from '../model/crear-producto-admin.dto';
 import { ListarProductosVendedorDTO } from '../model/Listar-productos-vendedor.dto';
 import { EditarProductoDTO } from '../model/editar-producto.dto';
 
@@ -13,8 +14,12 @@ export class ProductoService {
   private apiUrl = environment.productUrl;
   constructor(private http: HttpClient) {}
 
-  anadirProducto(producto: CrearProductoDTO): Observable<CrearProductoDTO> {
+  anadirProductoVendedor(producto: CrearProductoDTO): Observable<CrearProductoDTO> {
     return this.http.post<CrearProductoDTO>(`${this.apiUrl}/crear`, producto);
+  }
+
+  anadirProductoAdmin(producto: CrearProductoAdminDTO): Observable<CrearProductoAdminDTO> {
+    return this.http.post<CrearProductoAdminDTO>(`${this.apiUrl}/crear/admin`, producto);
   }
 
   editarProducto(id: number, productoDTO: EditarProductoDTO): Observable<EditarProductoDTO> {
@@ -26,7 +31,7 @@ export class ProductoService {
   }
 
   listarTodosLosProductos(): Observable<ListarProductosVendedorDTO[]> {
-    return this.http.get<ListarProductosVendedorDTO[]>(`${this.apiUrl}//listar/productos`);
+    return this.http.get<ListarProductosVendedorDTO[]>(`${this.apiUrl}/listar/productos`);
   }
 
   eliminarProducto(id: number): Observable<any> {
