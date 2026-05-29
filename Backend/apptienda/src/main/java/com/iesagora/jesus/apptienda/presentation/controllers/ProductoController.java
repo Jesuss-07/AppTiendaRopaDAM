@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.iesagora.jesus.apptienda.business.dto.ProductoDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarProductoDTO;
+import com.iesagora.jesus.apptienda.business.dto.ProductoAdministradorDTO;
 import com.iesagora.jesus.apptienda.business.model.Usuario;
 import com.iesagora.jesus.apptienda.business.services.ProductoServices;
 
@@ -35,6 +36,17 @@ public class ProductoController {
 			
 			productoServices.crearProducto(productoDTO);
 			
+			return ResponseEntity.status(201).build();
+		}catch (Exception e) {
+			return ResponseEntity.status(500).body(e.getMessage());
+		}
+	}
+	
+	@PostMapping("/crear/admin")
+	@PreAuthorize("hasRole('ADMINISTRADOR')")
+	public ResponseEntity<?> crearProducto(@RequestBody ProductoAdministradorDTO productoDTO){
+		try {
+			productoServices.crearProductoAdmin(productoDTO);
 			return ResponseEntity.status(201).build();
 		}catch (Exception e) {
 			return ResponseEntity.status(500).body(e.getMessage());

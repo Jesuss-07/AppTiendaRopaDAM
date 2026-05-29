@@ -9,9 +9,12 @@ import org.springframework.stereotype.Service;
 import com.iesagora.jesus.apptienda.business.dto.ProductoDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarProductoDTO;
 import com.iesagora.jesus.apptienda.business.dto.ListarProductoDTO;
+import com.iesagora.jesus.apptienda.business.dto.ProductoAdministradorDTO;
+import com.iesagora.jesus.apptienda.business.model.Empresa;
 import com.iesagora.jesus.apptienda.business.model.Producto;
 import com.iesagora.jesus.apptienda.business.model.Usuario;
 import com.iesagora.jesus.apptienda.business.model.Vendedor;
+import com.iesagora.jesus.apptienda.business.repositories.EmpresaRepository;
 import com.iesagora.jesus.apptienda.business.repositories.ProductoRepository;
 import com.iesagora.jesus.apptienda.business.repositories.VendedorRepository;
 import com.iesagora.jesus.apptienda.business.services.ProductoServices;
@@ -19,12 +22,14 @@ import com.iesagora.jesus.apptienda.business.services.ProductoServices;
 @Service
 public class ProductoServicesImpl implements ProductoServices{
 	
-	private final ProductoRepository productoRepository;
-	private final VendedorRepository vendedorRepository;
+	private final ProductoRepository 	productoRepository;
+	private final VendedorRepository 	vendedorRepository;
+	private final EmpresaRepository 	empresaRepository;
 	
-	public ProductoServicesImpl(ProductoRepository productoRepository, VendedorRepository vendedorRepository) {
+	public ProductoServicesImpl(ProductoRepository productoRepository, VendedorRepository vendedorRepository, EmpresaRepository empresaRepository) {
 		this.productoRepository = productoRepository;
 		this.vendedorRepository = vendedorRepository;
+		this.empresaRepository 	= empresaRepository;
 	}
 
 	@Override
@@ -52,6 +57,27 @@ public class ProductoServicesImpl implements ProductoServices{
         productoRepository.save(producto);
 	}
 
+	@Override
+	public void crearProductoAdmin(ProductoAdministradorDTO productoDTO) {
+		
+		Producto producto = new Producto();
+		
+		Empresa empresa = empresaRepository.findByCif(productoDTO.getCifEmpresa())
+				.orElseThrow(() -> new IllegalStateException("No existe ninguna empresa con ese CIF"));
+
+        producto.setEmpresa(empresa);
+        producto.setNombreProducto(productoDTO.getNombreProducto());
+        producto.setDescripcion(productoDTO.getDescripcion());
+        producto.setPrecio(productoDTO.getPrecio());
+        producto.setStock(productoDTO.getStock());
+        producto.setTalla(productoDTO.getTalla());
+        producto.setColor(productoDTO.getColor());
+        producto.setCategoria(productoDTO.getCategoria());
+        producto.setImagenProducto(productoDTO.getImagenProducto());
+        
+		productoRepository.save(producto);
+	}
+	
 	@Override
 	public void eliminarProducto(Long id) {
 		Producto producto = productoRepository.findById(id)

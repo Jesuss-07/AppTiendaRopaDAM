@@ -5,10 +5,13 @@ import java.util.List;
 import com.iesagora.jesus.apptienda.business.dto.ProductoDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarProductoDTO;
 import com.iesagora.jesus.apptienda.business.dto.ListarProductoDTO;
+import com.iesagora.jesus.apptienda.business.dto.ProductoAdministradorDTO;
 
 public interface ProductoServices {
 	
 	void crearProducto(ProductoDTO productoDTO);
+	
+	void crearProductoAdmin(ProductoAdministradorDTO productoDTO);
 	
 	void eliminarProducto(Long id);
 	
