@@ -4,8 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductoService } from '../../../services/producto.service';
 import { AuthService } from '../../../services/auth.service';
-import { ProductoDTO } from '../../../model/producto.dto';
-
+import { EditarProductoDTO } from '../../../model/editar-producto.dto';
 @Component({
   selector: 'app-detalle',
   templateUrl: './detalle.component.html',

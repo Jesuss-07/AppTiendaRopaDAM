@@ -31,7 +31,7 @@ export class ProductoService {
   }
 
   annadirPedido(idProducto: number, cantidad: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/pedido`, { idProducto, cantidad });
+    return this.http.post(`${this.apiUrl}/anadir/pedido`, { idProducto, cantidad });
   }
 
   listarTodosLosProductos(): Observable<ListarProductosVendedorDTO[]> {
