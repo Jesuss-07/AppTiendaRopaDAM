@@ -30,6 +30,10 @@ export class ProductoService {
     return this.http.get<EditarProductoDTO>(`${this.apiUrl}/obtener/${id}`);
   }
 
+  annadirPedido(idProducto: number, cantidad: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/pedido`, { idProducto, cantidad });
+  }
+
   listarTodosLosProductos(): Observable<ListarProductosVendedorDTO[]> {
     return this.http.get<ListarProductosVendedorDTO[]>(`${this.apiUrl}/listar/productos`);
   }

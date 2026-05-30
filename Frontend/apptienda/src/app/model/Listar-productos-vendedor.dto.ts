@@ -5,6 +5,7 @@ export interface ListarProductosVendedorDTO {
     stock: number;
     talla: string;
     color: string;
+    descripcion?: string;
     categoria: string;
     imagenProducto: string;
 }

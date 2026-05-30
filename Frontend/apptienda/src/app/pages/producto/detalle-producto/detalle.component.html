@@ -1,0 +1,65 @@
+<header class="header">
+  <div class="header-left">
+    <a class="logo" routerLink="/producto/detalle:p.id">Golden Thread</a>
+  </div>
+
+  <div class="header-right">
+
+    <div class="icon user-icon">
+      <span class="icon-symbol">👤</span>
+
+      <div class="user-menu">
+        <a (click)="editarUser()">Editar usuario</a>
+        <a routerLink="/productos" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
+        <a (click)="paginaEmpresa()" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Empresa</a>
+        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
+        <a (click)="logout()">Cerrar sesión</a>
+      </div>
+    </div>
+
+    <div class="icon" *ngIf="rol === 'CLIENTE'">
+      <span class="icon-symbol">🛒</span>
+    </div>
+
+  </div>
+</header>
+<main class="product-container">
+
+  <ng-container *ngIf="loading; else productoTemplate">
+    <p>Cargando producto...</p>
+  </ng-container>
+
+  <ng-template #productoTemplate>
+    <ng-container *ngIf="producto as p">
+
+      <div class="product-image">
+        <img [src]="p.imagenProducto || 'https://placehold.co/600x800?text=Sin+Imagen'" [alt]="p.nombreProducto">
+      </div>
+
+      <div class="product-info">
+
+        <h1 class="brand">{{ p.categoria }}</h1>
+        <h2 class="title">{{ p.nombreProducto }}</h2>
+
+        <div class="price">{{ p.precio }} €</div>
+
+        <p class="description">{{ p.descripcion }}</p>
+
+        <div class="section">
+          <h4>Color</h4>
+          <span>{{ p.color }}</span>
+        </div>
+
+        <div class="section">
+          <h4>Talla</h4>
+          <button>{{ p.talla }}</button>
+        </div>
+
+        <button class="btn-buy" *ngIf="rol === 'CLIENTE'" (click)="anadirAlCarrito(p.id)">
+          AÑADIR AL CARRITO
+        </button>
+
+      </div>
+    </ng-container>
+  </ng-template>
+</main>
