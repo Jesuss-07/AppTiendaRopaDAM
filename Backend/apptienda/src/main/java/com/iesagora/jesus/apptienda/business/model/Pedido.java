@@ -25,8 +25,6 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "PEDIDO")
-@PrimaryKeyJoinColumn(name = "id_pedido")
-
 public class Pedido {
 	
 	@Id
@@ -54,7 +52,7 @@ public class Pedido {
 	private String cpCliente;
 	
 	@Column(name = "ciudad_cliente")
-	private String ciduadCliente;
+	private String ciudadCliente;
 	
 	@Column(name = "provincia_cliente")
 	private String provinciaCliente;
