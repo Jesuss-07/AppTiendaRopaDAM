@@ -2,6 +2,7 @@ package com.iesagora.jesus.apptienda.business.services.impl;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -51,6 +52,8 @@ public class DetallePedidoServicesImpl implements DetallePedidoServices{
 	        detallePedido.setSubtotal(calcularSubtotal(detallePedido.getPrecioUnidad(), detallePedido.getCantidad()));
 
 	        detallePedidoRepository.save(detallePedido);
+	        
+	        
 		} else {
 			
 			DetallePedido detallePedido = new DetallePedido();
@@ -59,14 +62,22 @@ public class DetallePedidoServicesImpl implements DetallePedidoServices{
 			detallePedido.setIdProducto(idProducto);
 			detallePedido.setCantidad(cantidad);
 			
-			guardarPrecios(detallePedido, producto, cantidad);
+			guardarPrecios(detallePedido, producto);
 		}
 		
+		actualizarTotal(pedido.getIdPedido());
 	}
 
 	@Override
 	public void eliminarProducto(Long idDetalleProducto) {
-		detallePedidoRepository.deleteById(idDetalleProducto);
+	    DetallePedido detalle = detallePedidoRepository.findById(idDetalleProducto)
+	            .orElseThrow(() -> new IllegalStateException("No existe detalle"));
+
+	    Long idPedido = detalle.getIdPedido();
+
+	    detallePedidoRepository.delete(detalle);
+
+	    actualizarTotal(idPedido);		
 	}
 
 	@Override
@@ -76,9 +87,11 @@ public class DetallePedidoServicesImpl implements DetallePedidoServices{
 		
 		detallePedido.setCantidad(cantidad);
 				
-		detallePedido.setSubtotal(calcularSubtotal(detallePedido.getPrecioUnidad(), cantidad));
+		detallePedido.setSubtotal(calcularSubtotal(detallePedido.getPrecioUnidad(), detallePedido.getCantidad()));
 		
 		detallePedidoRepository.save(detallePedido);
+		
+		actualizarTotal(detallePedido.getIdPedido());
 	}
 	
 	
@@ -120,14 +133,29 @@ public class DetallePedidoServicesImpl implements DetallePedidoServices{
 				
 	}
 	
-	private void guardarPrecios(DetallePedido detallePedido, Producto producto, int cantidad) {
+	private void guardarPrecios(DetallePedido detallePedido, Producto producto) {
 		detallePedido.setPrecioUnidad(producto.getPrecio());
-		detallePedido.setSubtotal(calcularSubtotal(producto.getPrecio(), cantidad));
+		detallePedido.setSubtotal(calcularSubtotal(producto.getPrecio(), detallePedido.getCantidad()));
 		detallePedidoRepository.save(detallePedido);
 	}
 	
 	private BigDecimal calcularSubtotal (BigDecimal precio, int cantidad) {
 		return precio.multiply(BigDecimal.valueOf(cantidad));
+	}
+	
+	private void actualizarTotal(Long idPedido) {
+	    List<DetallePedido> detallePedido =
+	            detallePedidoRepository.findByIdPedido(idPedido);
+	    
+	    BigDecimal total = detallePedido.stream().map(DetallePedido::getSubtotal)
+	    											.reduce(BigDecimal.ZERO, BigDecimal::add);
+	    
+	    Pedido pedido = pedidoRepository.findById(idPedido)
+	            .orElseThrow(() -> new IllegalStateException("No existe el pedido"));	    
+	    
+	    pedido.setTotal(total);
+	    
+	    pedidoRepository.save(pedido);
 	}
 	
 }
