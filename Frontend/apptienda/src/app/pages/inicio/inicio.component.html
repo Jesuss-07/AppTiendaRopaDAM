@@ -2,12 +2,7 @@
   <div class="header-left">
     <a class="logo" routerLink="/inicio">Golden Thread</a>
     <nav class="nav">
-      <a class="nav-item" href="#">Mujer</a>
-      <a class="nav-item" href="#">Hombre</a>
-      <a class="nav-item" href="#">Niños</a>
       <a routerLink="/registro/producto" class="nav-item" *ngIf="rol === 'VENDEDOR'">Añadir Producto</a>
-
-
     </nav>
   </div>
 
