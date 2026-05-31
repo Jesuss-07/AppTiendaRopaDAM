@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarritoService } from '../../services/carrito.service';
-import { DetallePedidoDTO } from '../../model/detalle-pedido.dto';
 import { PedidoDTO } from '../../model/pedido.dto';
-import { ProductoCarritoDTO } from '../../model/producto-carrito.dto';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
