@@ -1,0 +1,20 @@
+<header class="header">
+  <div class="header-left">
+    <a class="logo" routerLink="/inicio">Golden Thread</a>
+  </div>
+
+  <div class="header-right">
+    <div class="icon user-icon">
+      <span class="icon-symbol">👤</span>
+
+      <div class="user-menu">
+        <a routerLink="/editor/cliente">Editar usuario</a>
+        <a (click)="logout()">Cerrar sesión</a>
+      </div>
+    </div>
+
+    <div routerLink="/carrito" class="icon">
+      <span class="icon-symbol">🛒</span>
+    </div>
+  </div>
+</header>
