@@ -1,4 +1,5 @@
 export interface EditarProductoDTO {
+    idProducto?: number;
     nombreProducto: string;
     descripcion: string;
     precio: number;
