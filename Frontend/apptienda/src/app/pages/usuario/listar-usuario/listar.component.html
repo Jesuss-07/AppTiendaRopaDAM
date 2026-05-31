@@ -1,0 +1,73 @@
+<header class="header">
+  <div class="header-left">
+    <a class="logo" routerLink="/usuarios">Golden Thread</a>
+  </div>
+
+  <div class="header-right">
+    <!-- Usuario -->
+    <div class="icon user-icon">
+      <span class="icon-symbol">👤</span>
+
+      <div class="user-menu">
+        <a routerLink="/editor/administrador">Editar usuario</a>
+        <!-- Opciones de administración y ventas -->
+        <a routerLink="/productos">Productos</a>
+        <a routerLink="/empresa">Empresa</a>
+        <!-- Solo mostrar para administradores -->
+        <a (click)="logout()">Cerrar sesión</a>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="usuarios-container">
+
+  <h2 class="titulo">Gestión de Usuarios</h2>
+
+  <table class="tabla-usuarios">
+
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let usuario of usuarios">
+
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.apellido }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>
+          <span class="badge" [ngClass]="usuario.rol.toLowerCase()">
+            {{ usuario.rol }}
+          </span>
+        </td>
+
+        <td class="acciones">
+
+          <button
+            class="btn-editar"
+            (click)="editarUser(usuario.id)">
+            Editar
+          </button>
+
+          <button
+            class="btn-eliminar"
+            (click)="eliminarUser(usuario.email)">
+            Eliminar
+          </button>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</main>
