@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { ProductoService } from '../../../services/producto.service';
-import { ListarProductosVendedorDTO } from '../../../model/Listar-productos-vendedor.dto';
+import { EmpresaService } from '../../../services/empresa.service';
 
 import { Observable, BehaviorSubject, switchMap, tap } from 'rxjs';
 
@@ -37,7 +37,8 @@ export class ListarProductoComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private productoService: ProductoService
+    private productoService: ProductoService,
+    private empresaService: EmpresaService
   ) {}
 
   ngOnInit() {
@@ -72,9 +73,25 @@ export class ListarProductoComponent implements OnInit {
     this.router.navigate(['/editor/vendedor']);
   }
 
-  paginaEmpresa() {
-    this.router.navigate(['/empresa']);
-  }
+    paginaEmpresa(): void {
+      if (this.rol === 'ADMINISTRADOR') {
+        this.router.navigate(['/empresa']);
+      } else if (this.rol === 'VENDEDOR') {
+        this.irEmpresa();
+      }
+    }
+
+    irEmpresa(): void {
+      this.empresaService.obtenerEmpresaPorIdVendedor().subscribe({
+        next: (idEmpresa) => {
+          console.log(idEmpresa);
+          this.router.navigate(['/empresa/vista', idEmpresa]);
+        },
+        error: (err) => {
+          console.error('Error al obtener empresa:', err);
+        }
+      });
+    }
 
   logout() {
     this.authService.logout();
