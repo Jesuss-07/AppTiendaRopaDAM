@@ -165,7 +165,7 @@ public class UsuarioServicesImpl implements UsuarioServices{
 	
 	@Override
 	public List<ListarUsuarioDTO> listarUsuarios() {
-		List<Usuario> usuarios = usuarioRepository.findAll(); 
+		List<Usuario> usuarios = usuarioRepository.findByEstadoUsuarioTrue();
 		return usuarios.stream().map(this::mapearListadoUser).toList();
 	}
 	
