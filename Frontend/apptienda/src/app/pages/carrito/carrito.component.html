@@ -41,6 +41,11 @@
         <div>Cantidad: {{ d.cantidad }}</div>
         <div>Precio: {{ d.precioUnidad }} €</div>
         <div class="subtotal">Subtotal: {{ d.subtotal }} €</div>
+
+        <button class="btn-eliminar" (click)="eliminar(d.idDetallePedidoDTO)">
+          Eliminar
+        </button>
+
       </div>
 
     </div>

@@ -52,6 +52,19 @@ export class CarritoComponent {
         });
     }
 
+    eliminar(idDetallePedido: number) {
+        this.carritoService.eliminarProducto(idDetallePedido).subscribe({
+            next: () => {
+                alert('Producto eliminado del carrito');
+                this.ngOnInit(); // Recargar el carrito
+            },
+            error: (err) => {
+                console.error('Error al eliminar el producto:', err);
+                alert('Error al eliminar el producto');
+            }
+        });
+    }
+
     logout() {
         this.authService.logout();
         this.router.navigate(['/login']);
