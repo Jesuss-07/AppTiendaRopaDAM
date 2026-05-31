@@ -85,6 +85,17 @@ public class UsuarioController {
 		}
 	}
 	
+	@GetMapping("/listar")
+	@PreAuthorize("hasRole('ADMINISTRADOR')")
+	public ResponseEntity<?> listarUsers(){
+		try {
+			return ResponseEntity.ok().body(usuarioServices.listarUsuarios());
+		}catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	
 	@PutMapping("/bloquear")
 	public ResponseEntity<?> bloquearUsuario(@RequestParam String email){
 		try {

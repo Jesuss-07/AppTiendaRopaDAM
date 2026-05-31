@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.iesagora.jesus.apptienda.business.dto.EditarAdministradorDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarClienteDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarVendedorDTO;
+import com.iesagora.jesus.apptienda.business.dto.ListarUsuarioDTO;
 import com.iesagora.jesus.apptienda.business.dto.VistaVendedorDTO;
 import com.iesagora.jesus.apptienda.business.model.Cliente;
 import com.iesagora.jesus.apptienda.business.model.Usuario;
@@ -162,6 +163,12 @@ public class UsuarioServicesImpl implements UsuarioServices{
 		return cargarAdministradorDTO(usuario);
 	}
 	
+	@Override
+	public List<ListarUsuarioDTO> listarUsuarios() {
+		List<Usuario> usuarios = usuarioRepository.findAll(); 
+		return usuarios.stream().map(this::mapearListadoUser).toList();
+	}
+	
 	
 	/**
 	 * ============================
@@ -227,6 +234,18 @@ public class UsuarioServicesImpl implements UsuarioServices{
 		if(usuario != null && !usuario.getId().equals(id))
 			throw new IllegalStateException("El email ya pertenece a otra persona");
 		
+	}
+	
+	private ListarUsuarioDTO mapearListadoUser(Usuario usuario) {
+		ListarUsuarioDTO usuarioDTO = new ListarUsuarioDTO();
+		
+		usuarioDTO.setId(usuario.getId());
+		usuarioDTO.setNombre(usuario.getNombre());
+		usuarioDTO.setApellido(usuario.getApellido());
+		usuarioDTO.setEmail(usuario.getEmail());
+		usuarioDTO.setRol(usuario.getRol());
+		
+		return usuarioDTO;
 	}
 	
 }

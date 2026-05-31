@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.iesagora.jesus.apptienda.business.dto.EditarClienteDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarVendedorDTO;
+import com.iesagora.jesus.apptienda.business.dto.ListarUsuarioDTO;
 import com.iesagora.jesus.apptienda.business.dto.VistaVendedorDTO;
 import com.iesagora.jesus.apptienda.business.dto.EditarAdministradorDTO;
 
@@ -24,5 +25,7 @@ public interface UsuarioServices {
 	EditarAdministradorDTO obtenerAdminDTO(Long id);
 	
 	EditarAdministradorDTO actualizarAdminDTO(Long id, EditarAdministradorDTO editarAdministradorDTO);
+	
+	List<ListarUsuarioDTO> listarUsuarios();
 	
 }
