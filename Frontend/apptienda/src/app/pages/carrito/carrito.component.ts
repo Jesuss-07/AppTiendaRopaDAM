@@ -56,7 +56,7 @@ export class CarritoComponent {
         this.carritoService.eliminarProducto(idDetallePedido).subscribe({
             next: () => {
                 alert('Producto eliminado del carrito');
-                this.ngOnInit(); // Recargar el carrito
+                this.ngOnInit();
             },
             error: (err) => {
                 console.error('Error al eliminar el producto:', err);
