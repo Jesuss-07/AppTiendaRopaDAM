@@ -26,6 +26,11 @@ export class EmpresaService {
         return this.http.get<ActualizarEmpresaDTO>(`${this.apiUrl}/${id}`);
     }
 
+    obtenerEmpresaPorIdVendedor(): Observable<number> {
+        return this.http.get<number>(`${this.apiUrl}/vendedor`);
+    }
+
+
     obtenerVistaEmpresa(id: number): Observable<VistaEmpresaDTO> {
         return this.http.get<VistaEmpresaDTO>(`${this.apiUrl}/vista/${id}`);
     }

@@ -13,7 +13,10 @@ import { VistaVendedorDTO } from "../../../model/vista-vendedor.dto";
     templateUrl: "./vista.component.html",
     styleUrls: ["./vista.component.css"],
     standalone: true,
-    imports: [CommonModule, RouterModule]
+    imports: [
+        CommonModule,
+         RouterModule
+    ]
 })
 export class VistaEmpresaComponent {
 

@@ -1,6 +1,6 @@
 <header class="header">
   <div class="header-left">
-    <a class="logo" routerLink="/inicio">Golden Thread</a>
+    <a class="logo" routerLink="/empresa/vista">Golden Thread</a>
   </div>
 
   <div class="header-right">
@@ -13,7 +13,7 @@
         <!-- Opciones de administración y ventas -->
         <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
         <!-- Solo mostrar para administradores -->
-        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
+        <a routerLink="/usuarios" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
         <a href="/empresa" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
         <a (click)="logout()">Cerrar sesión</a>
       </div>

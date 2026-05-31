@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { EmpresaService } from '../../services/empresa.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -25,10 +26,11 @@ import { ChangeDetectorRef } from '@angular/core';
     rol: string | null = null;
     productos: ListarProductosVendedorDTO[] = [];
 
-    constructor(private authService: AuthService, private router: Router, private productoService: ProductoService, private cdr: ChangeDetectorRef) {} 
+    constructor(private authService: AuthService, private router: Router, private productoService: ProductoService, private cdr: ChangeDetectorRef, private empresaService: EmpresaService) {} 
     
     ngOnInit(): void {
       this.rol = this.authService.getRol();
+      console.log(this.rol)
       this.cargarProductos();
       this.cdr.detectChanges();
     }
@@ -63,7 +65,15 @@ import { ChangeDetectorRef } from '@angular/core';
     }
 
     irEmpresa(): void {
-
+      this.empresaService.obtenerEmpresaPorIdVendedor().subscribe({
+        next: (idEmpresa) => {
+          console.log(idEmpresa);
+          this.router.navigate(['/empresa/vista', idEmpresa]);
+        },
+        error: (err) => {
+          console.error('Error al obtener empresa:', err);
+        }
+      });
     }
 
     editarUser(): void {
