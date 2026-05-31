@@ -76,7 +76,7 @@ public class PedidoServicesImpl implements PedidoServices{
 				.orElseThrow(() -> new IllegalStateException("No se encuentra ningun pedido activo para este usuario"));
 		
 		procesarPago(pedido);
-		
+		System.out.println("Pagado");
 		pedido.setEstadoPedido(EstadoPedido.PAGADO);
 		pedido.setFechaPedido(LocalDateTime.now());
 		
