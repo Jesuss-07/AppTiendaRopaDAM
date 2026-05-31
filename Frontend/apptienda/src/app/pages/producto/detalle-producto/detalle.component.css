@@ -160,6 +160,27 @@
   line-height: 1.5;
 }
 
+/* STOCK */
+
+.quantity-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.quantity-box input {
+  width: 70px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.stock {
+  font-size: 13px;
+  color: gray;
+}
+
 /* SECCIONES */
 .section h4 {
   margin-bottom: 8px;

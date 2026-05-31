@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ProductoService } from '../../../services/producto.service';
 import { AuthService } from '../../../services/auth.service';
 import { EditarProductoDTO } from '../../../model/editar-producto.dto';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-detalle',
   templateUrl: './detalle.component.html',
@@ -12,13 +13,15 @@ import { EditarProductoDTO } from '../../../model/editar-producto.dto';
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ]
 })
 export class DetalleComponent implements OnInit {
 
   rol: string | null = null;
   producto: EditarProductoDTO | null = null;
+  cantidad: number = 1;
   loading = true;
 
   constructor(private route: ActivatedRoute, private productoService: ProductoService, private authService: AuthService, private router: Router) {}
@@ -77,9 +80,9 @@ export class DetalleComponent implements OnInit {
     }
   }
 
-  anadirAlCarrito(id: number): void {
-    console.log('Añadiendo producto al carrito, ID:', id);
-
+  anadirAlCarrito(id: number, cantidad: number): void {
+    console.log('Añadiendo producto al carrito, ID:', id, 'Cantidad:', cantidad);
+    console.log(this.producto);
     this.router.navigate(['/inicio']);
   }
 

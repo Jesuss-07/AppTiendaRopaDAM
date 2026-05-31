@@ -45,6 +45,29 @@
 
         <p class="description">{{ p.descripcion }}</p>
 
+        <p class="description">{{ p.descripcion }}</p>
+
+        <div class="section quantity-section">
+          <h4>Cantidad</h4>
+
+          <div class="quantity-box">
+            <input
+              type="number"
+              min="1"
+              [max]="p.stock"
+              [(ngModel)]="cantidad"/>
+
+            <span class="stock">
+              Stock disponible: {{ p.stock }}
+            </span>
+          </div>
+        </div>
+
+        <div class="section">
+          <h4>Color</h4>
+          <span>{{ p.color }}</span>
+        </div>
+
         <div class="section">
           <h4>Color</h4>
           <span>{{ p.color }}</span>
@@ -55,7 +78,7 @@
           <button>{{ p.talla }}</button>
         </div>
 
-        <button class="btn-buy" *ngIf="rol === 'CLIENTE'">
+        <button (click)="anadirAlCarrito(p.idProducto!, cantidad)" class="btn-buy" *ngIf="rol === 'CLIENTE'">
           AÑADIR AL CARRITO
         </button>
 
