@@ -65,7 +65,7 @@ public class EmpresaController {
 	@PreAuthorize("hasRole('VENDEDOR')")
 	public ResponseEntity<?> obtenerEmpresaPorVendedor(){
 		try {
-			return ResponseEntity.ok().body(empresaServices.obtenerEmpresaVendedor(obtenerId()));
+			return ResponseEntity.ok().body(empresaServices.obtenerIdEmpresaVendedor(obtenerId()));
 		}catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
