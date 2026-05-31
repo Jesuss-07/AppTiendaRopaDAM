@@ -21,4 +21,6 @@ public interface EmpresaServices {
 	
 	VistaEmpresaDTO obtenerVistaEmpresa(Long id);
 	
+	Long obtenerIdEmpresaVendedor(Long id);
+	
 }

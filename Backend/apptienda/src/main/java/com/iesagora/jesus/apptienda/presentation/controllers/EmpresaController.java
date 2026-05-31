@@ -2,6 +2,8 @@ package com.iesagora.jesus.apptienda.presentation.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.iesagora.jesus.apptienda.business.dto.ActualizarEmpresaDTO;
 import com.iesagora.jesus.apptienda.business.dto.RegistroEmpresaDTO;
+import com.iesagora.jesus.apptienda.business.model.Usuario;
 import com.iesagora.jesus.apptienda.business.services.EmpresaServices;
 
 @RestController
@@ -58,6 +61,16 @@ public class EmpresaController {
 		}
 	}
 	
+	@GetMapping("/vendedor")
+	@PreAuthorize("hasRole('VENDEDOR')")
+	public ResponseEntity<?> obtenerEmpresaPorVendedor(){
+		try {
+			return ResponseEntity.ok().body(empresaServices.obtenerEmpresaVendedor(obtenerId()));
+		}catch(Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 	@GetMapping("/vista/{id}")
 	@PreAuthorize("hasAnyRole('ADMINISTRADOR','VENDEDOR')")
 	public ResponseEntity<?> obtenerVistaEmpresa(@PathVariable Long id){
@@ -88,6 +101,20 @@ public class EmpresaController {
 		}catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
+	}
+	
+	
+	/**
+	 * ============================
+	 *       MÉTODOS PRIVADOS
+	 * ============================
+	 */
+	
+	
+	private Long obtenerId() {
+ 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario usuario = (Usuario) auth.getPrincipal();		
+		return usuario.getId();
 	}
 	
 }
