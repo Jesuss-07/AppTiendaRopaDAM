@@ -16,6 +16,8 @@ import { ListarProductoComponent } from './pages/producto/listar-producto/produc
 import { EditarProductoComponent } from './pages/producto/editar-producto/editar.component';
 import { DetalleComponent } from './pages/producto/detalle-producto/detalle.component';
 import { CarritoComponent } from './pages/carrito/carrito.component';
+import { ListarUsuarioComponent } from './pages/usuario/listar-usuario/listar.component';
+import { EditarUserComponent } from './pages/usuario/editar-user/editar.component'
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -28,6 +30,7 @@ export const routes: Routes = [
     { path: 'editor/cliente', component: EditorClienteComponent },
     { path: 'editor/vendedor', component: EditorVendedorComponent },
     { path: 'editor/administrador', component: EditarAdministradorComponent },
+    { path: 'editor/user', component: EditarUserComponent},
     { path: 'producto/editar/:id', component: EditarProductoComponent },
     { path: 'producto/detalle/:id', component: DetalleComponent },
     { path: 'empresa', component: EmpresaComponent },
@@ -35,5 +38,6 @@ export const routes: Routes = [
     { path: 'empresa/vista/:id', component: VistaEmpresaComponent },
     { path: 'productos', component: ListarProductoComponent },
     { path: 'carrito', component: CarritoComponent },
+    { path: 'usuarios', component: ListarUsuarioComponent },
     { path: '', redirectTo: 'login' , pathMatch: 'full' }
 ];
