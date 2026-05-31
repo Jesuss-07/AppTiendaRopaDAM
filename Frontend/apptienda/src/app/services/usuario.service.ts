@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { EditarClienteDTO } from '../model/editar-cliente.dto';
 import { VistaVendedorDTO } from '../model/vista-vendedor.dto';
 import { EditarAdministradorDTO } from '../model/editarr-administrador.dto';
+import { UsuarioDTO } from '../model/Usuario.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -64,5 +65,9 @@ export class UsuarioService {
     return this.http.get<VistaVendedorDTO[]>(
         `${this.apiUrl}/vendedores/empresa/${cif}`
     );
+  }
+
+  listarUsuarios(): Observable<UsuarioDTO[]> {
+    return this.http.get<UsuarioDTO[]>(`${this.apiUrl}/listar`);
   }
 }
