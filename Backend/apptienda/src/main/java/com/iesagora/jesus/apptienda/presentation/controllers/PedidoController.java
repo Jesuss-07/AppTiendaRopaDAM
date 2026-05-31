@@ -1,5 +1,7 @@
 package com.iesagora.jesus.apptienda.presentation.controllers;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -29,7 +31,7 @@ public class PedidoController {
 	public ResponseEntity<?> pagarPedido(){
 		try {
 			pedidoServices.finalizarPedido(obtenerId());
-			return ResponseEntity.ok().body("La compra fue realizada con exito");
+			return ResponseEntity.ok(Map.of("Mensaje", "La compra fue realizada con exito"));
 		}catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
