@@ -6,6 +6,7 @@ import { ProductoService } from '../../../services/producto.service';
 import { AuthService } from '../../../services/auth.service';
 import { EditarProductoDTO } from '../../../model/editar-producto.dto';
 import { FormsModule } from '@angular/forms';
+import { CarritoService } from '../../../services/carrito.service';
 @Component({
   selector: 'app-detalle',
   templateUrl: './detalle.component.html',
@@ -24,7 +25,7 @@ export class DetalleComponent implements OnInit {
   cantidad: number = 1;
   loading = true;
 
-  constructor(private route: ActivatedRoute, private productoService: ProductoService, private authService: AuthService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private productoService: ProductoService, private authService: AuthService, private router: Router, private carritoService: CarritoService) {}
 
   ngOnInit(): void {
     this.rol = this.authService.getRol();
@@ -83,7 +84,15 @@ export class DetalleComponent implements OnInit {
   anadirAlCarrito(id: number, cantidad: number): void {
     console.log('Añadiendo producto al carrito, ID:', id, 'Cantidad:', cantidad);
     console.log(this.producto);
-    this.router.navigate(['/inicio']);
+    this.carritoService.anadirProducto(id, cantidad).subscribe({
+      next: () => {
+        console.log('Producto añadido al carrito');
+      this.router.navigate(['/inicio']);
+      },
+      error: (error) => {
+        console.error('Error al añadir producto al carrito:', error);
+      }
+    });
   }
 
   logout(): void {
