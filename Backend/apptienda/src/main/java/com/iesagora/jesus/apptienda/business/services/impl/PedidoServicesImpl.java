@@ -125,6 +125,7 @@ public class PedidoServicesImpl implements PedidoServices{
 	private DetallePedidoDTO mapearDetallePedidoDTO(DetallePedido detallePedido) {
 	    DetallePedidoDTO detallePedidoDTO = new DetallePedidoDTO();
 
+	    detallePedidoDTO.setIdDetallePedidoDTO(detallePedido.getIdDetalle());
 	    detallePedidoDTO.setCantidad(detallePedido.getCantidad());
 	    detallePedidoDTO.setPrecioUnidad(detallePedido.getPrecioUnidad());
 	    detallePedidoDTO.setSubtotal(detallePedido.getSubtotal());

@@ -15,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class DetallePedidoDTO {
 	
+	private Long idDetallePedidoDTO;
 	private ProductoCarritoDTO productoCarritoDTO;
 	private Integer cantidad;
 	private BigDecimal precioUnidad;

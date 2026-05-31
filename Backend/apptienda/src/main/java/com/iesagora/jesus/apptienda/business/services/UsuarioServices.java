@@ -24,5 +24,5 @@ public interface UsuarioServices {
 	EditarAdministradorDTO obtenerAdminDTO(Long id);
 	
 	EditarAdministradorDTO actualizarAdminDTO(Long id, EditarAdministradorDTO editarAdministradorDTO);
-
+	
 }
