@@ -1,5 +1,7 @@
 package com.iesagora.jesus.apptienda.presentation.controllers;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -30,7 +32,7 @@ public class DetallePedidoController {
 	public ResponseEntity<?> anadirProducto(@RequestParam Long idProducto,@RequestParam int cantidad){
 		try {
 			detallePedidoServices.agregarProducto(obtenerId(), idProducto, cantidad);
-			return ResponseEntity.ok().body("Se agrego el producto con exito");
+			return ResponseEntity.ok(Map.of("Mensaje", "El producto se agrego con exito"));
 		}catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -41,7 +43,7 @@ public class DetallePedidoController {
 	public ResponseEntity<?> eliminarProducto(@RequestParam Long idDetallePedido){
 		try {
 			detallePedidoServices.eliminarProducto(idDetallePedido);
-			return ResponseEntity.ok().body("Se elimino el producto con exito");
+			return ResponseEntity.ok(Map.of("Mensaje", "Se elimino el producto con exito"));
 		}catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
