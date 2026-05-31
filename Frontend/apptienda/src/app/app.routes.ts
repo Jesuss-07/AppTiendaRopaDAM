@@ -15,6 +15,7 @@ import { ProductoComponent } from './pages/registrar/producto/producto.component
 import { ListarProductoComponent } from './pages/producto/listar-producto/producto.component';
 import { EditarProductoComponent } from './pages/producto/editar-producto/editar.component';
 import { DetalleComponent } from './pages/producto/detalle-producto/detalle.component';
+import { CarritoComponent } from './pages/carrito/carrito.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -33,5 +34,6 @@ export const routes: Routes = [
     { path: 'empresa/editar/:id', component: EditarEmpresaComponent },
     { path: 'empresa/vista/:id', component: VistaEmpresaComponent },
     { path: 'productos', component: ListarProductoComponent },
+    { path: 'carrito', component: CarritoComponent },
     { path: '', redirectTo: 'login' , pathMatch: 'full' }
 ];
