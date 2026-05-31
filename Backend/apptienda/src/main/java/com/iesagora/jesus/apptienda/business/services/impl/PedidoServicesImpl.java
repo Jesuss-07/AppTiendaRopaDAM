@@ -15,11 +15,14 @@ import com.iesagora.jesus.apptienda.business.model.EstadoPedido;
 import com.iesagora.jesus.apptienda.business.model.Pedido;
 import com.iesagora.jesus.apptienda.business.model.Producto;
 import com.iesagora.jesus.apptienda.business.model.Usuario;
+import com.iesagora.jesus.apptienda.business.repositories.ClienteRepository;
 import com.iesagora.jesus.apptienda.business.repositories.DetallePedidoRepository;
 import com.iesagora.jesus.apptienda.business.repositories.PedidoRepository;
 import com.iesagora.jesus.apptienda.business.repositories.ProductoRepository;
 import com.iesagora.jesus.apptienda.business.repositories.UsuarioRepository;
 import com.iesagora.jesus.apptienda.business.services.PedidoServices;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class PedidoServicesImpl implements PedidoServices{
@@ -28,12 +31,14 @@ public class PedidoServicesImpl implements PedidoServices{
 	private final DetallePedidoRepository detallePedidoRepository;
 	private final UsuarioRepository usuarioRepository;
 	private final ProductoRepository productoRepository;
+	private final ClienteRepository clienteRepository;
 
-	public PedidoServicesImpl (PedidoRepository pedidoRepository, UsuarioRepository usuarioRepository, DetallePedidoRepository detallePedidoRepository, ProductoRepository productoRepository) {
+	public PedidoServicesImpl (PedidoRepository pedidoRepository, UsuarioRepository usuarioRepository, DetallePedidoRepository detallePedidoRepository, ProductoRepository productoRepository, ClienteRepository clienteRepository) {
 		this.pedidoRepository = pedidoRepository;
 		this.usuarioRepository = usuarioRepository;
 		this.detallePedidoRepository = detallePedidoRepository;
 		this.productoRepository = productoRepository;
+		this.clienteRepository = clienteRepository;
 	}
 
 	@Override
@@ -64,10 +69,13 @@ public class PedidoServicesImpl implements PedidoServices{
 		return mapearPedidoDTO(pedido);
 	}
 
+	@Transactional
 	@Override
 	public void finalizarPedido(Long idUsuario) {
 		Pedido pedido = pedidoRepository.findByIdUsuarioAndEstadoPedido(idUsuario, EstadoPedido.EN_PREPARACION)
 				.orElseThrow(() -> new IllegalStateException("No se encuentra ningun pedido activo para este usuario"));
+		
+		procesarPago(pedido);
 		
 		pedido.setEstadoPedido(EstadoPedido.PAGADO);
 		pedido.setFechaPedido(LocalDateTime.now());
@@ -138,6 +146,59 @@ public class PedidoServicesImpl implements PedidoServices{
 		
 		return carritoDTO;
 	}
+	
+	private void validarStock(Pedido pedido) {
+		List<DetallePedido> detallePedido = detallePedidoRepository.findByIdPedido(pedido.getIdPedido());
+		
+		for(DetallePedido detalle : detallePedido) {
+	        Producto producto = productoRepository.findById(detalle.getIdProducto())
+	                .orElseThrow(() -> new IllegalStateException("Producto no existe"));
+	        
+	        if(producto.getStock() < detalle.getCantidad())
+	        	throw new IllegalStateException("Stock insuficiente");
+		}
+	}
+	
+	private void validarPrecio(Pedido pedido) {
+		
+		Cliente cliente = datosCliente(pedido.getIdUsuario());
+		
+		BigDecimal saldo = cliente.getMonedero();
+		
+		if(saldo.compareTo(pedido.getTotal()) < 0 )
+			throw new IllegalStateException("Saldo insuficiente");
+		
+	}
+	
+	private void descontarStock(Pedido pedido) {
+		List<DetallePedido> detallePedido = detallePedidoRepository.findByIdPedido(pedido.getIdPedido());
 
+		for(DetallePedido detalle : detallePedido) {
+	        Producto producto = productoRepository.findById(detalle.getIdProducto())
+	                .orElseThrow(() -> new IllegalStateException("Producto no existe"));
+
+	        producto.setStock(producto.getStock() - detalle.getCantidad());
+	        
+	        productoRepository.save(producto);
+		}
+	}
+	
+	private void descontarMonedero(Pedido pedido) {
+		Cliente cliente = datosCliente(pedido.getIdUsuario());
+
+		BigDecimal saldoActual = cliente.getMonedero();
+		BigDecimal total = pedido.getTotal();
+		
+		cliente.setMonedero(saldoActual.subtract(total));
+		
+		clienteRepository.save(cliente);
+	}
+	
+	private void procesarPago(Pedido pedido) {
+		validarStock(pedido);
+		validarPrecio(pedido);
+		descontarStock(pedido);
+		descontarMonedero(pedido);
+	}
 
 }
