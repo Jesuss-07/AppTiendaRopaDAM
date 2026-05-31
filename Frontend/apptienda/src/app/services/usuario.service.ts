@@ -70,4 +70,5 @@ export class UsuarioService {
   listarUsuarios(): Observable<UsuarioDTO[]> {
     return this.http.get<UsuarioDTO[]>(`${this.apiUrl}/listar`);
   }
+  
 }

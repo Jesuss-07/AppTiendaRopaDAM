@@ -38,8 +38,6 @@ export class ListarUsuarioComponent {
         });
     }
 
-    editarUser(id: number){}
-
     eliminarUser(email: string){
         this.usuarioService.bloquearUsuario(email);
         alert("Se bloqueo el usuario " + email);
