@@ -107,3 +107,102 @@
 .user-icon:hover .user-menu {
   display: block;
 }
+
+/* ===== CONTENIDO ===== */
+
+.carrito-container {
+  padding: 100px 80px 50px;
+  font-family: Arial, sans-serif;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+/* ===== LISTA ===== */
+.carrito-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ===== ITEM ===== */
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  background: #fff;
+}
+
+/* IZQUIERDA */
+.left .nombre {
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.left .meta {
+  font-size: 13px;
+  color: #777;
+}
+
+/* DERECHA */
+.right {
+  text-align: right;
+  font-size: 14px;
+  color: #333;
+}
+
+.subtotal {
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid #eee;
+  padding-top: 20px;
+}
+
+.total {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.total span {
+  margin-left: 5px;
+}
+
+/* ===== BOTÓN ===== */
+.btn-comprar {
+  background: black;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+.btn-comprar:hover {
+  background: #333;
+}
+
+/* VACÍO */
+.carrito-vacio {
+  padding: 120px 80px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: #666;
+}

@@ -1,6 +1,6 @@
 <header class="header">
   <div class="header-left">
-    <a class="logo" routerLink="/inicio">Golden Thread</a>
+    <a class="logo" routerLink="/carrito">Golden Thread</a>
   </div>
 
   <div class="header-right">
@@ -18,3 +18,51 @@
     </div>
   </div>
 </header>
+<main class="carrito-container" *ngIf="pedido as p; else vacio">
+
+  <h2 class="title">Mi carrito</h2>
+
+  <div class="carrito-lista">
+
+    <div class="item" *ngFor="let d of p.detallePedidoDTO">
+
+      <div class="left">
+        <div class="nombre">
+          {{ d.productoCarritoDTO.nombreProducto }}
+        </div>
+
+        <div class="meta">
+          Talla: {{ d.productoCarritoDTO.talla }}
+          Color: {{ d.productoCarritoDTO.color }}
+        </div>
+      </div>
+
+      <div class="right">
+        <div>Cantidad: {{ d.cantidad }}</div>
+        <div>Precio: {{ d.precioUnidad }} €</div>
+        <div class="subtotal">Subtotal: {{ d.subtotal }} €</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="footer">
+
+    <div class="total">
+      Total: <span>{{ p.total }} €</span>
+    </div>
+
+    <button class="btn-comprar" (click)="pagarPedido()">
+      Comprar
+    </button>
+
+  </div>
+
+</main>
+
+<ng-template #vacio>
+  <main class="carrito-vacio">
+    <p>Tu carrito está vacío</p>
+  </main>
+</ng-template>
