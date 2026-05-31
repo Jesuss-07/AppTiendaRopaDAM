@@ -93,6 +93,7 @@ public class ProductoServicesImpl implements ProductoServices{
 		
 		ProductoDTO productoDTO = new ProductoDTO();
 		
+		productoDTO.setIdProducto(producto.getIdProducto());
         productoDTO.setNombreProducto(producto.getNombreProducto());
         productoDTO.setDescripcion(producto.getDescripcion());
         productoDTO.setPrecio(producto.getPrecio());
