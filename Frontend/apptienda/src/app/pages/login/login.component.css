@@ -179,21 +179,76 @@
 
 /* ===== RESPONSIVE ===== */
 
-@media(max-width: 900px){
+@media (max-width: 768px) {
 
-    .container{
-        width: 95%;
-        height: auto;
+    .container {
         flex-direction: column;
+        width: 100%;
+        min-height: auto;
     }
 
     .left,
-    .right{
+    .derecha {
         width: 100%;
-        padding: 40px 20px;
     }
 
-    .left{
-        min-height: 250px;
+    .left {
+        padding: 30px 20px;
+    }
+
+    .left h1 {
+        font-size: 32px;
+    }
+
+    .left p {
+        font-size: 14px;
+    }
+
+    .logo {
+        width: 90px;
+        height: 90px;
+        margin-bottom: 15px;
+    }
+
+    .derecha {
+        padding: 20px;
+    }
+
+    .login-box {
+        width: 100%;
+        max-width: 400px;
+        padding: 25px;
+    }
+
+    .login-box h2 {
+        font-size: 28px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .contenedor-principal {
+        padding: 10px;
+    }
+
+    .left {
+        padding: 25px 15px;
+    }
+
+    .left h1 {
+        font-size: 26px;
+    }
+
+    .login-box {
+        padding: 20px;
+    }
+
+    .login-box h2 {
+        font-size: 24px;
+    }
+
+    .btn {
+        padding: 12px;
     }
 }
