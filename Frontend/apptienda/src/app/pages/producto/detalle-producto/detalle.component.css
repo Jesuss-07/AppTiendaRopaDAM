@@ -22,7 +22,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* ===== LADO IZQUIERDO ===== */
 .header-left {
   display: flex;
   align-items: center;
@@ -37,7 +36,6 @@
   color: black;
 }
 
-/* NAV */
 .nav {
   display: flex;
   gap: 20px;
@@ -54,14 +52,12 @@
   border-bottom: 2px solid #000;
 }
 
-/* ===== LADO DERECHO ===== */
 .header-right {
   display: flex;
   align-items: center;
   gap: 25px;
 }
 
-/* ===== ICONOS ===== */
 .icon {
   position: relative;
   cursor: pointer;
@@ -72,7 +68,6 @@
   display: inline-block;
 }
 
-/* ===== MENÚ USUARIO ===== */
 .user-icon {
   position: relative;
   display: flex;
@@ -108,7 +103,6 @@
   display: block;
 }
 
-/* ===== CONTENIDO PRINCIPAL ===== */
 .product-container {
   display: flex;
   gap: 60px;
@@ -116,7 +110,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* ===== IMAGEN ===== */
 .product-image {
   flex: 1;
   display: flex;
@@ -131,7 +124,6 @@
   border-radius: 10px;
 }
 
-/* ===== INFO ===== */
 .product-info {
   flex: 1;
   display: flex;
@@ -154,13 +146,10 @@
   font-weight: bold;
 }
 
-/* DESCRIPCIÓN */
 .description {
   color: #555;
   line-height: 1.5;
 }
-
-/* STOCK */
 
 .quantity-box {
   display: flex;
@@ -181,13 +170,11 @@
   color: gray;
 }
 
-/* SECCIONES */
 .section h4 {
   margin-bottom: 8px;
   font-size: 14px;
 }
 
-/* COLOR */
 .color-box {
   display: flex;
   align-items: center;
@@ -201,7 +188,6 @@
   background: #000;
 }
 
-/* TALLA */
 .size-box {
   display: flex;
   gap: 10px;
@@ -215,7 +201,6 @@
   border-radius: 5px;
 }
 
-/* BOTÓN */
 .btn-buy {
   margin-top: 20px;
   padding: 15px;
@@ -232,13 +217,66 @@
 }
 
 /* RESPONSIVE */
-@media (max-width: 900px) {
+
+@media (max-width: 768px) {
+
+  .header {
+    padding: 0 15px;
+    height: 60px;
+  }
+
+  .header-left,
+  .header-right {
+    gap: 12px;
+  }
+
+  .nav {
+    display: none;
+  }
+
   .product-container {
     flex-direction: column;
-    padding: 100px 20px;
+    padding: 90px 15px 30px;
+    gap: 25px;
   }
 
   .product-image img {
-    height: 500px;
+    max-width: 100%;
+    height: 350px;
+    border-radius: 10px;
+  }
+
+  .product-info {
+    gap: 12px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .price {
+    font-size: 20px;
+  }
+
+  .description {
+    font-size: 14px;
+  }
+
+  .quantity-box {
+    gap: 10px;
+  }
+
+  .quantity-box input {
+    width: 60px;
+    padding: 6px;
+  }
+
+  .btn-buy {
+    width: 100%;
+    padding: 14px;
+  }
+
+  .user-menu {
+    right: -10px;
   }
 }

@@ -22,7 +22,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* ===== LADO IZQUIERDO ===== */
 .header-left {
   display: flex;
   align-items: center;
@@ -37,7 +36,6 @@
   color:black;
 }
 
-/* NAV */
 .nav {
   display: flex;
   gap: 20px;
@@ -54,34 +52,12 @@
   border-bottom: 2px solid #000;
 }
 
-/* ===== LADO DERECHO ===== */
 .header-right {
   display: flex;
   align-items: center;
   gap: 25px;
 }
 
-/* ===== BUSCADOR ===== */
-.search-container {
-  display: flex;
-  align-items: center;
-}
-
-.search-input {
-  padding: 6px 14px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  outline: none;
-  transition: 0.2s;
-  width: 180px;
-}
-
-.search-input:focus {
-  border-color: #000;
-  width: 200px;
-}
-
-/* ===== ICONOS ===== */
 .icon {
   position: relative;
   cursor: pointer;
@@ -92,7 +68,6 @@
   display: inline-block;
 }
 
-/* ===== MENÚ USUARIO ===== */
 .user-icon {
   position: relative;
 }
@@ -127,7 +102,6 @@
   padding: 10px;
 }
 
-/* área "segura" para mantener hover */
 .user-menu {
   display: none;
   position: absolute;
@@ -143,12 +117,10 @@
   z-index: 1000;
 }
 
-/* clave: hover en todo el bloque */
 .user-icon:hover .user-menu {
   display: block;
 }
 
-/* mostrar menú */
 .user-icon:hover .user-menu {
   display: block;
 }
@@ -185,14 +157,12 @@
   color: #111;
 }
 
-/* grupo */
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-/* dos columnas */
 .form-row {
   display: flex;
   gap: 18px;
@@ -202,14 +172,12 @@
   flex: 1;
 }
 
-/* labels */
 .form-group label {
   font-size: 14px;
   font-weight: 600;
   color: #333;
 }
 
-/* inputs */
 .producto-form input,
 .producto-form select,
 .producto-form textarea {
@@ -244,7 +212,6 @@ input.ng-invalid {
   border: 1px solid #e53935;
 }
 
-/* focus */
 .producto-form input:focus,
 .producto-form select:focus,
 .producto-form textarea:focus {
@@ -254,13 +221,11 @@ input.ng-invalid {
     0 0 0 3px rgba(0,0,0,0.08);
 }
 
-/* textarea */
 .producto-form textarea {
   resize: vertical;
   min-height: 100px;
 }
 
-/* botón */
 .producto-form button {
   margin-top: 10px;
 
@@ -287,17 +252,78 @@ input.ng-invalid {
   transform: translateY(-1px);
 }
 
-/* responsive */
-@media (max-width: 700px) {
+/* RESPONSIVE */
 
-  .producto-form {
-    margin: 95px 15px 30px;
+@media (max-width: 768px) {
+
+  /* ===== HEADER ===== */
+  .header {
+    padding: 0 15px;
+    height: 60px;
+  }
+
+  .header-left,
+  .header-right {
+    gap: 12px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .search-input {
+    width: 140px;
+  }
+
+  .search-input:focus {
+    width: 160px;
+  }
+
+  /* ===== CONTENIDO ===== */
+  .content {
+    padding: 100px 15px 30px;
+  }
+
+  /* ===== FORM CONTAINER ===== */
+  .form-container {
     padding: 22px;
+    border-radius: 14px;
   }
 
-  .form-row {
-    flex-direction: column;
-    gap: 22px;
+  .form-container h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
   }
 
+  /* ===== GRID → 1 COLUMNA ===== */
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .full-width {
+    grid-column: span 1;
+  }
+
+  /* ===== INPUTS ===== */
+  .input-group label {
+    font-size: 13px;
+  }
+
+  .input-group input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  /* ===== BOTÓN ===== */
+  .btn-primary {
+    padding: 12px;
+    font-size: 15px;
+    margin-top: 20px;
+  }
+
+  /* ===== USER MENU ===== */
+  .user-menu {
+    right: -10px;
+  }
 }

@@ -205,19 +205,66 @@ form{
 
 /* RESPONSIVE */
 
-@media(max-width:900px){
+@media (max-width: 768px) {
 
-.container{
-    flex-direction:column;
-    min-height:auto;
-}
+    .container{
+        flex-direction: column;
+        width: 100%;
+        min-height: auto;
+    }
 
-.izquierda{
-    padding:25px;
-}
+    .izquierda,
+    .derecha{
+        width: 100%;
+        padding: 25px;
+    }
 
-.form-box{
-    max-width:100%;
-}
+    .izquierda{
+        padding-bottom: 10px;
+    }
 
+    .izquierda h1{
+        font-size: 26px;
+    }
+
+    .izquierda p{
+        font-size: 14px;
+    }
+
+    .logo{
+        width: 90px;
+        height: 90px;
+        margin-bottom: 15px;
+    }
+
+    .form-box{
+        max-width: 100%;
+        padding: 15px;
+        border-radius: 18px;
+    }
+
+    /* 🔥 GRID: pasa a una columna */
+    .grid{
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .input-group input{
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .input-group label{
+        font-size: 13px;
+    }
+
+    .btn{
+        width: 100%;
+        font-size: 16px;
+        padding: 14px;
+    }
+
+    .password-checks{
+        font-size: 12px;
+    }
 }

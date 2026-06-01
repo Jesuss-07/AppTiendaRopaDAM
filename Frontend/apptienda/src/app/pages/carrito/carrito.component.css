@@ -22,7 +22,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* ===== LADO IZQUIERDO ===== */
 .header-left {
   display: flex;
   align-items: center;
@@ -37,7 +36,6 @@
   color: black;
 }
 
-/* NAV */
 .nav {
   display: flex;
   gap: 20px;
@@ -54,14 +52,12 @@
   border-bottom: 2px solid #000;
 }
 
-/* ===== LADO DERECHO ===== */
 .header-right {
   display: flex;
   align-items: center;
   gap: 25px;
 }
 
-/* ===== ICONOS ===== */
 .icon {
   position: relative;
   cursor: pointer;
@@ -72,7 +68,6 @@
   display: inline-block;
 }
 
-/* ===== MENÚ USUARIO ===== */
 .user-icon {
   position: relative;
   display: flex;
@@ -123,14 +118,12 @@
   margin-bottom: 25px;
 }
 
-/* ===== LISTA ===== */
 .carrito-lista {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-/* ===== ITEM ===== */
 .item {
   display: flex;
   justify-content: space-between;
@@ -140,7 +133,6 @@
   background: #fff;
 }
 
-/* IZQUIERDA */
 .left .nombre {
   font-weight: bold;
   font-size: 15px;
@@ -152,7 +144,6 @@
   color: #777;
 }
 
-/* DERECHA */
 .right {
   text-align: right;
   font-size: 14px;
@@ -164,7 +155,6 @@
   margin-top: 4px;
 }
 
-/* ===== FOOTER ===== */
 .footer {
   margin-top: 30px;
   display: flex;
@@ -183,7 +173,6 @@
   margin-left: 5px;
 }
 
-/* ===== BOTÓN ===== */
 .btn-comprar {
   background: black;
   color: white;
@@ -216,10 +205,81 @@
   color: white;
 }
 
-/* VACÍO */
 .carrito-vacio {
   padding: 120px 80px;
   text-align: center;
   font-family: Arial, sans-serif;
   color: #666;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+  .header {
+    padding: 0 15px;
+    height: 60px;
+  }
+
+  .header-left,
+  .header-right {
+    gap: 12px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .icon {
+    font-size: 20px;
+  }
+
+  .user-menu {
+    right: -10px;
+  }
+
+  .carrito-container {
+    padding: 90px 15px 30px;
+  }
+
+  .title {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .item {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .right {
+    text-align: left;
+    width: 100%;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .total {
+    font-size: 16px;
+  }
+
+  .btn-comprar {
+    width: 100%;
+    padding: 14px;
+  }
+
+  .btn-eliminar {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .carrito-vacio {
+    padding: 100px 20px;
+    font-size: 14px;
+  }
 }

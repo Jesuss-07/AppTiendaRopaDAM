@@ -287,17 +287,66 @@ input.ng-invalid {
   transform: translateY(-1px);
 }
 
-/* responsive */
-@media (max-width: 700px) {
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+  .header {
+    padding: 0 15px;
+    height: 60px;
+  }
+
+  .header-left,
+  .header-right {
+    gap: 12px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .search-input {
+    width: 140px;
+  }
+
+  .search-input:focus {
+    width: 160px;
+  }
 
   .producto-form {
-    margin: 95px 15px 30px;
+    margin-top: 90px;
+
+    width: 92%;
     padding: 22px;
+    gap: 16px;
+  }
+
+  .producto-form h2 {
+    font-size: 22px;
   }
 
   .form-row {
     flex-direction: column;
-    gap: 22px;
+    gap: 14px;
   }
 
+  .form-group label {
+    font-size: 13px;
+  }
+
+  .producto-form input,
+  .producto-form select,
+  .producto-form textarea {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .producto-form button {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .user-menu {
+    right: -10px;
+  }
 }

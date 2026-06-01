@@ -22,7 +22,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* ===== LADO IZQUIERDO ===== */
 .header-left {
   display: flex;
   align-items: center;
@@ -37,7 +36,6 @@
   color:black;
 }
 
-/* NAV */
 .nav {
   display: flex;
   gap: 20px;
@@ -54,17 +52,10 @@
   border-bottom: 2px solid #000;
 }
 
-/* ===== LADO DERECHO ===== */
 .header-right {
   display: flex;
   align-items: center;
   gap: 25px;
-}
-
-/* ===== BUSCADOR ===== */
-.search-container {
-  display: flex;
-  align-items: center;
 }
 
 .search-input {
@@ -81,7 +72,6 @@
   width: 200px;
 }
 
-/* ===== ICONOS ===== */
 .icon {
   position: relative;
   cursor: pointer;
@@ -92,7 +82,6 @@
   display: inline-block;
 }
 
-/* ===== MENÚ USUARIO ===== */
 .user-icon {
   position: relative;
 }
@@ -127,7 +116,6 @@
   padding: 10px;
 }
 
-/* área "segura" para mantener hover */
 .user-menu {
   display: none;
   position: absolute;
@@ -143,17 +131,14 @@
   z-index: 1000;
 }
 
-/* clave: hover en todo el bloque */
 .user-icon:hover .user-menu {
   display: block;
 }
 
-/* mostrar menú */
 .user-icon:hover .user-menu {
   display: block;
 }
 
-/* ===== CONTENIDO ===== */
 /* ===== CONTENIDO ===== */
 
 .content {
@@ -161,8 +146,6 @@
   background: #f7f8fa;
   min-height: 100vh;
 }
-
-/* ===== HEADER ===== */
 
 .page-header {
   text-align: center;
@@ -174,8 +157,6 @@
   margin-bottom: 15px;
   color: #111;
 }
-
-/* ===== BOTÓN NUEVO ===== */
 
 .btn-add {
   padding: 12px 20px;
@@ -191,8 +172,6 @@
 .btn-add:hover {
   background: #218838;
 }
-
-/* ===== LOADING ===== */
 
 .loading {
   display: flex;
@@ -224,8 +203,6 @@
 
 }
 
-/* ===== EMPTY ===== */
-
 .empty-state {
   text-align: center;
   margin-top: 50px;
@@ -243,8 +220,6 @@
   color: #666;
 }
 
-/* ===== GRID ===== */
-
 .producto-grid {
 
   display: grid;
@@ -254,8 +229,6 @@
 
   gap: 30px;
 }
-
-/* ===== CARD ===== */
 
 .producto-card {
 
@@ -279,8 +252,6 @@
   0 15px 35px rgba(0,0,0,.15);
 }
 
-/* ===== IMAGEN ===== */
-
 .imagen-container {
   height: 260px;
   overflow: hidden;
@@ -300,13 +271,9 @@
   transform: scale(1.05);
 }
 
-/* ===== INFO ===== */
-
 .producto-info {
   padding: 22px;
 }
-
-/* ===== TOP ===== */
 
 .producto-top {
 
@@ -333,8 +300,6 @@
   color: #28a745;
 }
 
-/* ===== DETALLES ===== */
-
 .detalles {
 
   display: flex;
@@ -348,8 +313,6 @@
 .detalles p {
   color: #555;
 }
-
-/* ===== BOTONES ===== */
 
 .acciones {
 
@@ -375,8 +338,6 @@
   transition: .3s;
 }
 
-/* EDITAR */
-
 .btn-editar {
   background: #007bff;
   color: white;
@@ -386,8 +347,6 @@
   background: #005fd1;
 }
 
-/* ELIMINAR */
-
 .btn-eliminar {
   background: #dc3545;
   color: white;
@@ -395,4 +354,73 @@
 
 .btn-eliminar:hover {
   background: #b52a37;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+  .header {
+    padding: 0 15px;
+    height: 60px;
+  }
+
+  .header-left,
+  .header-right {
+    gap: 12px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .search-input {
+    width: 140px;
+  }
+
+  .search-input:focus {
+    width: 160px;
+  }
+
+  .content {
+    padding: 100px 15px 30px;
+  }
+
+  .form-container {
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  .form-container h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .full-width {
+    grid-column: span 1;
+  }
+
+  .input-group label {
+    font-size: 13px;
+  }
+
+  .input-group input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    padding: 12px;
+    font-size: 15px;
+    margin-top: 20px;
+  }
+
+  .user-menu {
+    right: -10px;
+  }
 }

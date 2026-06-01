@@ -138,22 +138,56 @@
 
 /* RESPONSIVE */
 
-@media(max-width:900px){
+@media (max-width: 768px) {
 
-.container{
-    width:95%;
-    height:auto;
-    flex-direction:column;
-}
+    .container{
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        max-width: 500px;
+    }
 
-.izquierda,
-.derecha{
-    width:100%;
-    padding:40px 20px;
-}
+    .izquierda,
+    .derecha{
+        width: 100%;
+    }
 
-.izquierda{
-    min-height:250px;
-}
+    .izquierda{
+        padding: 35px 25px;
+    }
 
+    .izquierda h1{
+        font-size: 30px;
+    }
+
+    .izquierda p{
+        font-size: 14px;
+    }
+
+    .logo{
+        width: 90px;
+        height: 90px;
+        margin-bottom: 20px;
+    }
+
+    .derecha{
+        padding: 25px 15px;
+    }
+
+    .registro-box{
+        width: 100%;
+        max-width: 350px;
+        padding: 25px;
+    }
+
+    .registro-box h2{
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+
+    .btn{
+        padding: 14px;
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
 }

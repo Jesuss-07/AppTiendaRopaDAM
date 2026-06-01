@@ -22,7 +22,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* ===== LADO IZQUIERDO ===== */
 .header-left {
   display: flex;
   align-items: center;
@@ -37,7 +36,6 @@
   color:black;
 }
 
-/* NAV */
 .nav {
   display: flex;
   gap: 20px;
@@ -54,14 +52,12 @@
   border-bottom: 2px solid #000;
 }
 
-/* ===== LADO DERECHO ===== */
 .header-right {
   display: flex;
   align-items: center;
   gap: 25px;
 }
 
-/* ===== BUSCADOR ===== */
 .search-container {
   display: flex;
   align-items: center;
@@ -81,7 +77,6 @@
   width: 200px;
 }
 
-/* ===== ICONOS ===== */
 .icon {
   position: relative;
   cursor: pointer;
@@ -92,7 +87,6 @@
   display: inline-block;
 }
 
-/* ===== MENÚ USUARIO ===== */
 .user-icon {
   position: relative;
 }
@@ -127,7 +121,6 @@
   padding: 10px;
 }
 
-/* área "segura" para mantener hover */
 .user-menu {
   display: none;
   position: absolute;
@@ -143,17 +136,15 @@
   z-index: 1000;
 }
 
-/* clave: hover en todo el bloque */
 .user-icon:hover .user-menu {
   display: block;
 }
 
-/* mostrar menú */
 .user-icon:hover .user-menu {
   display: block;
 }
 
-/* CONTENEDOR PRINCIPAL */
+/* ===== CONTENIDO PRINCIPAL ===== */
 
 .content {
   padding: 40px 20px;
@@ -181,8 +172,6 @@
   font-weight: 600;
 }
 
-/* GRID */
-
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -192,8 +181,6 @@
 .full-width {
   grid-column: span 2;
 }
-
-/* INPUTS */
 
 .input-group {
   display: flex;
@@ -225,8 +212,6 @@
   box-shadow: 0 0 0 3px rgba(0,0,0,.08);
 }
 
-/* VALIDACIÓN PASSWORD */
-
 .password-checks {
   margin-top: 8px;
 
@@ -249,16 +234,12 @@
   transform: translateX(4px);
 }
 
-/* ERRORES */
-
 .error {
   margin-top: 4px;
 
   color: #d9534f;
   font-size: 13px;
 }
-
-/* BOTÓN */
 
 .btn-primary {
   width: 100%;
@@ -285,14 +266,73 @@
 
 /* RESPONSIVE */
 
-@media (max-width:768px){
+@media (max-width: 768px) {
 
-  .grid{
-    grid-template-columns:1fr;
+  .header {
+    padding: 0 15px;
+    height: 60px;
   }
 
-  .full-width{
-    grid-column:span 1;
+  .header-left,
+  .header-right {
+    gap: 12px;
   }
 
+  .nav {
+    display: none;
+  }
+
+  .search-input {
+    width: 140px;
+  }
+
+  .search-input:focus {
+    width: 160px;
+  }
+
+  .content {
+    padding: 80px 15px 30px;
+  }
+
+  .form-container {
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  .form-container h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .full-width {
+    grid-column: span 1;
+  }
+
+  .input-group input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .input-group label {
+    font-size: 13px;
+  }
+
+  .password-checks {
+    font-size: 11px;
+  }
+
+  .btn-primary {
+    padding: 12px;
+    font-size: 15px;
+    margin-top: 20px;
+  }
+
+  .user-menu {
+    right: -10px;
+  }
 }

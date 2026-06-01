@@ -11,10 +11,11 @@
       <div class="user-menu">
         <a (click)="editarUser()">Editar usuario</a>
         <!-- Opciones de administración y ventas -->
-        <a href="#" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
+        <a routerLink="/productos" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
         <!-- Solo mostrar para administradores -->
+        <a routerLink="/empresa" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
         <a routerLink="/usuarios" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
-        <a href="/empresa" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
+
         <a (click)="logout()">Cerrar sesión</a>
       </div>
     </div>
@@ -70,12 +71,6 @@
               <td>{{ vendedor.apellido }}</td>
               <td>{{ vendedor.emailCorporativo }}</td>
               <td *ngIf="isAdmin" class="acciones">
-                <button
-                  class="btn-editar"
-                  (click)="editarVendedor(vendedor.emailCorporativo)">
-                  Editar
-                </button>
-
                 <button
                   class="btn-bloquear"
                   [disabled]="bloqueandoEmail === vendedor.emailCorporativo"

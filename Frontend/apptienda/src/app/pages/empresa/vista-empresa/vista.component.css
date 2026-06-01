@@ -276,3 +276,99 @@
 .btn-bloquear:hover{
   background:#b52a37;
 }
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+  /* ===== HEADER ===== */
+  .header {
+    padding: 0 15px;
+    height: 60px;
+  }
+
+  .header-left,
+  .header-right {
+    gap: 12px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .search-input {
+    width: 140px;
+  }
+
+  .search-input:focus {
+    width: 160px;
+  }
+
+  /* ===== CONTENIDO ===== */
+  .content {
+    padding: 80px 15px 30px;
+  }
+
+  /* ===== EMPRESA CARD ===== */
+  .empresa-card {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .empresa-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .empresa-logo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .empresa-datos h1 {
+    font-size: 22px;
+  }
+
+  /* ===== SECCIÓN ===== */
+  .section-header h2 {
+    font-size: 20px;
+  }
+
+  .section-header p {
+    font-size: 14px;
+  }
+
+  /* ===== TABLA → SCROLL HORIZONTAL ===== */
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .tabla-vendedores {
+    min-width: 600px;
+  }
+
+  .tabla-vendedores th,
+  .tabla-vendedores td {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  /* ===== BOTONES ===== */
+  .acciones {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .btn-editar,
+  .btn-bloquear {
+    width: 100%;
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  /* ===== USER MENU ===== */
+  .user-menu {
+    right: -10px;
+  }
+}

@@ -31,7 +31,6 @@
     box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
-/* IZQUIERDA */
 .izquierda{
     width:40%;
     background:#111;
@@ -72,7 +71,6 @@
     line-height:1.5;
 }
 
-/* DERECHA */
 .derecha{
     width:60%;
     display:flex;
@@ -97,7 +95,6 @@
     text-align:center;
 }
 
-/* FORM */
 form{
     display:flex;
     flex-direction:column;
@@ -130,19 +127,16 @@ form{
     border-color:black;
 }
 
-/* ERROR LABEL */
 .error{
     color:red;
 }
 
-/* GRID */
 .grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:8px;
 }
 
-/* BUTTON */
 .btn{
     margin-top:10px;
     padding:12px;
@@ -168,7 +162,6 @@ form{
     cursor:not-allowed;
 }
 
-/* PASSWORD CHECKS */
 .password-checks{
     margin-top:8px;
     font-size:11px;
@@ -196,4 +189,73 @@ form{
 .icon{
     width:14px;
     text-align:center;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .container{
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+    }
+
+    .izquierda,
+    .derecha{
+        width: 100%;
+    }
+
+    .izquierda{
+        padding: 30px 25px;
+    }
+
+    .izquierda h1{
+        font-size: 26px;
+    }
+
+    .izquierda p{
+        font-size: 14px;
+    }
+
+    .logo{
+        width: 90px;
+        height: 90px;
+        margin-bottom: 20px;
+    }
+
+    .derecha{
+        padding: 20px 15px;
+    }
+
+    .form-box{
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    .form-box h2{
+        font-size: 22px;
+    }
+
+    .grid{
+        grid-template-columns: 1fr;
+    }
+
+    .input-group input{
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .input-group label{
+        font-size: 13px;
+    }
+
+    .btn{
+        padding: 14px;
+        font-size: 15px;
+    }
+
+    .password-checks{
+        font-size: 12px;
+    }
 }

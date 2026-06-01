@@ -22,7 +22,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* ===== LADO IZQUIERDO ===== */
 .header-left {
   display: flex;
   align-items: center;
@@ -37,7 +36,6 @@
   color: black;
 }
 
-/* NAV */
 .nav {
   display: flex;
   gap: 20px;
@@ -54,14 +52,12 @@
   border-bottom: 2px solid #000;
 }
 
-/* ===== LADO DERECHO ===== */
 .header-right {
   display: flex;
   align-items: center;
   gap: 25px;
 }
 
-/* ===== ICONOS ===== */
 .icon {
   position: relative;
   cursor: pointer;
@@ -72,7 +68,6 @@
   display: inline-block;
 }
 
-/* ===== MENÚ USUARIO ===== */
 .user-icon {
   position: relative;
   display: flex;
@@ -123,8 +118,6 @@
   font-weight: bold;
 }
 
-/* ===== TABLA ===== */
-
 .tabla-usuarios {
   width: 100%;
   border-collapse: collapse;
@@ -157,8 +150,6 @@
   border-bottom: none;
 }
 
-/* ===== ROLES ===== */
-
 .badge {
   padding: 6px 12px;
   border-radius: 999px;
@@ -180,8 +171,6 @@
   background: #fff0e1;
   color: #c56a00;
 }
-
-/* ===== ACCIONES ===== */
 
 .acciones {
   display: flex;
@@ -214,4 +203,65 @@
 
 .btn-eliminar:hover {
   background: #b51d1d;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+  .header {
+    padding: 0 15px;
+    height: 60px;
+  }
+
+  .header-left,
+  .header-right {
+    gap: 12px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .usuarios-container {
+    padding: 90px 15px 30px;
+  }
+
+  .titulo {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+
+  .tabla-usuarios {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .tabla-usuarios th,
+  .tabla-usuarios td {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .badge {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  .acciones {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .btn-editar,
+  .btn-eliminar {
+    width: 100%;
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .user-menu {
+    right: -10px;
+  }
 }

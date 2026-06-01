@@ -22,7 +22,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* ===== LADO IZQUIERDO ===== */
 .header-left {
   display: flex;
   align-items: center;
@@ -37,7 +36,6 @@
   color:black;
 }
 
-/* NAV */
 .nav {
   display: flex;
   gap: 20px;
@@ -54,17 +52,10 @@
   border-bottom: 2px solid #000;
 }
 
-/* ===== LADO DERECHO ===== */
 .header-right {
   display: flex;
   align-items: center;
   gap: 25px;
-}
-
-/* ===== BUSCADOR ===== */
-.search-container {
-  display: flex;
-  align-items: center;
 }
 
 .search-input {
@@ -81,7 +72,6 @@
   width: 200px;
 }
 
-/* ===== ICONOS ===== */
 .icon {
   position: relative;
   cursor: pointer;
@@ -92,7 +82,6 @@
   display: inline-block;
 }
 
-/* ===== MENÚ USUARIO ===== */
 .user-icon {
   position: relative;
 }
@@ -127,7 +116,6 @@
   padding: 10px;
 }
 
-/* área "segura" para mantener hover */
 .user-menu {
   display: none;
   position: absolute;
@@ -143,12 +131,10 @@
   z-index: 1000;
 }
 
-/* clave: hover en todo el bloque */
 .user-icon:hover .user-menu {
   display: block;
 }
 
-/* mostrar menú */
 .user-icon:hover .user-menu {
   display: block;
 }
@@ -182,9 +168,6 @@
     font-weight:600;
 }
 
-
-/* GRID */
-
 .grid{
 
     display:grid;
@@ -196,9 +179,6 @@
 .full-width{
     grid-column:span 2;
 }
-
-
-/* INPUTS */
 
 .input-group{
 
@@ -243,17 +223,11 @@
 
 }
 
-
-/* MENSAJES ERROR */
-
 .error{
 
     color:#dc3545;
     font-size:12px;
 }
-
-
-/* BOTÓN */
 
 .btn-primary{
 
@@ -289,21 +263,78 @@
 
 }
 
-
 /* RESPONSIVE */
 
-@media(max-width:768px){
+@media (max-width: 768px) {
 
-    .grid{
+  /* ===== HEADER ===== */
+  .header {
+    padding: 0 15px;
+    height: 60px;
+  }
 
-        grid-template-columns:1fr;
+  .header-left,
+  .header-right {
+    gap: 12px;
+  }
 
-    }
+  .nav {
+    display: none;
+  }
 
-    .full-width{
+  .search-input {
+    width: 140px;
+  }
 
-        grid-column:span 1;
+  .search-input:focus {
+    width: 160px;
+  }
 
-    }
+  /* ===== CONTENIDO ===== */
+  .content {
+    padding: 100px 15px 30px;
+  }
 
+  /* ===== FORM CONTAINER ===== */
+  .form-container {
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  .form-container h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  /* ===== GRID → 1 COLUMNA ===== */
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .full-width {
+    grid-column: span 1;
+  }
+
+  /* ===== INPUTS ===== */
+  .input-group label {
+    font-size: 13px;
+  }
+
+  .input-group input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  /* ===== BOTÓN ===== */
+  .btn-primary {
+    padding: 12px;
+    font-size: 15px;
+    margin-top: 20px;
+  }
+
+  /* ===== USER MENU ===== */
+  .user-menu {
+    right: -10px;
+  }
 }

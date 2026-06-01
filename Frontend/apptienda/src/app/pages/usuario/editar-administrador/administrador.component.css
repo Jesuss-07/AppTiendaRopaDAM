@@ -40,7 +40,6 @@
   gap: 25px;
 }
 
-/* ===== USER ===== */
 .icon {
   position: relative;
   cursor: pointer;
@@ -80,7 +79,8 @@
   display: block;
 }
 
-/* ===== CONTENT ===== */
+/* ===== CONTENIDO ===== */
+
 .content {
   padding: 120px 20px 40px;
   display: flex;
@@ -156,4 +156,67 @@ input:focus {
 .error {
   color: #d9534f;
   font-size: 13px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+  .header {
+    padding: 0 15px;
+    height: 60px;
+  }
+
+  .header-right {
+    gap: 12px;
+  }
+
+  .icon {
+    font-size: 20px;
+  }
+
+  .user-menu {
+    right: -10px;
+  }
+
+  .content {
+    padding: 90px 15px 30px;
+  }
+
+  .form-container {
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .input-group {
+    gap: 5px;
+  }
+
+  .btn-primary {
+    padding: 12px;
+    font-size: 15px;
+    margin-top: 20px;
+  }
+
+  .password-checks {
+    font-size: 11px;
+  }
+
+  .password-checks p.ok {
+    font-size: 12px;
+  }
+
+  .error {
+    font-size: 12px;
+  }
 }
