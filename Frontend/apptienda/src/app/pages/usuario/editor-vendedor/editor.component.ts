@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { AuthService } from "../../../services/auth.service";
+import { EmpresaService } from "../../../services/empresa.service";
 import { RouterModule } from "@angular/router";
 
 @Component({
@@ -29,7 +30,7 @@ export class EditorVendedorComponent {
   rol: string | null = null;
   passwordError: string = "";
 
-  constructor(private usuarioService: UsuarioService, private router: Router, private authServices: AuthService) {}
+  constructor(private usuarioService: UsuarioService, private router: Router, private authServices: AuthService, private empresaService: EmpresaService) {}
 
   ngOnInit() {
     this.cargarDatos();
@@ -124,6 +125,25 @@ export class EditorVendedorComponent {
 
   tieneSimbolo(password: string) {
     return /[!@#$%^&*(),.?":{}|<>]/.test(password || '');
+  }
+
+  paginaEmpresa(): void {
+    if (this.rol === 'ADMINISTRADOR') {
+      this.router.navigate(['/empresa']);
+    } else if (this.rol === 'VENDEDOR') {
+      this.irEmpresa();
+    }
+  }
+
+  irEmpresa(): void {
+    this.empresaService.obtenerEmpresaPorIdVendedor().subscribe({
+      next: (idEmpresa) => {
+        this.router.navigate(['/empresa/vista', idEmpresa]);
+      },
+      error: (err) => {
+        console.error('Error al obtener empresa:', err);
+      }
+    });
   }
 
   logout() {

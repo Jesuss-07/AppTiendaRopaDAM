@@ -4,14 +4,13 @@
   </div>
 
   <div class="header-right">
-    <!-- Usuario -->
     <div class="icon user-icon">
       <span class="icon-symbol">👤</span>
 
       <div class="user-menu">
         <a (click)="editarUser()">Editar usuario</a>
         <a (click)="paginaEmpresa()">Empresa</a>
-        <a routerLink="/usuarios">Usuarios</a>
+        <a routerLink="/usuarios" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
         <a (click)="logout()">Cerrar sesión</a>
       </div>
       

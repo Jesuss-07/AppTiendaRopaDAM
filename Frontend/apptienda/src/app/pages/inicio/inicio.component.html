@@ -2,21 +2,22 @@
   <div class="header-left">
     <a class="logo" routerLink="/inicio">Golden Thread</a>
     <nav class="nav">
+      <a (click)="filtrarCategoria('HOMBRE')" class="nav-item">HOMBRE</a>
+      <a (click)="filtrarCategoria('MUJER')" class="nav-item">MUJER</a>
+      <a (click)="filtrarCategoria('NIÑO')" class="nav-item">NIÑOS</a>
+      <a (click)="filtrarCategoria('')" class="nav-item">TODOS</a>
       <a routerLink="/registro/producto" class="nav-item" *ngIf="rol === 'VENDEDOR'">Añadir Producto</a>
     </nav>
   </div>
 
   <div class="header-right">
-    <!-- Usuario -->
     <div class="icon user-icon">
       <span class="icon-symbol">👤</span>
 
       <div class="user-menu">
         <a (click)="editarUser()">Editar usuario</a>
-        <!-- Opciones de administración y ventas -->
         <a routerLink="/productos" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
         <a (click)="paginaEmpresa()" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Empresa</a>
-        <!-- Solo mostrar para administradores -->
         <a routerLink="/usuarios" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
         <a (click)="logout()">Cerrar sesión</a>
       </div>
@@ -31,7 +32,7 @@
 
   <div class="grid-productos">
 
-  <div class="card" *ngFor="let p of productos || []">
+    <div class="card" *ngFor="let p of productosFiltrados$ | async">
       <div class="img-container">
         <img [src]="p.imagenProducto || 'https://placehold.co/400x300?text=Sin+Imagen'" [alt]="p.nombreProducto" />      
       </div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { EmpresaService } from '../../../services/empresa.service';
 import { Router } from '@angular/router';
 import { ProductoService } from '../../../services/producto.service';
 import { CrearProductoDTO } from '../../../model/crear-producto.dto';
@@ -39,7 +40,7 @@ export class ProductoComponent {
     Talla = Talla;
     CategoriaRopa = CategoriaRopa;
 
-    constructor(private authService: AuthService, private router: Router, private productoService: ProductoService) {}
+    constructor(private authService: AuthService, private router: Router, private productoService: ProductoService, private empresaService: EmpresaService) {}
 
     ngOnInit() {
         this.rol = this.authService.getRol();
@@ -80,8 +81,24 @@ export class ProductoComponent {
         });
     }
 
-    paginaEmpresa() {}
+    paginaEmpresa(): void {
+        if (this.rol === 'ADMINISTRADOR') {
+        this.router.navigate(['/empresa']);
+        } else if (this.rol === 'VENDEDOR') {
+        this.irEmpresa();
+        }
+    }
 
+    irEmpresa(): void {
+        this.empresaService.obtenerEmpresaPorIdVendedor().subscribe({
+        next: (idEmpresa) => {
+            this.router.navigate(['/empresa/vista', idEmpresa]);
+        },
+        error: (err) => {
+            console.error('Error al obtener empresa:', err);
+        }
+        });
+    }
     logout() {
         this.authService.logout();
         this.router.navigate(['/login']);

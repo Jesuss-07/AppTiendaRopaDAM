@@ -5,7 +5,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ProductoService } from '../../../services/producto.service';
 import { EmpresaService } from '../../../services/empresa.service';
 
-import { Observable, BehaviorSubject, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-listar-producto',
@@ -34,12 +34,7 @@ export class ListarProductoComponent implements OnInit {
     tap(() => this.cargando = false)
   );
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private productoService: ProductoService,
-    private empresaService: EmpresaService
-  ) {}
+  constructor(private authService: AuthService, private router: Router, private productoService: ProductoService, private empresaService: EmpresaService) {}
 
   ngOnInit() {
     this.rol = this.authService.getRol();

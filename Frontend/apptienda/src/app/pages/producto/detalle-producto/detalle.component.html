@@ -1,6 +1,6 @@
 <header class="header">
   <div class="header-left">
-    <a class="logo" routerLink="/producto/detalle:p.id">Golden Thread</a>
+    <a class="logo" routerLink="/inicio">Golden Thread</a>
   </div>
 
   <div class="header-right">
@@ -25,62 +25,60 @@
 </header>
 <main class="product-container">
 
-  <ng-container *ngIf="loading; else productoTemplate">
-    <p>Cargando producto...</p>
+  <ng-container *ngIf="producto$ | async as p; else loadingTpl">
+
+    <div class="product-image">
+      <img [src]="p.imagenProducto || 'https://placehold.co/600x800?text=Sin+Imagen'"
+           [alt]="p.nombreProducto">
+    </div>
+
+    <div class="product-info">
+
+      <h1 class="brand">{{ p.categoria }}</h1>
+      <h2 class="title">{{ p.nombreProducto }}</h2>
+
+      <div class="price">{{ p.precio }} €</div>
+
+      <p class="description">{{ p.descripcion }}</p>
+
+      <div class="section quantity-section">
+        <h4>Cantidad</h4>
+
+        <div class="quantity-box">
+          <input type="number"
+                 min="1"
+                 [max]="p.stock"
+                 [(ngModel)]="cantidad">
+
+          <span class="stock">
+            Stock disponible: {{ p.stock }}
+          </span>
+        </div>
+      </div>
+
+      <div class="section">
+        <h4>Color</h4>
+        <span>{{ p.color }}</span>
+      </div>
+
+      <div class="section">
+        <h4>Talla</h4>
+        <span>{{ p.talla }}</span>
+      </div>
+
+      <button
+        class="btn-buy"
+        *ngIf="rol === 'CLIENTE'"
+        (click)="anadirAlCarrito(p.idProducto!, cantidad)">
+        AÑADIR AL CARRITO
+      </button>
+
+    </div>
+
   </ng-container>
 
-  <ng-template #productoTemplate>
-    <ng-container *ngIf="producto as p">
-
-      <div class="product-image">
-        <img [src]="p.imagenProducto || 'https://placehold.co/600x800?text=Sin+Imagen'" [alt]="p.nombreProducto">
-      </div>
-
-      <div class="product-info">
-
-        <h1 class="brand">{{ p.categoria }}</h1>
-        <h2 class="title">{{ p.nombreProducto }}</h2>
-
-        <div class="price">{{ p.precio }} €</div>
-
-        <p class="description">{{ p.descripcion }}</p>
-
-        <div class="section quantity-section">
-          <h4>Cantidad</h4>
-
-          <div class="quantity-box">
-            <input
-              type="number"
-              min="1"
-              [max]="p.stock"
-              [(ngModel)]="cantidad"/>
-
-            <span class="stock">
-              Stock disponible: {{ p.stock }}
-            </span>
-          </div>
-        </div>
-
-        <div class="section">
-          <h4>Color</h4>
-          <span>{{ p.color }}</span>
-        </div>
-
-        <div class="section">
-          <h4>Color</h4>
-          <span>{{ p.color }}</span>
-        </div>
-
-        <div class="section">
-          <h4>Talla</h4>
-          <button>{{ p.talla }}</button>
-        </div>
-
-        <button (click)="anadirAlCarrito(p.idProducto!, cantidad)" class="btn-buy" *ngIf="rol === 'CLIENTE'">
-          AÑADIR AL CARRITO
-        </button>
-
-      </div>
-    </ng-container>
+  <ng-template #loadingTpl>
+    <p>Cargando producto...</p>
   </ng-template>
+
 </main>

@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { EmpresaService } from '../../../services/empresa.service';
 import { ProductoService } from '../../../services/producto.service';
 import { EditarProductoDTO } from '../../../model/editar-producto.dto';
 import { Talla } from '../../../model/talla.enum';
@@ -40,7 +41,7 @@ export class EditarProductoComponent {
     Talla = Talla;
     CategoriaRopa = CategoriaRopa;
 
-constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, private productoService: ProductoService) {}
+    constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, private productoService: ProductoService, private empresaService: EmpresaService) {}
 
     ngOnInit() {
         this.rol = this.authService.getRol();
@@ -77,13 +78,23 @@ constructor(private route: ActivatedRoute, private authService: AuthService, pri
         });
     }
 
-    paginaEmpresa() {
-        if(this.rol === 'ADMINISTRADOR') {
-            this.router.navigate(['/empresa']);
-        } else if(this.rol === 'VENDEDOR') {
-            //NO FUNCIONA
-            //this.router.navigate(['/empresa/vista', id]);
+    paginaEmpresa(): void {
+        if (this.rol === 'ADMINISTRADOR') {
+        this.router.navigate(['/empresa']);
+        } else if (this.rol === 'VENDEDOR') {
+        this.irEmpresa();
         }
+    }
+
+    irEmpresa(): void {
+        this.empresaService.obtenerEmpresaPorIdVendedor().subscribe({
+        next: (idEmpresa) => {
+            this.router.navigate(['/empresa/vista', idEmpresa]);
+        },
+        error: (err) => {
+            console.error('Error al obtener empresa:', err);
+        }
+        });
     }
 
     editarUser() {

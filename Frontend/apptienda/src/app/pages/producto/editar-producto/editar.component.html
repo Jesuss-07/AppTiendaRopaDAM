@@ -9,10 +9,8 @@
 
       <div class="user-menu">
         <a (click)="editarUser()">Editar usuario</a>
-        <!-- Opciones de administración y ventas -->
         <a routerLink="/productos" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
         <a (click)="paginaEmpresa()" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Empresa</a>
-        <!-- Solo mostrar para administradores -->
         <a routerLink="/usuarios" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
         <a (click)="logout()">Cerrar sesión</a>
       </div>

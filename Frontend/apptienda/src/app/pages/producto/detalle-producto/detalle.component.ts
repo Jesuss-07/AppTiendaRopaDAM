@@ -1,12 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
+import { switchMap, map, tap } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
+
 import { ProductoService } from '../../../services/producto.service';
 import { AuthService } from '../../../services/auth.service';
-import { EditarProductoDTO } from '../../../model/editar-producto.dto';
-import { FormsModule } from '@angular/forms';
 import { CarritoService } from '../../../services/carrito.service';
+import { EditarProductoDTO } from '../../../model/editar-producto.dto';
+
 @Component({
   selector: 'app-detalle',
   templateUrl: './detalle.component.html',
@@ -18,45 +23,51 @@ import { CarritoService } from '../../../services/carrito.service';
     FormsModule
   ]
 })
-export class DetalleComponent implements OnInit {
+export class DetalleComponent {
 
   rol: string | null = null;
-  producto: EditarProductoDTO | null = null;
   cantidad: number = 1;
   loading = true;
 
-  constructor(private route: ActivatedRoute, private productoService: ProductoService, private authService: AuthService, private router: Router, private carritoService: CarritoService) {}
+  producto$!: Observable<EditarProductoDTO>;
+
+  constructor(
+    private route: ActivatedRoute,
+    private productoService: ProductoService,
+    private authService: AuthService,
+    private router: Router,
+    private carritoService: CarritoService
+  ) {}
 
   ngOnInit(): void {
+
     this.rol = this.authService.getRol();
 
-    this.route.paramMap.subscribe(params => {
-      const id = Number(params.get('id'));
+    this.producto$ = this.route.paramMap.pipe(
+      map(params => Number(params.get('id'))),
+      switchMap(id => {
 
-      if (!id) {
-        console.error('ID de producto inválido');
-        this.loading = false;
-        return;
-      }
+        if (!id) {
+          return of(null as any);
+        }
 
-      this.cargarProducto(id);
-    });
+        this.loading = true;
+
+        return this.productoService.obtenerProducto(id).pipe(
+          tap(() => this.loading = false)
+        );
+      })
+    );
   }
 
-  cargarProducto(id: number): void {
-    console.log('Cargando producto con ID:', id);
-    this.loading = true;
-    this.producto = null;
+  anadirAlCarrito(id: number, cantidad: number): void {
 
-    this.productoService.obtenerProducto(id).subscribe({
-      next: (data) => {
-        console.log('Producto cargado:', data);
-        this.producto = data;
-        this.loading = false;
+    this.carritoService.anadirProducto(id, cantidad).subscribe({
+      next: () => {
+        this.router.navigate(['/inicio']);
       },
       error: (error) => {
-        console.error(error);
-        this.loading = false;
+        console.error('Error al añadir al carrito:', error);
       }
     });
   }
@@ -79,20 +90,6 @@ export class DetalleComponent implements OnInit {
     } else {
       this.router.navigate(['/editor/cliente']);
     }
-  }
-
-  anadirAlCarrito(id: number, cantidad: number): void {
-    console.log('Añadiendo producto al carrito, ID:', id, 'Cantidad:', cantidad);
-    console.log(this.producto);
-    this.carritoService.anadirProducto(id, cantidad).subscribe({
-      next: () => {
-        console.log('Producto añadido al carrito');
-      this.router.navigate(['/inicio']);
-      },
-      error: (error) => {
-        console.error('Error al añadir producto al carrito:', error);
-      }
-    });
   }
 
   logout(): void {

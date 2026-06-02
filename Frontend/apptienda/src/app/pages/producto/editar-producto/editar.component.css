@@ -256,7 +256,6 @@ input.ng-invalid {
 
 @media (max-width: 768px) {
 
-  /* ===== HEADER ===== */
   .header {
     padding: 0 15px;
     height: 60px;
@@ -279,12 +278,10 @@ input.ng-invalid {
     width: 160px;
   }
 
-  /* ===== CONTENIDO ===== */
   .content {
     padding: 100px 15px 30px;
   }
 
-  /* ===== FORM CONTAINER ===== */
   .form-container {
     padding: 22px;
     border-radius: 14px;
@@ -295,7 +292,6 @@ input.ng-invalid {
     margin-bottom: 20px;
   }
 
-  /* ===== GRID → 1 COLUMNA ===== */
   .grid {
     grid-template-columns: 1fr;
     gap: 14px;
@@ -305,7 +301,6 @@ input.ng-invalid {
     grid-column: span 1;
   }
 
-  /* ===== INPUTS ===== */
   .input-group label {
     font-size: 13px;
   }
@@ -315,14 +310,12 @@ input.ng-invalid {
     font-size: 14px;
   }
 
-  /* ===== BOTÓN ===== */
   .btn-primary {
     padding: 12px;
     font-size: 15px;
     margin-top: 20px;
   }
 
-  /* ===== USER MENU ===== */
   .user-menu {
     right: -10px;
   }

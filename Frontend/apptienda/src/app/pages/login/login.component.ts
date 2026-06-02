@@ -4,7 +4,6 @@ import { UsuarioService } from "../../services/usuario.service";
 import { FormsModule } from "@angular/forms";
 import { Router } from "@angular/router";
 import { RouterLink } from "@angular/router";
-import { jwtDecode } from "jwt-decode";
 import { CommonModule } from "@angular/common";
 
 

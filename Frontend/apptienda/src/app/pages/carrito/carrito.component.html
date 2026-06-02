@@ -1,6 +1,6 @@
 <header class="header">
   <div class="header-left">
-    <a class="logo" routerLink="/carrito">Golden Thread</a>
+    <a class="logo" routerLink="/inicio">Golden Thread</a>
   </div>
 
   <div class="header-right">
@@ -18,7 +18,7 @@
     </div>
   </div>
 </header>
-<main class="carrito-container" *ngIf="pedido as p; else vacio">
+<main class="carrito-container" *ngIf="pedido$ | async as p; else vacio">
 
   <h2 class="title">Mi carrito</h2>
 
