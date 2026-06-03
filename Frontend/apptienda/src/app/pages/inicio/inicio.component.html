@@ -6,7 +6,7 @@
       <a (click)="filtrarCategoria('MUJER')" class="nav-item">MUJER</a>
       <a (click)="filtrarCategoria('NIÑO')" class="nav-item">NIÑOS</a>
       <a (click)="filtrarCategoria('')" class="nav-item">TODOS</a>
-      <a routerLink="/registro/producto" class="nav-item" *ngIf="rol === 'VENDEDOR'">Añadir Producto</a>
+      <a routerLink="/registro/producto" class="nav-item" *ngIf="rol === 'VENDEDOR' || rol === 'ADMINISTRADOR'">Añadir Producto</a>
     </nav>
   </div>
 
