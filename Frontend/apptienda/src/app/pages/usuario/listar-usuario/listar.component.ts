@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
+
 import { UsuarioService } from '../../../services/usuario.service';
 import { AuthService } from '../../../services/auth.service';
-import { UsuarioDTO } from '../../../model/Usuario.dto';
 
 @Component({
   selector: 'app-listar-usuario',
@@ -16,37 +18,46 @@ import { UsuarioDTO } from '../../../model/Usuario.dto';
     RouterLink
   ]
 })
+
 export class ListarUsuarioComponent {
 
-    rol: string | null = null;
-    usuarios: UsuarioDTO[] = [];
+  rol: string | null = null;
+  cargando = true;
 
-    constructor(private router: Router, private authService: AuthService, private usuarioService: UsuarioService) { }
+  private refresh$ = new BehaviorSubject<void>(undefined);
 
-    ngOnInit(): void {
-        this.rol = this.authService.getRol();
-        console.log('Rol del usuario:', this.rol);
+  usuarios$ = this.refresh$.pipe(
+    tap(() => this.cargando = true),
+    switchMap(() => this.usuarioService.listarUsuarios()),
+    tap(() => this.cargando = false)
+  );
 
-        this.usuarioService.listarUsuarios().subscribe({
-            next: (usuarios) => {
-                this.usuarios = usuarios;
-                console.log('Usuarios:', usuarios);
-            },
-            error: (error) => {
-                console.error('Error al cargar usuarios:', error);
-            }
-        });
+  constructor(private router: Router, private authService: AuthService, private usuarioService: UsuarioService) {}
+
+  ngOnInit(): void {
+    this.rol = this.authService.getRol();
+    console.log('Rol del usuario:', this.rol);
+  }
+
+  eliminarUser(email: string): void {
+
+    if (!confirm(`¿Bloquear al usuario ${email}?`)) {
+      return;
     }
 
-    eliminarUser(email: string){
-        this.usuarioService.bloquearUsuario(email);
-        alert("Se bloqueo el usuario " + email);
-        this.ngOnInit;
-    }
+    this.usuarioService.bloquearUsuario(email).subscribe({
+      next: () => {
+        alert(`Se bloqueó el usuario ${email}`);
+        this.refresh$.next();
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
 
-    logout(): void {
-        this.authService.logout();
-        this.router.navigate(['/login']);
-    }
-
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }
