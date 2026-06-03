@@ -65,7 +65,12 @@ export class ListarProductoComponent implements OnInit {
   }
 
   editarUser() {
-    this.router.navigate(['/editor/vendedor']);
+    console.log(this.rol);
+    if (this.rol === 'ADMINISTRADOR') {
+      this.router.navigate(['/editor/administrador']);
+    } else if (this.rol === 'VENDEDOR') {
+      this.router.navigate(['/editor/vendedor']);
+    }
   }
 
     paginaEmpresa(): void {
