@@ -11,7 +11,7 @@
       <div class="user-menu">
         <a routerLink="/productos" *ngIf="rol === 'ADMINISTRADOR' || rol === 'VENDEDOR'">Productos</a>
         <!-- Solo mostrar para administradores -->
-        <a href="#" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
+        <a routerLink="/usuarios" *ngIf="rol === 'ADMINISTRADOR'">Usuarios</a>
         <a (click)="paginaEmpresa()" *ngIf="rol === 'ADMINISTRADOR'">Empresa</a>
         <a (click)="logout()">Cerrar sesión</a>
       </div>
