@@ -19,7 +19,7 @@
   z-index:1000;
   box-sizing:border-box;
 
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .header-left {
@@ -130,7 +130,7 @@
   padding:100px 40px 60px;
   background:#f5f6f8;
   min-height:100vh;
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .empresa-card{

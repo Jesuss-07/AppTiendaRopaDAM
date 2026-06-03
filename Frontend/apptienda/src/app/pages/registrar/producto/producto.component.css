@@ -19,7 +19,7 @@
   z-index:1000;
   box-sizing:border-box;
 
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* ===== LADO IZQUIERDO ===== */
@@ -175,7 +175,7 @@
   flex-direction: column;
   gap: 22px;
 
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .producto-form h2 {

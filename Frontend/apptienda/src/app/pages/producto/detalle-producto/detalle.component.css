@@ -19,7 +19,7 @@
   z-index: 1000;
   box-sizing: border-box;
 
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .header-left {
@@ -107,7 +107,7 @@
   display: flex;
   gap: 60px;
   padding: 120px 80px 50px;
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .product-image {
